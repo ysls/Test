@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.FitWindowsLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.administrator.test.MainActivity">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="垃圾清理"
+            android:padding="10dp"
+            android:layout_gravity="center" android:id="@+id/tv_clean"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="流量监控"
+            android:padding="10dp"
+            android:layout_gravity="center" android:id="@+id/tv_liu"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="木马查杀"
+            android:padding="10dp"
+            android:layout_gravity="center" android:id="@+id/tv_kill"/>
+
+</android.support.v7.widget.FitWindowsLinearLayout>

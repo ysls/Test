@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.4"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="180dip"
+            android:layout_centerInParent="true" >
+
+            <RelativeLayout
+                android:id="@+id/arc_left"
+                android:layout_width="wrap_content"
+                android:layout_height="180dip"
+                android:layout_centerVertical="true" >
+
+                <com.example.administrator.test.widget.ArcProgress
+                    android:id="@+id/rubbish_arc_store"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    app:arc_unfinished_color="@android:color/white"
+                    app:arc_bottom_text="可清理"
+                    app:arc_bottom_text_size="18dip"
+                    app:arc_progress="10"
+                    app:arc_stroke_width="8dip"
+                    app:arc_text_color="@android:color/white"
+                    app:arc_text_size="32dip" />
+
+                <TextView
+                    android:id="@+id/rubbish_capacity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="55dip"
+                    android:text="20/30"
+                    android:textColor="@android:color/white"
+                    android:textSize="12dip" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:background="@android:color/transparent"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/rubbish_list"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:clipToPadding="false"
+            android:divider="#00000000"
+            android:dividerHeight="4dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="true"
+            android:fitsSystemWindows="true"
+            android:focusable="true"
+            android:listSelector="@android:color/transparent"
+            android:padding="12dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="none" >
+        </ListView>
+
+        <Button
+            android:id="@+id/rubbish_oneKeydo"
+            style="@style/logout_app_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:gravity="center"
+            android:text="一键清理" >
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <com.example.administrator.test.widget.CircularProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:indeterminate="true"
+            app:cpb_background_progressbar_color="#2bc0ac"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progressbar_color="#F44336"
+            app:cpb_progressbar_width="10dp" />
+
+        <TextView
+            android:id="@+id/progressBarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dip"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+</LinearLayout>
