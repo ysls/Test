@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_container"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:id="@+id/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/toolbar_background"
+        android:gravity="bottom">
+        <android.support.v7.widget.Toolbar
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:paddingTop="6dp"
+            android:weightSum="1">
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_title"
+                android:paddingTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="实习"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/cb_right_button"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center|bottom"
+                android:layout_marginRight="20dp"
+                android:background="#00000000"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="12sp" />
+        </android.support.v7.widget.Toolbar>
+    </LinearLayout>
+</LinearLayout>

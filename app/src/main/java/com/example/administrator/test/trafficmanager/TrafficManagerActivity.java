@@ -44,6 +44,7 @@ public class TrafficManagerActivity extends Activity {
     @BindView(R.id.traff_correct)
     TextView traffCorrect;
 
+    SmsReceiver receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class TrafficManagerActivity extends Activity {
         VpnService vpnService = new VpnService();
 
         PackageManager pm = getPackageManager();
-        SmsReceiver receiver = new SmsReceiver();
+        receiver = new SmsReceiver();
         String action = "android.provider.Telephony.SMS_RECEIVED";
         IntentFilter filter = new IntentFilter(action);
         String broadcastPermission = "android.permission.READ_SMS";
@@ -102,6 +103,12 @@ public class TrafficManagerActivity extends Activity {
 
         traaficList.setAdapter(new TrafficAppAdapter(getApplicationContext(), list));
         onClickListener();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(receiver);
     }
 
     private void onClickListener() {

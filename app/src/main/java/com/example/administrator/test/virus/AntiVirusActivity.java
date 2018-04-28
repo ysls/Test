@@ -49,7 +49,7 @@ public class AntiVirusActivity extends Activity {
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
     @BindView(R.id.miain)
-    LinearLayout miain;
+    RelativeLayout main;
 
 
 

@@ -31,6 +31,7 @@
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
 
     <application
+            android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -51,6 +52,20 @@
         <activity android:name=".trafficmanager.TrafficManagerActivity"/>
         <!--木马查杀-->
         <activity android:name=".virus.AntiVirusActivity"/>
+        <!--手机防盗-->
+        <activity android:name=".antitheft.AntiTheftActivity"/>
+        <!--设置一-->
+        <activity android:name=".antitheft.SetupFirstActivity"/>
+        <!--设置二-->
+        <activity android:name=".antitheft.SetupSecondActivity"/>
+        <!--设置三-->
+        <activity android:name=".antitheft.SetupThirdActivity"/>
+        <!--设置四-->
+        <activity android:name=".antitheft.SetupFourActivity"/>
+        <!--选择联系人-->
+        <activity android:name=".antitheft.SelectContactActivity"/>
+        <!--黑名单-->
+        <activity android:name=".blacknumber.BlackNumberActivity"/>
 
         <service android:name=".service.CleanerService"/>
 
@@ -61,6 +76,20 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED_2"/>
                 <action android:name="android.provider.Telephony.GSM_SMS_RECEIVED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+                android:name=".recever.AdminReceiver"
+                android:description="@string/device_admin_description"
+                android:label="@string/device_admin"
+                android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                    android:name="android.app.device_admin"
+                    android:resource="@xml/device_admin" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
     </application>
