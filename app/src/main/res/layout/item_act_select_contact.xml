@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+              android:paddingLeft="@dimen/dimen_10"
     android:orientation="vertical"
     android:padding="5dp" >
 
@@ -10,7 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="姓名"
-        android:textColor="#f00"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="#292929"
         android:textSize="18sp" />
 
     <TextView
@@ -19,6 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="110"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textColor="#000"
         android:textSize="16sp" />
 

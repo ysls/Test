@@ -11,15 +11,15 @@ import java.io.PrintWriter;
 
 public class AppController {
 	/**
-     * ÃèÊö: °²×°
+     * æè¿°: å®‰è£…
      */
     public static boolean install(String apkPath, Context context){
-        // ÏÈÅĞ¶ÏÊÖ»úÊÇ·ñÓĞrootÈ¨ÏŞ
+        // å…ˆåˆ¤æ–­æ‰‹æœºæ˜¯å¦æœ‰rootæƒé™
         if(hasRootPerssion()){
-            // ÓĞrootÈ¨ÏŞ£¬ÀûÓÃ¾²Ä¬°²×°ÊµÏÖ
+            // æœ‰rootæƒé™ï¼Œåˆ©ç”¨é™é»˜å®‰è£…å®ç°
             return clientInstall(apkPath);
         }else{
-            // Ã»ÓĞrootÈ¨ÏŞ£¬ÀûÓÃÒâÍ¼½øĞĞ°²×°
+            // æ²¡æœ‰rootæƒé™ï¼Œåˆ©ç”¨æ„å›¾è¿›è¡Œå®‰è£…
             File file = new File(apkPath);
             if(!file.exists())
                 return false; 
@@ -34,17 +34,17 @@ public class AppController {
     }
      
     /**
-     * ÃèÊö: Ğ¶ÔØ
+     * æè¿°: å¸è½½
      *                                        
      * 
      */
     public static boolean uninstall(String packageName, Context context){
         if(hasRootPerssion()){
-            // ÓĞrootÈ¨ÏŞ£¬ÀûÓÃ¾²Ä¬Ğ¶ÔØÊµÏÖ
-        	System.out.println("--------------------ÓĞrootÈ¨ÏŞ");
+            // æœ‰rootæƒé™ï¼Œåˆ©ç”¨é™é»˜å¸è½½å®ç°
+        	System.out.println("--------------------æœ‰rootæƒé™");
             return clientUninstall(packageName);
         }else{
-        	System.out.println("--------------------Ã»ÓĞrootÈ¨ÏŞ");
+        	System.out.println("--------------------æ²¡æœ‰rootæƒé™");
             Uri packageURI = Uri.parse("package:" + packageName);
             Intent uninstallIntent = new Intent(Intent.ACTION_DELETE,packageURI);
             uninstallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -54,7 +54,7 @@ public class AppController {
     }
      
     /**
-     * ÅĞ¶ÏÊÖ»úÊÇ·ñÓĞrootÈ¨ÏŞ
+     * åˆ¤æ–­æ‰‹æœºæ˜¯å¦æœ‰rootæƒé™
      */
     private static boolean hasRootPerssion(){
         PrintWriter PrintWriter = null;
@@ -77,7 +77,7 @@ public class AppController {
     }
      
     /**
-     * ¾²Ä¬°²×°
+     * é™é»˜å®‰è£…
      */
     private static boolean clientInstall(String apkPath){
         PrintWriter PrintWriter = null;
@@ -104,7 +104,7 @@ public class AppController {
     }
      
     /**
-     * ¾²Ä¬Ğ¶ÔØ
+     * é™é»˜å¸è½½
      */
     public static boolean clientUninstall(String packageName){
         PrintWriter PrintWriter = null;
@@ -141,7 +141,7 @@ public class AppController {
     }
      
     /**
-     * Æô¶¯app
+     * å¯åŠ¨app
      * com.exmaple.client/.MainActivity
      * com.exmaple.client/com.exmaple.client.MainActivity
      */
@@ -169,12 +169,12 @@ public class AppController {
      
      
     private static boolean returnResult(int value){
-        // ´ú±í³É¹¦  
+        // ä»£è¡¨æˆåŠŸ  
         if (value == 0) {
             return true;
-        } else if (value == 1) { // Ê§°Ü
+        } else if (value == 1) { // å¤±è´¥
             return false;
-        } else { // Î´ÖªÇé¿ö
+        } else { // æœªçŸ¥æƒ…å†µ
             return false;
         }  
     }

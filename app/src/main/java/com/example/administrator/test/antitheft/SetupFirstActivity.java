@@ -30,6 +30,7 @@ public class SetupFirstActivity extends BaseActivity {
         setContentView(R.layout.activity_setup_first);
         ButterKnife.bind(this);
         setMyTitle("1.欢迎使用手机防盗");
+        hideTitleNavigationButton();
     }
 
 

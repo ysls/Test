@@ -9,11 +9,14 @@ import android.media.MediaPlayer;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import com.example.administrator.test.service.LocationService;
+import com.example.administrator.test.util.SPUtils;
+
+import static com.example.administrator.test.MyApplication.*;
 
 
 /**
- * ¶ÌĞÅ¹ã²¥¹ã²¥¼àÌı
- * @author ÎÄ½­
+ * çŸ­ä¿¡å¹¿æ’­å¹¿æ’­ç›‘å¬
+ * @author æ–‡æ±Ÿ
  *
  */
 public class SmsReceiver extends BroadcastReceiver {
@@ -22,35 +25,42 @@ public class SmsReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		 System.out.println(TAG+"¶ÌĞÅµ½À´ÁË");
-		Log.i(TAG,"¶ÌĞÅµ½À´ÁË");
+		 System.out.println(TAG+"çŸ­ä¿¡åˆ°æ¥äº†");
+		Log.i(TAG,"çŸ­ä¿¡åˆ°æ¥äº†");
 		Object[] objs = (Object[]) intent.getExtras().get("pdus");
 		
-		//»ñÈ¡³¬¼¶¹ÜÀíÔ±
+		//è·å–è¶…çº§ç®¡ç†å‘˜
 		DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+		String GPS = SPUtils.getInstance().getString(SECRET_GPS);
+        String ALARM = SPUtils.getInstance().getString(SECRET_ALARM);
+        String WIPE = SPUtils.getInstance().getString(SECRET_WIPE);
+        String LOCK = SPUtils.getInstance().getString(SECRET_LOCK);
 		
 		for(Object obj:objs){
 			SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) obj);
 			String sender = smsMessage.getOriginatingAddress();
 			String body = smsMessage.getMessageBody();
-			if("#*location*#".equals(body)){
-				Log.i(TAG,"·µ»ØÎ»ÖÃĞÅÏ¢.");
-				//»ñÈ¡Î»ÖÃ ·ÅÔÚ·şÎñÀïÃæÈ¥ÊµÏÖ¡£
+			if (!sender.equals(SPUtils.getInstance().getString(PREF_PHONE_NUMBER)) || !SPUtils.getInstance().getBoolean(PREF_IS_PROTECT)){
+			    return;
+            }
+			if(body.contains(GPS)){
+				Log.i(TAG,"è¿”å›ä½ç½®ä¿¡æ¯.");
+				//è·å–ä½ç½® æ”¾åœ¨æœåŠ¡é‡Œé¢å»å®ç°ã€‚
 				Intent service = new Intent(context,LocationService.class);
 				context.startService(service);
 				abortBroadcast();
-			}else if("#*alarm*#".equals(body)){
-				Log.i(TAG,"²¥·Å±¨¾¯ÒôÀÖ.");
+			}else if(body.contains(ALARM)){
+				Log.i(TAG,"æ’­æ”¾æŠ¥è­¦éŸ³ä¹.");
 				MediaPlayer player = MediaPlayer.create(context, null);
 				player.setVolume(1.0f, 1.0f);
 				player.start();
 				abortBroadcast();
-			}else if("#*wipedata*#".equals(body)){
-				Log.i(TAG,"Ô¶³ÌÇå³ıÊı¾İ.");
+			}else if(body.contains(WIPE)){
+				Log.i(TAG,"è¿œç¨‹æ¸…é™¤æ•°æ®.");
 				dpm.wipeData(DevicePolicyManager.WIPE_EXTERNAL_STORAGE);
 				abortBroadcast();
-			}else if("#*lockscreen*#".equals(body)){
-				Log.i(TAG,"Ô¶³ÌËøÆÁ.");
+			}else if(body.contains(LOCK)){
+				Log.i(TAG,"è¿œç¨‹é”å±.");
 				dpm.resetPassword("123", 0);
 				dpm.lockNow();
 				abortBroadcast();

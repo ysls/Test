@@ -63,27 +63,27 @@ public class TrafficManagerActivity extends Activity {
 
         //traffice_round.setDefaultStr(50+"/100M");
         //		traffice_round.set
-        //rx receive ½ÓÊÕ ÏÂÔØ
-        //ÊÖ»úµÄ2g/3g/4g ²úÉúÁ÷Á¿
-        long mobileRx = TrafficStats.getMobileRxBytes();//½ÓÊÕ
-        //transfer ·¢ËÍ  ÉÏ´«
+        //rx receive æ¥æ”¶ ä¸‹è½½
+        //æ‰‹æœºçš„2g/3g/4g äº§ç”Ÿæµé‡
+        long mobileRx = TrafficStats.getMobileRxBytes();//æ¥æ”¶
+        //transfer å‘é€  ä¸Šä¼ 
         StorageSize storageSize = StorageUtil.convertStorageSize(mobileRx);
         long mobileTx = TrafficStats.getMobileTxBytes();
         StorageSize storageSize1 = StorageUtil.convertStorageSize(mobileTx);
         System.out.println(storageSize1.value + storageSize1.suffix);
 
-        //È«²¿µÄÍøÂçĞÅÏ¢  wifi + ÊÖ»ú¿¨
+        //å…¨éƒ¨çš„ç½‘ç»œä¿¡æ¯  wifi + æ‰‹æœºå¡
         long totalRx = TrafficStats.getTotalRxBytes();
         long totalTx = TrafficStats.getTotalTxBytes();
         SmsManager manager = SmsManager.getDefault();
         //
-        //uid ÓÃ»§id
+        //uid ç”¨æˆ·id
         int uid = 0;
 
         List<AppInfo> list = AppUtil.getUserAppInfos(getApplicationContext());
 
-        ///proc/uid_stat/10041/tcp_rcv´æ´¢µÄ¾ÍÊÇÏÂÔØµÄÁ÷Á¿
-        //proc/uid_stat/10041/tcp_snd ÉÏ´«µÄÁ÷Á¿
+        ///proc/uid_stat/10041/tcp_rcvå­˜å‚¨çš„å°±æ˜¯ä¸‹è½½çš„æµé‡
+        //proc/uid_stat/10041/tcp_snd ä¸Šä¼ çš„æµé‡
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo netinfor = cm.getActiveNetworkInfo();
         TrafficMessageDao trafficMessageDao = new TrafficMessageDao(this);
@@ -124,7 +124,7 @@ public class TrafficManagerActivity extends Activity {
         });
     }
 
-    //½ÓÊÕµ½¶ÌĞÅµÄ»Øµ÷
+    //æ¥æ”¶åˆ°çŸ­ä¿¡çš„å›è°ƒ
     Handler hander = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {

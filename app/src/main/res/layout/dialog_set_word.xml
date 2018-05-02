@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     <TextView
+        style="@style/DialogText"
+        android:id="@+id/title_word"
+
+        />
+	<View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="10dp"
+        android:background="#d5d5d5" />
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/et_set_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密语" 
+        android:textSize="12dp"/>
+
+  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+        <Button
+            android:id="@+id/bt_submit"
+            style="@style/DialogButtonOK" />
+
+        <Button
+            android:id="@+id/bt_cancel"
+            style="@style/DialogButtonCancel" />
+    </LinearLayout>
+
+</LinearLayout>

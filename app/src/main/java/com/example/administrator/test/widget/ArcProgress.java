@@ -16,11 +16,6 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.util.Utils;
 
 
-/**
- * �������
- * @author �Ľ�
- *
- */
 public class ArcProgress extends View {
 	private Paint paint;
 	protected Paint textPaint;

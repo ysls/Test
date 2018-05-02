@@ -22,10 +22,6 @@ import java.util.Random;
 public class BlackNumberActivity extends BaseActivity {
 
 
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.btn_add_number)
-    Button btnAddNumber;
     @BindView(R.id.lv_list)
     ListView lvList;
     @BindView(R.id.pb_loading)
@@ -46,10 +42,17 @@ public class BlackNumberActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_black_number);
         ButterKnife.bind(this);
+        setMyTitle("黑名单管理");
+        setRightImageAndText(0,"添加");
         initView();
         loadBlackNumber();
     }
 
+    @Override
+    protected void callbackOnClickButtonAction(View view) {
+        super.callbackOnClickButtonAction(view);
+        addBlackNumber();
+    }
 
     @Override
     protected void initView() {
@@ -189,8 +192,4 @@ public class BlackNumberActivity extends BaseActivity {
         dialog.show();
     }
 
-    @OnClick(R.id.btn_add_number)
-    public void onViewClicked() {
-        addBlackNumber();
-    }
 }

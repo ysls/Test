@@ -10,11 +10,11 @@ import java.security.SecureRandom;
 
 public class Crypto {
 	/**
-	 * ¼ÓÃÜÒ»¸öÎÄ±¾£¬·µ»Øbase64±àÂëºóµÄÄÚÈİ¡£
+	 * åŠ å¯†ä¸€ä¸ªæ–‡æœ¬ï¼Œè¿”å›base64ç¼–ç åçš„å†…å®¹ã€‚
 	 * 
-	 * @param seed  ÖÖ×Ó ÃÜÂë
-	 * @param plain  Ô­ÎÄ
-	 * @return ÃÜÎÄ
+	 * @param seed  ç§å­ å¯†ç 
+	 * @param plain  åŸæ–‡
+	 * @return å¯†æ–‡
 	 * @throws Exception
 	 */
 	public static String encrypt(String seed, String plain) throws Exception {
@@ -24,11 +24,11 @@ public class Crypto {
 	}
 
 	/**
-	 * ½âÃÜbase64±àÂëºóµÄÃÜÎÄ
+	 * è§£å¯†base64ç¼–ç åçš„å¯†æ–‡
 	 * 
-	 * @param seed  ÖÖ×Ó ÃÜÂë
-	 * @param encrypted  ÃÜÎÄ
-	 * @return Ô­ÎÄ
+	 * @param seed  ç§å­ å¯†ç 
+	 * @param encrypted  å¯†æ–‡
+	 * @return åŸæ–‡
 	 * @throws Exception
 	 */
 	public static String decrypt(String seed, String encrypted)

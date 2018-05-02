@@ -3,7 +3,7 @@ package com.example.administrator.test.model;
 import android.graphics.drawable.Drawable;
 
 /**
- * Ó¦ÓÃ³ÌĞòĞÅÏ¢µÄÒµÎñbean
+ * åº”ç”¨ç¨‹åºä¿¡æ¯çš„ä¸šåŠ¡bean
  * @author Administrator
  *
  */
@@ -19,38 +19,38 @@ public class AppInfo {
 	}
 
 	/**
-	 * Ó¦ÓÃ³ÌĞòµÄÍ¼±ê
+	 * åº”ç”¨ç¨‹åºçš„å›¾æ ‡
 	 */
 	private Drawable icon;
 	
 	/**
-	 * Ó¦ÓÃ³ÌĞòÃû³Æ
+	 * åº”ç”¨ç¨‹åºåç§°
 	 */
 	private String name;
 	
 	/**
-	 * Ó¦ÓÃ³ÌĞò°²×°µÄÎ»ÖÃ£¬trueÊÖ»úÄÚ´æ £¬falseÍâ²¿´æ´¢¿¨
+	 * åº”ç”¨ç¨‹åºå®‰è£…çš„ä½ç½®ï¼Œtrueæ‰‹æœºå†…å­˜ ï¼Œfalseå¤–éƒ¨å­˜å‚¨å¡
 	 */
 	private boolean inRom;
 	
 	/**
-	 * Ó¦ÓÃ³ÌĞòµÄ´óĞ¡
+	 * åº”ç”¨ç¨‹åºçš„å¤§å°
 	 */
 	private long appSize;
 	
 	/**
-	 * ÊÇ·ñÊÇÓÃ»§³ÌĞò  true ÓÃ»§³ÌĞò false ÏµÍ³³ÌĞò
+	 * æ˜¯å¦æ˜¯ç”¨æˆ·ç¨‹åº  true ç”¨æˆ·ç¨‹åº false ç³»ç»Ÿç¨‹åº
 	 */
 	private boolean userApp;
 	
 	/**
-	 * Ó¦ÓÃ³ÌĞòµÄ°üÃû
+	 * åº”ç”¨ç¨‹åºçš„åŒ…å
 	 */
 	private String packname;
 	private int uid;
 
 	/**
-	 * ×´Ì¬ 0¼ÓËø£¬1  Î´¼ÓËø
+	 * çŠ¶æ€ 0åŠ é”ï¼Œ1  æœªåŠ é”
 	 */
 	private Integer state;
 	

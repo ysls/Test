@@ -12,10 +12,10 @@ import android.text.TextUtils;
 
 public class SmsDatabaseChaneObserver extends ContentObserver {
 
-	 // Ö»¼ì²éÊÕ¼şÏä
+	 // åªæ£€æŸ¥æ”¶ä»¶ç®±
     public static final Uri MMSSMS_ALL_MESSAGE_URI = Uri.parse("content://sms/inbox");
     public static final int MESSAGE=0x010;
-    public static final String SORT_FIELD_STRING = "_id asc";  // ÅÅĞò
+    public static final String SORT_FIELD_STRING = "_id asc";  // æ’åº
     public static final String DB_FIELD_ID = "_id";
     public static final String DB_FIELD_ADDRESS = "address";
     public static final String DB_FIELD_PERSON = "person";
@@ -47,7 +47,7 @@ public class SmsDatabaseChaneObserver extends ContentObserver {
 
     private void onReceiveSms() {
         Cursor cursor = null;
-        // Ìí¼ÓÒì³£²¶×½
+        // æ·»åŠ å¼‚å¸¸æ•æ‰
         try {
             cursor = mResolver.query(MMSSMS_ALL_MESSAGE_URI, ALL_DB_FIELD_NAME,
                     null, null, SORT_FIELD_STRING);
@@ -56,20 +56,20 @@ public class SmsDatabaseChaneObserver extends ContentObserver {
                 mMessageCount = count;
                 return;
             }
-            // ·¢ÏÖÊÕ¼şÏäµÄ¶ÌĞÅ×ÜÊıÄ¿±ÈÖ®Ç°´ó¾ÍÈÏÎªÊÇ¸Õ½ÓÊÕµ½ĞÂ¶ÌĞÅ---Èç¹û³öÏÖÒâÍâ£¬ÇëÉñ±£ÓÓ
-            // Í¬Ê±ÈÏÎªid×î´óµÄÄÇÌõ¼ÇÂ¼Îª¸Õ¸ÕĞÂ¼ÓÈëµÄ¶ÌĞÅµÄid---Õâ¸ö´ó¶àÊıÊÇÕâÑùµÄ£¬·¢ÏÖ²»Ò»ÑùµÄÇé¿öµÄÊ±ºò¿ÉÄÜÒ²ÒªÇóÉñ±£ÓÓÁË
+            // å‘ç°æ”¶ä»¶ç®±çš„çŸ­ä¿¡æ€»æ•°ç›®æ¯”ä¹‹å‰å¤§å°±è®¤ä¸ºæ˜¯åˆšæ¥æ”¶åˆ°æ–°çŸ­ä¿¡---å¦‚æœå‡ºç°æ„å¤–ï¼Œè¯·ç¥ä¿ä½‘
+            // åŒæ—¶è®¤ä¸ºidæœ€å¤§çš„é‚£æ¡è®°å½•ä¸ºåˆšåˆšæ–°åŠ å…¥çš„çŸ­ä¿¡çš„id---è¿™ä¸ªå¤§å¤šæ•°æ˜¯è¿™æ ·çš„ï¼Œå‘ç°ä¸ä¸€æ ·çš„æƒ…å†µçš„æ—¶å€™å¯èƒ½ä¹Ÿè¦æ±‚ç¥ä¿ä½‘äº†
             mMessageCount = count;
            
             if (cursor != null) {
                 cursor.moveToLast();
                 final long smsdate = Long.parseLong(cursor.getString(cursor.getColumnIndex(DB_FIELD_DATE)));
                 final long nowdate = System.currentTimeMillis();
-                // Èç¹ûµ±Ç°Ê±¼äºÍ¶ÌĞÅÊ±¼ä¼ä¸ô³¬¹ı60Ãë,ÈÏÎªÕâÌõ¶ÌĞÅÎŞĞ§
+                // å¦‚æœå½“å‰æ—¶é—´å’ŒçŸ­ä¿¡æ—¶é—´é—´éš”è¶…è¿‡60ç§’,è®¤ä¸ºè¿™æ¡çŸ­ä¿¡æ— æ•ˆ
                 if (nowdate - smsdate > DELTA_TIME) {
                     return;
                 }
-                final String strAddress = cursor.getString(cursor.getColumnIndex(DB_FIELD_ADDRESS));    // ¶ÌĞÅºÅÂë
-                final String strbody = cursor.getString(cursor.getColumnIndex(DB_FIELD_BODY));          // ÔÚÕâÀï»ñÈ¡¶ÌĞÅĞÅÏ¢
+                final String strAddress = cursor.getString(cursor.getColumnIndex(DB_FIELD_ADDRESS));    // çŸ­ä¿¡å·ç 
+                final String strbody = cursor.getString(cursor.getColumnIndex(DB_FIELD_BODY));          // åœ¨è¿™é‡Œè·å–çŸ­ä¿¡ä¿¡æ¯
                 final int smsid = cursor.getInt(cursor.getColumnIndex(DB_FIELD_ID));
                 if (TextUtils.isEmpty(strAddress) || TextUtils.isEmpty(strbody)) {
                     return;
@@ -81,16 +81,16 @@ public class SmsDatabaseChaneObserver extends ContentObserver {
                 	message.what=MESSAGE;
                 	handler.sendMessage(message);
                 }
-//                else if(tag.equals("1")){//ºÚÃûµ¥ÖĞµÄ¶ÌĞÅÀ¹½Ø
+//                else if(tag.equals("1")){//é»‘åå•ä¸­çš„çŸ­ä¿¡æ‹¦æˆª
 //                	mResolver.delete(MMSSMS_ALL_MESSAGE_URI, "_id="+smsid, null);
 //                }
-                // µÃµ½¶ÌĞÅºÅÂëºÍÄÚÈİÖ®ºó½øĞĞÏà¹Ø´¦Àí
+                // å¾—åˆ°çŸ­ä¿¡å·ç å’Œå†…å®¹ä¹‹åè¿›è¡Œç›¸å…³å¤„ç†
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (cursor != null) {
-                try {  // ÓĞ¿ÉÄÜcursor¶¼Ã»ÓĞ´´½¨³É¹¦
+                try {  // æœ‰å¯èƒ½cursoréƒ½æ²¡æœ‰åˆ›å»ºæˆåŠŸ
                     cursor.close();
                 } catch (Exception e) {
                     e.printStackTrace();

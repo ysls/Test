@@ -30,8 +30,6 @@ public class SetupThirdActivity extends BaseActivity {
     EditText etNumber;
     @BindView(R.id.btn_select_contact)
     Button btnSelectContact;
-    @BindView(R.id.imageView1)
-    ImageView imageView1;
     @BindView(R.id.btn_next_page)
     Button btnNextPage;
     @BindView(R.id.btn_previous_page)
@@ -84,7 +82,7 @@ public class SetupThirdActivity extends BaseActivity {
             overridePendingTransition(R.anim.anim_next_in,
                     R.anim.anim_next_out);
         } else {
-            Toast.makeText(this,"安全手机好不能为空",0).show();
+            Toast.makeText(this,"安全手机号不能为空",0).show();
         }
 
     }

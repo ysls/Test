@@ -13,8 +13,8 @@ import android.os.IBinder;
 import android.telephony.SmsManager;
 
 /**
- * µØÀíÎ»ÖÃ·şÎñ
- * @author ÎÄ½­
+ * åœ°ç†ä½ç½®æœåŠ¡
+ * @author æ–‡æ±Ÿ
  *
  */
 public class LocationService extends Service {
@@ -31,13 +31,13 @@ public class LocationService extends Service {
 		
 		lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 		listener = new MyListener();
-		//criteria ²éÑ¯Ìõ¼ş
-		//trueÖ»·µ»Ø¿ÉÓÃµÄÎ»ÖÃÌá¹©Õß 
+		//criteria æŸ¥è¯¢æ¡ä»¶
+		//trueåªè¿”å›å¯ç”¨çš„ä½ç½®æä¾›è€… 
 		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);//»ñÈ¡×¼È·µÄÎ»ÖÃ¡£
-		criteria.setCostAllowed(true);//ÔÊĞí²úÉú¿ªÏú
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);//è·å–å‡†ç¡®çš„ä½ç½®ã€‚
+		criteria.setCostAllowed(true);//å…è®¸äº§ç”Ÿå¼€é”€
 		String name = lm.getBestProvider(criteria, true);
-		System.out.println("×îºÃµÄÎ»ÖÃÌá¹©Õß£º"+name);
+		System.out.println("æœ€å¥½çš„ä½ç½®æä¾›è€…ï¼š"+name);
 		lm.requestLocationUpdates(name, 0, 0, listener);
 		super.onCreate();
 	}
@@ -47,11 +47,11 @@ public class LocationService extends Service {
 		@Override
 		public void onLocationChanged(Location location) {
 			StringBuilder sb = new StringBuilder();
-			System.out.println("¾«È·¶È£º"+location.getAccuracy());
-			System.out.println("ÒÆ¶¯µÄËÙ¶È£º"+location.getSpeed());
-			System.out.println("Î³¶È£º"+location.getLatitude());
-			System.out.println("¾­¶È£º"+location.getLongitude());
-			System.out.println("º£°Î£º"+location.getAltitude());
+			System.out.println("ç²¾ç¡®åº¦ï¼š"+location.getAccuracy());
+			System.out.println("ç§»åŠ¨çš„é€Ÿåº¦ï¼š"+location.getSpeed());
+			System.out.println("çº¬åº¦ï¼š"+location.getLatitude());
+			System.out.println("ç»åº¦ï¼š"+location.getLongitude());
+			System.out.println("æµ·æ‹”ï¼š"+location.getAltitude());
 			sb.append("accuracy:"+location.getAccuracy()+"\n");
 			sb.append("speed:"+location.getSpeed()+"\n");
 			sb.append("weidu:"+location.getLatitude()+"\n");
@@ -61,17 +61,17 @@ public class LocationService extends Service {
 			SmsManager.getDefault().sendTextMessage(sp.getString("safenumber", ""), null, result, null, null);
 			stopSelf();
 		}
-		//µ±Î»ÖÃÌá¹©Õß ×´Ì¬·¢Éú±ä»¯µÄÊ±ºòµ÷ÓÃµÄ·½·¨¡£
+		//å½“ä½ç½®æä¾›è€… çŠ¶æ€å‘ç”Ÿå˜åŒ–çš„æ—¶å€™è°ƒç”¨çš„æ–¹æ³•ã€‚
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			
 		}
-		//µ±Ä³¸öÎ»ÖÃÌá¹©Õß ¿ÉÓÃµÄÊ±ºòµ÷ÓÃµÄ·½·¨¡£
+		//å½“æŸä¸ªä½ç½®æä¾›è€… å¯ç”¨çš„æ—¶å€™è°ƒç”¨çš„æ–¹æ³•ã€‚
 		@Override
 		public void onProviderEnabled(String provider) {
 			
 		}
-		//µ±Ä³¸öÎ»ÖÃÌá¹©Õß ²»¿ÉÓÃµÄÊ±ºòµ÷ÓÃµÄ·½·¨¡£
+		//å½“æŸä¸ªä½ç½®æä¾›è€… ä¸å¯ç”¨çš„æ—¶å€™è°ƒç”¨çš„æ–¹æ³•ã€‚
 		@Override
 		public void onProviderDisabled(String provider) {
 			

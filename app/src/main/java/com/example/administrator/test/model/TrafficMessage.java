@@ -34,23 +34,15 @@ public class TrafficMessage {
 		this.typeContext = typeContext;
 	}
 
-       /**
-        * ����˵��
-        */
+
 	private String typeContext;
 	private Integer id;
-	/**
-	 * ʹ��
-	 */
-	private String applyed;//ʹ����
-	/**
-	 * ʣ��
-	 */
-	private String surplus;//ʣ��
-	/**
-	 * һ��
-	 */
-	private String all;//һ��
+
+	private String applyed;
+
+	private String surplus;
+
+	private String all;
 	
 
 }

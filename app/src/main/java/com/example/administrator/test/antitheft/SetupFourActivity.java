@@ -23,8 +23,6 @@ public class SetupFourActivity extends BaseActivity {
 
     @BindView(R.id.cb_check)
     CheckBox cbCheck;
-    @BindView(R.id.imageView1)
-    ImageView imageView1;
     @BindView(R.id.btn_next_page)
     Button btnNextPage;
     @BindView(R.id.btn_previous_page)
@@ -42,6 +40,7 @@ public class SetupFourActivity extends BaseActivity {
         setContentView(R.layout.activity_setup_four);
         ButterKnife.bind(this);
         setMyTitle("4.恭喜您,设置完成");
+        initView();
     }
 
 

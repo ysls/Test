@@ -20,19 +20,19 @@ public class AntiVirusDao {
 		
 	}
 
-private static String dbURL="data/data/com.example.administrator.test/antivirus.db";//²¡¶¾Êı¾İ¿â
+private static String dbURL="data/data/com.example.administrator.test/antivirus.db";//ç—…æ¯’æ•°æ®åº“
 	/**
-	 * ¼ì²éÄ³¸ömd5ÊÇ·ñÊÇ²¡¶¾
+	 * æ£€æŸ¥æŸä¸ªmd5æ˜¯å¦æ˜¯ç—…æ¯’
 	 * 
 	 * @param md5
-	 * @return null ´ú±íÉ¨Ãè°²È«
+	 * @return null ä»£è¡¨æ‰«æå®‰å…¨
 	 */
 	public static String checkVirus(String md5, Context context) {
 		String desc = null;
 
 
 		createDBFile(context);
-		// ´ò¿ª²¡¶¾Êı¾İ¿â
+		// æ‰“å¼€ç—…æ¯’æ•°æ®åº“
 		SQLiteDatabase db = SQLiteDatabase.openDatabase(
 				dbURL, null,
 				SQLiteDatabase.OPEN_READONLY);
@@ -47,7 +47,7 @@ private static String dbURL="data/data/com.example.administrator.test/antivirus.
 	}
 
 	/**
-	 * ÅĞ¶ÏÊı¾İ¿âÎÄ¼şÊÇ·ñ´æÔÚ
+	 * åˆ¤æ–­æ•°æ®åº“æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 	 * 
 	 * @return
 	 */
@@ -56,32 +56,32 @@ private static String dbURL="data/data/com.example.administrator.test/antivirus.
 		File file = new File(
 				dbURL);
 		if (!file.exists()){
-			//²»´æÔÚÏÈ´´½¨ÎÄ¼ş¼Ğ
+			//ä¸å­˜åœ¨å…ˆåˆ›å»ºæ–‡ä»¶å¤¹
 			if (!file.getParentFile().exists()){
 				if(!file.getParentFile().mkdirs()) {
-					Log.e("createDBFile: ", "create failed£¡");
+					Log.e("createDBFile: ", "create failedï¼");
 				}else {
-					Log.e("createDBFile: ", "create succeess£¡");
+					Log.e("createDBFile: ", "create succeessï¼");
 				}
 			}else {
-				Log.e("createDBFile: ", "had£¡");
+				Log.e("createDBFile: ", "hadï¼");
 			}
 			try {
-				//µÃµ½×ÊÔ´
+				//å¾—åˆ°èµ„æº
 				AssetManager am= context.getAssets();
-				//µÃµ½Êı¾İ¿âµÄÊäÈëÁ÷
+				//å¾—åˆ°æ•°æ®åº“çš„è¾“å…¥æµ
 				InputStream is=am.open("antivirus.db");
 				Log.e("test", is+"");
-				//ÓÃÊä³öÁ÷Ğ´µ½SDcardÉÏÃæ
+				//ç”¨è¾“å‡ºæµå†™åˆ°SDcardä¸Šé¢
 				FileOutputStream fos=new FileOutputStream(file);
 				Log.e("test", "fos="+fos);
-				//´´½¨byteÊı×é  ÓÃÓÚ1KBĞ´Ò»´Î
+				//åˆ›å»ºbyteæ•°ç»„  ç”¨äº1KBå†™ä¸€æ¬¡
 				byte[] buffer=new byte[1024];
 				int count = 0;
 				while((count = is.read(buffer))>0){
 					fos.write(buffer,0,count);
 				}
-				//×îºó¹Ø±Õ¾Í¿ÉÒÔÁË
+				//æœ€åå…³é—­å°±å¯ä»¥äº†
 				fos.flush();
 				fos.close();
 				is.close();
@@ -93,7 +93,7 @@ private static String dbURL="data/data/com.example.administrator.test/antivirus.
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İ¿â°æ±¾ºÅ
+	 * è·å–æ•°æ®åº“ç‰ˆæœ¬å·
 	 * 
 	 * @return
 	 */
@@ -111,7 +111,7 @@ private static String dbURL="data/data/com.example.administrator.test/antivirus.
 		return versionnumber;
 	}
 	/**
-	 * ¸üĞÂÊı¾İ¿â°æ±¾ºÅµÄ²Ù×÷
+	 * æ›´æ–°æ•°æ®åº“ç‰ˆæœ¬å·çš„æ“ä½œ
 	 * @param newversion
 	 */
 	public static void updateDBVersion(int newversion){
@@ -125,7 +125,7 @@ private static String dbURL="data/data/com.example.administrator.test/antivirus.
 		db.close();
 	}
 	/**
-	 * ¸üĞÂ²¡¶¾Êı¾İ¿âµÄAPI
+	 * æ›´æ–°ç—…æ¯’æ•°æ®åº“çš„API
 	 * @param desc
 	 * @param md5
 	 */
@@ -142,7 +142,7 @@ private static String dbURL="data/data/com.example.administrator.test/antivirus.
 	
 	
 	/**
-	 * É¾³ı²¡¶¾api
+	 * åˆ é™¤ç—…æ¯’api
 	 * @param md5
 	 */
 	public static void delete(String md5){
@@ -154,6 +154,6 @@ private static String dbURL="data/data/com.example.administrator.test/antivirus.
 	
 	
 	//public static void main(String[] args) {
-		//add("³¬¼¶Ä¾Âí²¡¶¾", "3a0c9fdcf83c8c039dd8838a614a2cf0");
+		//add("è¶…çº§æœ¨é©¬ç—…æ¯’", "3a0c9fdcf83c8c039dd8838a614a2cf0");
 	//}
 }

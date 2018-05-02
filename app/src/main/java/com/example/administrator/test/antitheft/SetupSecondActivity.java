@@ -22,8 +22,6 @@ import static com.example.administrator.test.MyApplication.PREF_BIND_SIM;
 public class SetupSecondActivity extends BaseActivity {
 
 
-    @BindView(R.id.imageView1)
-    ImageView imageView1;
     @BindView(R.id.btn_next_page)
     Button btnNextPage;
     @BindView(R.id.btn_previous_page)
@@ -44,6 +42,7 @@ public class SetupSecondActivity extends BaseActivity {
         setContentView(R.layout.activity_setup_second);
         ButterKnife.bind(this);
         setMyTitle("手机卡绑定");
+        hideTitleNavigationButton();
         mSimSerialNumber = SPUtils.getInstance().getString(PREF_BIND_SIM);
         sivBindSim.setChecked(!TextUtils.isEmpty(mSimSerialNumber));
     }

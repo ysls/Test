@@ -12,8 +12,10 @@ import butterknife.OnClick;
 import com.example.administrator.test.activity.RublishcleanActivity;
 import com.example.administrator.test.adapter.HomeAdapter;
 import com.example.administrator.test.antitheft.AntiTheftActivity;
+import com.example.administrator.test.backup.BackUpPhoneActivity;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.blacknumber.BlackNumberActivity;
+import com.example.administrator.test.security.SecurityListActivity;
 import com.example.administrator.test.trafficmanager.TrafficManagerActivity;
 import com.example.administrator.test.util.Md5Utils;
 import com.example.administrator.test.util.SPUtils;
@@ -43,40 +45,42 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mGvItems = new String[]{"ÊÖ»ú·ÀµÁ", "°²È«°Ù¿Æ", "ºÚÃûµ¥", "À¬»øÇåÀí", "²¡¶¾²éÉ±", "Á÷Á¿Í³¼Æ", "ÓÃ»§²Ù×÷", "ÊÖ»ú±¸·İ", "ÍÆ³öµÇÂ¼"};
-        mImgIds = new int[]{R.mipmap.home_safe,
-                R.mipmap.home_safe, R.mipmap.home_safe,
-                R.mipmap.home_safe, R.mipmap.home_safe,
-                R.mipmap.home_safe, R.mipmap.home_safe,
-                R.mipmap.home_safe, R.mipmap.home_safe};
+        mGvItems = new String[]{"æ‰‹æœºé˜²ç›—", "å®‰å…¨ç™¾ç§‘", "é»‘åå•", "åƒåœ¾æ¸…ç†", "ç—…æ¯’æŸ¥æ€", "æµé‡ç»Ÿè®¡", "ç”¨æˆ·æ“ä½œ", "æ‰‹æœºå¤‡ä»½", "æ¨å‡ºç™»å½•"};
+        mImgIds = new int[]{R.mipmap.ic_lock,
+                R.mipmap.ic_book, R.mipmap.ic_black,
+                R.mipmap.ic_clean, R.mipmap.ic_virus,
+                R.mipmap.ic_total, R.mipmap.ic_introduce,
+                R.mipmap.ic_backup, R.mipmap.ic_out};
         gvFuction.setAdapter(new HomeAdapter(this,mGvItems,mImgIds));
 
         gvFuction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     switch (position){
-                        case 0://ÊÖ»ú·ÀµÁ
+                        case 0://æ‰‹æœºé˜²ç›—
                             startActivity(AntiTheftActivity.class);
                             break;
-                        case 1://°²È«°Ù¿Æ
+                        case 1://å®‰å…¨ç™¾ç§‘
+                            startActivity(SecurityListActivity.class);
                             break;
-                        case 2://ºÚÃûµ¥
+                        case 2://é»‘åå•
                             startActivity(BlackNumberActivity.class);
                             break;
-                        case 3://À¬»øÇåÀí
+                        case 3://åƒåœ¾æ¸…ç†
                              startActivity(RublishcleanActivity.class);
                             break;
-                        case 4://²¡¶¾²éÉ±
+                        case 4://ç—…æ¯’æŸ¥æ€
                             startActivity(AntiVirusActivity.class);
                             break;
-                        case 5://Á÷Á¿Í³¼Æ
+                        case 5://æµé‡ç»Ÿè®¡
                             startActivity(TrafficManagerActivity.class);
                             break;
-                        case 6://ÓÃ»§²Ù×÷
+                        case 6://ç”¨æˆ·æ“ä½œ
                             break;
-                        case 7://ÊÖ»ú±¸·İ
+                        case 7://æ‰‹æœºå¤‡ä»½
+                            startActivity(BackUpPhoneActivity.class);
                             break;
-                        case 8://ÍË³öµÇÂ¼
+                        case 8://é€€å‡ºç™»å½•
                             break;
                             default:
                     }
@@ -85,24 +89,24 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * ÏÔÊ¾ÊÖ»ú·ÀµÁµ¯´°
+     * æ˜¾ç¤ºæ‰‹æœºé˜²ç›—å¼¹çª—
      */
     private void showSafeDialog() {
         String password = SPUtils.getInstance().getString(PREF_PASSWORD);
 
-        //ÅĞ¶ÏÊÇ·ñ´æÔÚÃÜÂë
+        //åˆ¤æ–­æ˜¯å¦å­˜åœ¨å¯†ç 
         if (!TextUtils.isEmpty(password)) {
-            //ÏÔÊ¾ÊäÈëÃÜÂëµ¯´°
+            //æ˜¾ç¤ºè¾“å…¥å¯†ç å¼¹çª—
             showInputPasswordDialog();
         } else {
-            //ÏÔÊ¾ÉèÖÃÃÜÂëµ¯´°
+            //æ˜¾ç¤ºè®¾ç½®å¯†ç å¼¹çª—
             showSetPasswordDialog();
         }
 
     }
 
     /**
-     * ÊäÈëÃÜÂëµÄµ¯´°
+     * è¾“å…¥å¯†ç çš„å¼¹çª—
      */
     private void showInputPasswordDialog() {
         final AlertDialog dialog = new AlertDialog.Builder(this).create();
@@ -115,19 +119,19 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String password = etPassword.getText().toString().trim();
-                //»ñÈ¡±£´æµÄÃÜÂë
+                //è·å–ä¿å­˜çš„å¯†ç 
                 String savedPassword = SPUtils.getInstance().getString(PREF_PASSWORD);
 
-                //ÅĞ¶ÏÃÜÂëÊÇ·ñÎª¿Õ
+                //åˆ¤æ–­å¯†ç æ˜¯å¦ä¸ºç©º
                 if (!TextUtils.isEmpty(password)) {
                     if (Md5Utils.encode(password).equals(savedPassword)) {
                         startActivity(AntiVirusActivity.class);
                         dialog.dismiss();
                     } else {
-                        Toast.makeText(MainActivity.this,"ÃÜÂë´íÎó",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"å¯†ç é”™è¯¯",Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this,"ÃÜÂë²»ÄÜÎª¿Õ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"å¯†ç ä¸èƒ½ä¸ºç©º",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -143,7 +147,7 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * ÉèÖÃÃÜÂëµÄµ¯´°
+     * è®¾ç½®å¯†ç çš„å¼¹çª—
      */
     private void showSetPasswordDialog() {
         final AlertDialog dialog = new AlertDialog.Builder(this).create();
@@ -165,10 +169,10 @@ public class MainActivity extends BaseActivity {
                         startActivity(AntiVirusActivity.class);
                         dialog.dismiss();
                     } else {
-                        Toast.makeText(MainActivity.this,"ÃÜÂë²»Ò»ÖÂ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"å¯†ç ä¸ä¸€è‡´",Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this,"ÃÜÂë²»ÄÜÎª¿Õ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"å¯†ç ä¸èƒ½ä¸ºç©º",Toast.LENGTH_SHORT).show();
                 }
             }
         });

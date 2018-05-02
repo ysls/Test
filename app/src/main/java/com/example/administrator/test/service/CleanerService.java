@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * 垃圾服务进程
- * @author 文江
+ * 鍨冨溇鏈嶅姟杩涚▼
+ * @author 鏂囨睙
  *
  */
 public class CleanerService extends Service {
@@ -34,8 +34,8 @@ public class CleanerService extends Service {
 	    private boolean mIsCleaning = false;
 	    private long mCacheSize = 0;
           /**
-           * 监听回掉
-           * @author 文江
+           * 鐩戝惉鍥炴帀
+           * @author 鏂囨睙
            *
            */
 	    public static interface OnActionListener {
@@ -70,7 +70,7 @@ public class CleanerService extends Service {
 	            }
 	        }
             /**
-             * 垃圾后台扫描
+             * 鍨冨溇鍚庡彴鎵弿
              */
 	        @Override
 	        protected List<CacheListItem> doInBackground(Void... params) {
@@ -84,7 +84,7 @@ public class CleanerService extends Service {
 	            final CountDownLatch countDownLatch = new CountDownLatch(packages.size());
 
 	            final List<CacheListItem> apps = new ArrayList<CacheListItem>();
-                     //代理获取底层垃圾
+                     //浠ｇ悊鑾峰彇搴曞眰鍨冨溇
 	            try {
 	                for (ApplicationInfo pkg : packages) {
 	                    mGetPackageSizeInfoMethod.invoke(getPackageManager(), pkg.packageName,
@@ -161,7 +161,7 @@ public class CleanerService extends Service {
 	        @Override
 	        protected Long doInBackground(Void... params) {
 	        	/**
-	        	 * 清除缓存
+	        	 * 娓呴櫎缂撳瓨
 	        	 */
 	            final CountDownLatch countDownLatch = new CountDownLatch(1);
 	            StatFs stat = new StatFs(Environment.getDataDirectory().getAbsolutePath());
@@ -247,7 +247,7 @@ public class CleanerService extends Service {
 	                    public void onCleanCompleted(Context context, long cacheSize) {
 //	                        String msg = getString(R.string.cleaned, Formatter.formatShortFileSize(
 //	                                CleanerService.this, cacheSize));\
-							String msg = "完成";
+							String msg = "瀹屾垚";
 
 	                        Log.d(TAG, msg);
 

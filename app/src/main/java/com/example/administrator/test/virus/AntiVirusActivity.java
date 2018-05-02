@@ -28,12 +28,12 @@ public class AntiVirusActivity extends Activity {
     protected static final int SCAN_BENGIN = 0;
 
     /**
-     * Ìå¼ì°´Å¥
+     * ä½“æ£€æŒ‰é’®
      */
-    private static final int BT_SCAN_START = 0;//Ò»¼üÌå¼ì
-    private static final int BT_SCAN_ING = 1;//ÕıÔÚÌå¼ì
-    private static final int BT_SCAN_RESTART = 2;//Ò»¼üÇå³ı
-    private static final int BT_SCAN_CLEAN = 3;//ÖØĞÂÌå¼ì
+    private static final int BT_SCAN_START = 0;//ä¸€é”®ä½“æ£€
+    private static final int BT_SCAN_ING = 1;//æ­£åœ¨ä½“æ£€
+    private static final int BT_SCAN_RESTART = 2;//ä¸€é”®æ¸…é™¤
+    private static final int BT_SCAN_CLEAN = 3;//é‡æ–°ä½“æ£€
     @BindView(R.id.tv_scan_status)
     TextView tvScanStatus;
     @BindView(R.id.startinng)
@@ -54,11 +54,11 @@ public class AntiVirusActivity extends Activity {
 
 
     private PackageManager pm;
-    private boolean flag; //±ê¼Ç
-    ScanListAdapter scanListAdapter;//²¡¶¾ÁĞ±íÊÊÅäÆ÷
+    private boolean flag; //æ ‡è®°
+    ScanListAdapter scanListAdapter;//ç—…æ¯’åˆ—è¡¨é€‚é…å™¨
     //	AppInfoParser  t=new AppInfoParser();
-    List<AppInfo> appvirus = new ArrayList<AppInfo>();//Ä¾Âí³ÌĞòµÄ¼¯ºÏ
-    List<AppInfo> appInfos;//°²×°µÄÓ¦ÓÃ³ÌĞòµÄ¼¯ºÏ
+    List<AppInfo> appvirus = new ArrayList<AppInfo>();//æœ¨é©¬ç¨‹åºçš„é›†åˆ
+    List<AppInfo> appInfos;//å®‰è£…çš„åº”ç”¨ç¨‹åºçš„é›†åˆ
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +78,17 @@ public class AntiVirusActivity extends Activity {
             switch (msg.what) {
                 case SCAN_BENGIN:
                     if (appvirus.size() > 0) {
-                        tvScanStatus.setText("Î£ÏÕ");
+                        tvScanStatus.setText("å±é™©");
                         tvScanStatus.setTextColor(Color.RED);
                     } else {
-                        tvScanStatus.setText("°²È«");
+                        tvScanStatus.setText("å®‰å…¨");
                     }
-                    oneKeydo.setText("Ò»¼üÌå¼ì");
+                    oneKeydo.setText("ä¸€é”®ä½“æ£€");
                     break;
                 case SCANNING:
-                    oneKeydo.setText("ÕıÔÚÌå¼ì");
+                    oneKeydo.setText("æ­£åœ¨ä½“æ£€");
                     ScanInfo info = (ScanInfo) msg.obj;
-                    startinng.setText("ÕıÔÚÉ¨Ãè:" + info.process + info.appname);
+                    startinng.setText("æ­£åœ¨æ‰«æ:" + info.process + info.appname);
                     if (info.process >= 100) {
                         tvScanStatus.setText(99 + "%");
                     } else {
@@ -106,7 +106,6 @@ public class AntiVirusActivity extends Activity {
                                 appvirus.add(a);
                             }
                         }
-                        ;
                     }
 
                     if (scanListAdapter != null) {
@@ -115,72 +114,72 @@ public class AntiVirusActivity extends Activity {
                         scanListAdapter = new ScanListAdapter(getApplicationContext(), appvirus);
                         virusPackageList.setAdapter(scanListAdapter);
                     }
-                    virusAppNumber.setText(appvirus.size() + "¸ö");
+                    virusAppNumber.setText(appvirus.size() + "ä¸ª");
                     TextView child = new TextView(getApplicationContext());
                     child.setText(info.appname + ":" + info.desc);
                     break;
                 case SCAN_FINISH:
 
                     if (appvirus.size() > 0) {
-                        tvScanStatus.setText("Î£ÏÕ");
+                        tvScanStatus.setText("å±é™©");
                         tvScanStatus.setTextColor(Color.RED);
-                        oneKeydo.setText("Ò»¼üÇå³ıĞ¶ÔØ");
+                        oneKeydo.setText("ä¸€é”®æ¸…é™¤å¸è½½");
                     } else {
-                        oneKeydo.setText("ÖØĞÂÌå¼ì");
-                        tvScanStatus.setText("°²È«");
+                        oneKeydo.setText("é‡æ–°ä½“æ£€");
+                        tvScanStatus.setText("å®‰å…¨");
                     }
-                    startinng.setText("É¨ÃèÍê±Ï£¡");
+                    startinng.setText("æ‰«æå®Œæ¯•ï¼");
                     break;
             }
         }
 
         private void setUI(boolean isVirus, Integer process, List<Malice> list) {
             Malice network = new Malice();
-            network.setName("ÍøÂç»·¾³");
+            network.setName("ç½‘ç»œç¯å¢ƒ");
             Malice sysscan = new Malice();
-            sysscan.setName("ÏµÍ³Â©¶´");
+            sysscan.setName("ç³»ç»Ÿæ¼æ´");
             Malice virus = new Malice();
-            virus.setName("²¡¶¾Ä¾Âí");
+            virus.setName("ç—…æ¯’æœ¨é©¬");
             Malice paywork = new Malice();
-            paywork.setName("Ö§¸¶»·¾³");
+            paywork.setName("æ”¯ä»˜ç¯å¢ƒ");
             Malice userscan = new Malice();
-            userscan.setName("ÕËºÅ°²È«");
+            userscan.setName("è´¦å·å®‰å…¨");
             if (process < 10 && process >= 0) {
-                network.setStart("ÕıÔÚÉ¨Ãè");
+                network.setStart("æ­£åœ¨æ‰«æ");
             }
             if (process < 30 && process >= 10) {
                 if (isVirus) {
-                    network.setStart("Î£ÏÕ");
+                    network.setStart("å±é™©");
                 } else {
-                    network.setStart("°²È«");
+                    network.setStart("å®‰å…¨");
                 }
-                sysscan.setStart("ÕıÔÚÉ¨Ãè");
+                sysscan.setStart("æ­£åœ¨æ‰«æ");
             }
             if (process < 60 && process >= 30) {
-                network.setStart("°²È«");
-                network.setStart("°²È«");
-                sysscan.setStart("°²È«");
-                virus.setStart("ÕıÔÚÉ¨Ãè");
+                network.setStart("å®‰å…¨");
+                network.setStart("å®‰å…¨");
+                sysscan.setStart("å®‰å…¨");
+                virus.setStart("æ­£åœ¨æ‰«æ");
             }
             if (process < 90 && process >= 60) {
-                network.setStart("°²È«");
-                sysscan.setStart("°²È«");
-                virus.setStart("°²È«");
-                paywork.setStart("ÕıÔÚÉ¨Ãè");
+                network.setStart("å®‰å…¨");
+                sysscan.setStart("å®‰å…¨");
+                virus.setStart("å®‰å…¨");
+                paywork.setStart("æ­£åœ¨æ‰«æ");
             }
             if (process < 100 && process >= 90) {
-                network.setStart("°²È«");
-                sysscan.setStart("°²È«");
-                virus.setStart("°²È«");
-                paywork.setStart("°²È«");
-                userscan.setStart("ÕıÔÚÉ¨Ãè");
+                network.setStart("å®‰å…¨");
+                sysscan.setStart("å®‰å…¨");
+                virus.setStart("å®‰å…¨");
+                paywork.setStart("å®‰å…¨");
+                userscan.setStart("æ­£åœ¨æ‰«æ");
             }
             if (process >= 100) {
-                network.setStart("°²È«");
-                sysscan.setStart("°²È«");
-                virus.setStart("°²È«");
-                paywork.setStart("°²È«");
-                userscan.setStart("°²È«");
+                network.setStart("å®‰å…¨");
+                sysscan.setStart("å®‰å…¨");
+                virus.setStart("å®‰å…¨");
+                paywork.setStart("å®‰å…¨");
+                userscan.setStart("å®‰å…¨");
             }
             list.add(network);
             list.add(sysscan);
@@ -196,7 +195,7 @@ public class AntiVirusActivity extends Activity {
     public static void main(String[] args) {
         //b7d7ce745fe049a4d3f33e662234ad90
         AntiVirusDao a = new AntiVirusDao();
-        a.add("ÌÚÑ¶µçiiiiÄÔ¹Ü¼Ò", "b7d7ce745fe049a4d3f33e662234ad90");
+        a.add("è…¾è®¯ç”µiiiiè„‘ç®¡å®¶", "b7d7ce745fe049a4d3f33e662234ad90");
 
     }
 
@@ -208,39 +207,40 @@ public class AntiVirusActivity extends Activity {
                 Message msg = Message.obtain();
                 msg.what = SCAN_BENGIN;
                 handler.sendMessage(msg);
-                // ¼ì²éÊÖ»úÀïÃæµÄÃ¿Ò»¸öÓ¦ÓÃ³ÌĞò
+                // æ£€æŸ¥æ‰‹æœºé‡Œé¢çš„æ¯ä¸€ä¸ªåº”ç”¨ç¨‹åº
                 List<PackageInfo> packInfos = pm.getInstalledPackages(0);
                 int max = packInfos.size();
-                int process = 0;
+                double process = 0;
                 ScanInfo scanInfo = new ScanInfo();
                 scanInfo.process = 0;
-                for (PackageInfo info : packInfos) {
+                for( int i = 0; i <packInfos.size();i++) {
                     if (!flag) {
                         return;
                     }
+                    PackageInfo info = packInfos.get(i);
                     String apkpath = info.applicationInfo.sourceDir;
-                    // ¼ì²é»ñÈ¡Õâ¸öÎÄ¼şµÄ ÌØÕ÷Âë
+                    // æ£€æŸ¥è·å–è¿™ä¸ªæ–‡ä»¶çš„ ç‰¹å¾ç 
                     String md5info = Md5Utils.getFileMd5(apkpath);
                     System.out.println(info.packageName + "md5info=" + md5info);
-                    String result = AntiVirusDao.checkVirus(md5info,AntiVirusActivity.this);//»ñÈ¡²¡¶¾¿âÊı¾İ
+                    String result = AntiVirusDao.checkVirus(md5info,AntiVirusActivity.this);//è·å–ç—…æ¯’åº“æ•°æ®
                     msg = Message.obtain();
                     msg.what = SCANNING;
                     if (result == null) {
-                        scanInfo.desc = "É¨Ãè°²È«";
+                        scanInfo.desc = "æ‰«æå®‰å…¨";
                         scanInfo.isVirus = false;
                     } else {
                         scanInfo.desc = result;
                         scanInfo.isVirus = true;
                     }
-                    System.out.println(info.packageName);
 
                     scanInfo.packname = info.packageName;
                     scanInfo.appname = info.applicationInfo.loadLabel(pm).toString();
-                    scanInfo.process++;
+//                    scanInfo.process++;
+                    scanInfo.process = i*100/packInfos.size();
                     msg.obj = scanInfo;
                     handler.sendMessage(msg);
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -249,8 +249,6 @@ public class AntiVirusActivity extends Activity {
                 msg.what = SCAN_FINISH;
                 handler.sendMessage(msg);
             }
-
-            ;
         }.start();
     }
 
@@ -261,7 +259,7 @@ public class AntiVirusActivity extends Activity {
     }
 
     /**
-     * Ò»¼ü¸ÉµãÉ¶
+     * ä¸€é”®å¹²ç‚¹å•¥
      */
     private void oneKeydoSomething() {
         oneKeydo.setOnClickListener(new OnClickListener() {
@@ -269,16 +267,16 @@ public class AntiVirusActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String startStr = oneKeydo.getText().toString();
-                if (startStr.equals("Ò»¼üÌå¼ì")) {
+                if (startStr.equals("ä¸€é”®ä½“æ£€")) {
                 }
-                if (startStr.equals("ÕıÔÚÌå¼ì")) {
+                if (startStr.equals("æ­£åœ¨ä½“æ£€")) {
 
                 }
-                if (startStr.equals("ÖØĞÂÌå¼ì")) {
+                if (startStr.equals("é‡æ–°ä½“æ£€")) {
 
                 }
-                if (startStr.equals("Ò»¼üÇå³ıĞ¶ÔØ")) {
-                    Toast.makeText(getApplicationContext(), "ÇåÀíÖĞ", Toast.LENGTH_LONG).show();
+                if (startStr.equals("ä¸€é”®æ¸…é™¤å¸è½½")) {
+                    Toast.makeText(getApplicationContext(), "æ¸…ç†ä¸­", Toast.LENGTH_LONG).show();
                     for (AppInfo info : appvirus) {
                         boolean isuninsrall = AppController.clientUninstall(info.getPackname());
                         if (isuninsrall) {
@@ -286,7 +284,7 @@ public class AntiVirusActivity extends Activity {
                         }
                     }
                     scanListAdapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), "Íê±Ï", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "å®Œæ¯•", Toast.LENGTH_LONG).show();
 
                 }
             }

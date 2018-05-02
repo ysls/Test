@@ -66,6 +66,12 @@
         <activity android:name=".antitheft.SelectContactActivity"/>
         <!--黑名单-->
         <activity android:name=".blacknumber.BlackNumberActivity"/>
+        <!--手机号码备份-->
+        <activity android:name=".backup.BackUpPhoneActivity"/>
+        <!--安全百科列表-->
+        <activity android:name=".security.SecurityListActivity"/>
+        <!--安全百科详情-->
+        <activity android:name=".security.SecurityDetailsActivity"/>
 
         <service android:name=".service.CleanerService"/>
 

@@ -17,6 +17,13 @@ public class MyApplication extends Application {
     public static final String PREF_BIND_SIM = "bind_sim";
     public static final String PREF_PHONE_NUMBER = "phone_number";
     public static final String PREF_IS_PROTECT = "is_protect";
+    //密语
+    public static final String SECRET_GPS = "gps";
+    public static final String SECRET_ALARM = "alarm";
+    public static final String SECRET_WIPE = "wipe";
+    public static final String SECRET_LOCK = "lock";
+    public static final String SECRET_VOICE = "voice";
+    public static final String SECRET_PHOTO = "photo";
 
     @Override
     public void onCreate() {

@@ -16,42 +16,42 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * ¶ÌĞÅµÄ¹¤¾ßÀà Ìá¹©¶ÌĞÅ±¸·İºÍ»¹Ô­µÄAPI
+ * çŸ­ä¿¡çš„å·¥å…·ç±» æä¾›çŸ­ä¿¡å¤‡ä»½å’Œè¿˜åŸçš„API
  * 
  * @author Administrator
  * 
  */
 public class SmsUtils {
-	//1.¶¨ÒåÒ»¸ö½Ó¿Ú¡£
-	//2.½Ó¿ÚÀïÃæÌá¹©Ò»Ğ©»Øµ÷º¯Êı
-	//3.µ÷ÓÃ·½·¨µÄÊ±ºò ´«µİ½Ó¿Ú¶ÔÏó¡£
-	//4.ÔÚ¿ªÊ¼ºÍ±¸·İ¹ı³ÌÖĞµ÷ÓÃ½Ó¿ÚÀïÃæµÄ·½·¨¡£
+	//1.å®šä¹‰ä¸€ä¸ªæ¥å£ã€‚
+	//2.æ¥å£é‡Œé¢æä¾›ä¸€äº›å›è°ƒå‡½æ•°
+	//3.è°ƒç”¨æ–¹æ³•çš„æ—¶å€™ ä¼ é€’æ¥å£å¯¹è±¡ã€‚
+	//4.åœ¨å¼€å§‹å’Œå¤‡ä»½è¿‡ç¨‹ä¸­è°ƒç”¨æ¥å£é‡Œé¢çš„æ–¹æ³•ã€‚
 	
 	
 	/**
-	 * ¶¨ÒåµÄÒ»¸ö½Ó¿Ú£¬ÓÃ×÷»Øµ÷¡£
+	 * å®šä¹‰çš„ä¸€ä¸ªæ¥å£ï¼Œç”¨ä½œå›è°ƒã€‚
 	 * @author Administrator
 	 *
 	 */
 	public interface BackupStatusCallback{
 		/**
-		 * ÔÚ¶ÌĞÅ±¸·İÖ®Ç°µ÷ÓÃµÄ·½·¨
-		 * @param size ×ÜµÄ¶ÌĞÅµÄ¸öÊı
+		 * åœ¨çŸ­ä¿¡å¤‡ä»½ä¹‹å‰è°ƒç”¨çš„æ–¹æ³•
+		 * @param size æ€»çš„çŸ­ä¿¡çš„ä¸ªæ•°
 		 */
 		public void beforeSmsBackup(int size);
 		
 		/**
-		 * µ±sms¶ÌĞÅ±¸·İ¹ı³ÌÖĞµ÷ÓÃµÄ·½·¨
-		 * @param process µ±Ç°µÄ½ø¶È
+		 * å½“smsçŸ­ä¿¡å¤‡ä»½è¿‡ç¨‹ä¸­è°ƒç”¨çš„æ–¹æ³•
+		 * @param process å½“å‰çš„è¿›åº¦
 		 */
 		public void onSmsBackup(int process);
 	}
 	/**
-	 * ±¸·İ¶ÌĞÅ
+	 * å¤‡ä»½çŸ­ä¿¡
 	 * 
 	 * @param context
-	 *            ÉÏÏÂÎÄ
-	 * @param callback ½Ó¿Ú
+	 *            ä¸Šä¸‹æ–‡
+	 * @param callback æ¥å£
 	 * @return
 	 * @throws FileNotFoundException
 	 */
@@ -66,18 +66,18 @@ public class SmsUtils {
 			File file = new File(Environment.getExternalStorageDirectory(),
 					"backup.xml");
 			FileOutputStream os = new FileOutputStream(file);
-			// ³õÊ¼»¯xmlÎÄ¼şµÄĞòÁĞ»¯Æ÷
+			// åˆå§‹åŒ–xmlæ–‡ä»¶çš„åºåˆ—åŒ–å™¨
 			serializer.setOutput(os, "utf-8");
-			// Ğ´xmlÎÄ¼şµÄÍ·
+			// å†™xmlæ–‡ä»¶çš„å¤´
 			serializer.startDocument("utf-8", true);
-			// Ğ´¸ù½Úµã
+			// å†™æ ¹èŠ‚ç‚¹
 			ContentResolver resolver = context.getContentResolver();
 			Uri uri = Uri.parse("content://sms/");
 			Cursor cursor = resolver.query(uri, new String[] { "address",
 					"body", "type", "date" }, null, null, null);
-			// µÃµ½×ÜµÄÌõÄ¿µÄ¸öÊı
+			// å¾—åˆ°æ€»çš„æ¡ç›®çš„ä¸ªæ•°
 			int size = cursor.getCount();
-			//ÉèÖÃ½ø¶ÈµÄ×Ü´óĞ¡
+			//è®¾ç½®è¿›åº¦çš„æ€»å¤§å°
 //			pb.setMax(size);
 //			pd.setMax(size);
 			callback.beforeSmsBackup(size);
@@ -88,13 +88,13 @@ public class SmsUtils {
 				serializer.startTag(null, "sms");
 				serializer.startTag(null, "body");
 				//:-)
-				//¿ÉÄÜ»áÓĞÂÒÂëÎÊÌâĞèÒª´¦Àí£¬Èç¹û³öÏÖÂÒÂë»áµ¼ÖÂ±¸·İÊ¦±í¡£
+				//å¯èƒ½ä¼šæœ‰ä¹±ç é—®é¢˜éœ€è¦å¤„ç†ï¼Œå¦‚æœå‡ºç°ä¹±ç ä¼šå¯¼è‡´å¤‡ä»½å¸ˆè¡¨ã€‚
 				try {
 					String bodyencpyt = Crypto.encrypt("123", cursor.getString(1));
 					serializer.text(bodyencpyt);
 				} catch (Exception e1) {
 					e1.printStackTrace();
-					serializer.text("¶ÌĞÅ¶ÁÈ¡Ê§°Ü");
+					serializer.text("çŸ­ä¿¡è¯»å–å¤±è´¥");
 				}
 				serializer.endTag(null, "body");
 				serializer.startTag(null, "address");
@@ -112,7 +112,7 @@ public class SmsUtils {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				//ÉèÖÃ½ø¶ÈÌõ¶Ô»°¿òµÄ½ø¶È
+				//è®¾ç½®è¿›åº¦æ¡å¯¹è¯æ¡†çš„è¿›åº¦
 				process++;
 //				pb.setProgress(process);
 //				pd.setProgress(process);
@@ -125,7 +125,7 @@ public class SmsUtils {
 			os.close();
 			return true;
 		} else {
-			throw new IllegalStateException("sd¿¨²»´æÔÚ»òÕß¿Õ¼ä²»×ã");
+			throw new IllegalStateException("sdå¡ä¸å­˜åœ¨æˆ–è€…ç©ºé—´ä¸è¶³");
 		}
 	}
 	
@@ -141,24 +141,24 @@ public class SmsUtils {
 	 * @return
 	 */
 	public static boolean restoreSms(Context context, RestoreSmsCallBack callback){
-		//ÅĞ¶Ï ÊÇ·ñ±¸·İÎÄ¼ş´æÔÚ ¶ÁÈ¡sd¿¨µÄ ÎÄ¼ş
-		//½âÎöxmlÎÄ¼ş¡£
-		//1. ´´½¨pull½âÎöÆ÷
-		//2.³õÊ¼»¯pull½âÎöÆ÷£¬ÉèÖÃ±àÂë inputstream
-		//3.½âÎöxmlÎÄ¼ş while(ÎÄµµÄ©Î²£©
+		//åˆ¤æ–­ æ˜¯å¦å¤‡ä»½æ–‡ä»¶å­˜åœ¨ è¯»å–sdå¡çš„ æ–‡ä»¶
+		//è§£æxmlæ–‡ä»¶ã€‚
+		//1. åˆ›å»ºpullè§£æå™¨
+		//2.åˆå§‹åŒ–pullè§£æå™¨ï¼Œè®¾ç½®ç¼–ç  inputstream
+		//3.è§£æxmlæ–‡ä»¶ while(æ–‡æ¡£æœ«å°¾ï¼‰
 		//{
-			//¶ÁÈ¡ÊôĞÔ size ×Ü¸öÊı¾İ. µ÷ÓÃ½Ó¿ÚµÄ·½·¨ beforeSmsRestore
-			//Ã¿¶ÁÈ¡µ½Ò»Ìõ¶ÌĞÅ ¾Í°ÑÕâ¸ö¶ÌĞÅ body£¨½âÃÜ£© address date type»ñÈ¡³öÀ´
-			//ÀûÓÃÄÚÈİÌá¹©Õß  resolver.insert(Uri.parse("content://sms/"),contentValue);
-			//Ã¿»¹Ô­Ìõ count++ µ÷ÓÃonSmsRestore(count);
+			//è¯»å–å±æ€§ size æ€»ä¸ªæ•°æ®. è°ƒç”¨æ¥å£çš„æ–¹æ³• beforeSmsRestore
+			//æ¯è¯»å–åˆ°ä¸€æ¡çŸ­ä¿¡ å°±æŠŠè¿™ä¸ªçŸ­ä¿¡ bodyï¼ˆè§£å¯†ï¼‰ address date typeè·å–å‡ºæ¥
+			//åˆ©ç”¨å†…å®¹æä¾›è€…  resolver.insert(Uri.parse("content://sms/"),contentValue);
+			//æ¯è¿˜åŸæ¡ count++ è°ƒç”¨onSmsRestore(count);
 		//}
 		return false;
 	}
 	
 	/**
-	 * ·¢ËÍ¶ÌĞÅ
+	 * å‘é€çŸ­ä¿¡
 	 * @param content
-	 * @param destinationAddress ·¢ËÍµ½
+	 * @param destinationAddress å‘é€åˆ°
 	 */
 	public static void sendMsg(String content, String destinationAddress ){
 	  SmsManager smsManager = SmsManager.getDefault();

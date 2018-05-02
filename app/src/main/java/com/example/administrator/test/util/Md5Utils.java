@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Md5Utils {
 	/**
-	 * md5¼ÓÃÜµÄËã·¨
+	 * md5åŠ å¯†çš„ç®—æ³•
 	 * @param text
 	 * @return
 	 */
@@ -17,7 +17,7 @@ public class Md5Utils {
 			byte[] result = digest.digest(text.getBytes());
 			StringBuilder sb  =new StringBuilder();
 			for(byte b : result){
-				int number = b&0xff; // ¼ÓÑÎ +1 ;
+				int number = b&0xff; // åŠ ç› +1 ;
 				String hex = Integer.toHexString(number);
 				if(hex.length()==1){
 					sb.append("0"+hex);
@@ -34,9 +34,9 @@ public class Md5Utils {
 	}
 	
 	/**
-	 * »ñÈ¡ÎÄ¼şµÄmd5Öµ£¬ 
-	 * @param path ÎÄ¼şµÄÂ·¾¶
-	 * @return nullÎÄ¼ş²»´æÔÚ
+	 * è·å–æ–‡ä»¶çš„md5å€¼ï¼Œ 
+	 * @param path æ–‡ä»¶çš„è·¯å¾„
+	 * @return nullæ–‡ä»¶ä¸å­˜åœ¨
 	 */
 	public static String getFileMd5(String path ){
 		try {

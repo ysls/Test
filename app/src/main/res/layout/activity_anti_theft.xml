@@ -41,14 +41,15 @@
             style="@style/ContentStyle"
             android:text="防盗保护是否开启" />
 
-        <ImageView
-            android:id="@+id/iv_protect"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/unlock" />
+        <Switch
+                android:id="@+id/sw_protect"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+
     </RelativeLayout>
 
     <ImageView
@@ -79,30 +80,42 @@
         android:layout_marginLeft="0dp"
         android:background="#5000"
         android:padding="5dp"
-        android:text="功能简介" />
+        android:text="功能密语（点击可更改）" />
 
     <TextView
+            android:id="@+id/text_gps"
         style="@style/ContentStyle"
         android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center"
         android:text="GPS追踪:#*location*#" />
 
     <TextView
+            android:id="@+id/text_music"
         style="@style/ContentStyle"
         android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center"
         android:text="播放报警音乐:#*alarm*#" />
 
     <TextView
+            android:id="@+id/text_wipe"
         style="@style/ContentStyle"
         android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center"
         android:text="远程删除数据:#*wipedata*#" />
 
     <TextView
+            android:id="@+id/text_lock"
         style="@style/ContentStyle"
         android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center"
         android:text="远程锁屏:#*lockscreen*#" />
+
+    <TextView
+            android:id="@+id/text_photo"
+            style="@style/ContentStyle"
+            android:drawableLeft="@android:drawable/star_big_on"
+            android:text="远程拍照:#*lockscreen*#" />
+
+    <TextView
+            android:id="@+id/text_voice"
+            style="@style/ContentStyle"
+            android:drawableLeft="@android:drawable/star_big_on"
+            android:text="远程录音:#*lockscreen*#" />
 
 </LinearLayout>

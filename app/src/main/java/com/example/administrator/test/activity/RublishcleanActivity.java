@@ -33,9 +33,9 @@ import java.util.List;
 
 
 /**
- * É¨ÃèÀ¬»ø
+ * æ‰«æåƒåœ¾
  *
- * @author ÎÄ½­
+ * @author æ–‡æ±Ÿ
  */
 public class RublishcleanActivity extends Activity implements CleanerService.OnActionListener {
     protected static final int SCANING = 5;
@@ -106,9 +106,8 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
 
         mContext = this;
         List<AppProcessInfo> list = AppUtil.getRunningAppProcesses(getApplicationContext());
-        System.out.println("ÔËĞĞ½ø³Ì=" + list.size());
         Thread thread = new Thread(new Runnable() {
-            //»ñÈ¡ÔËĞĞÄÚ´æ´óĞ¡
+            //è·å–è¿è¡Œå†…å­˜å¤§å°
             @Override
             public void run() {
                 long alMemory = AppUtil.getTotalMemory(mContext);
@@ -138,11 +137,11 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         rubbish_oneKeydo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (rubbish_oneKeydo.getText().equals("Íê³É")) {
+                if (rubbish_oneKeydo.getText().equals("å®Œæˆ")) {
                     finish();
                 } else {
                     onClickClear();
-                    rubbish_oneKeydo.setText("Íê³É");
+                    rubbish_oneKeydo.setText("å®Œæˆ");
                 }
             }
         });
@@ -187,7 +186,7 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         System.out.println("mStorageSize.value" + mStorageSize.value);
         if (mStorageSize.value == 0.0) {
             rubbishArcStore.setSuffixText("");
-            rubbishArcStore.setBottomText("ÔİÎŞÀ¬»ø");
+            rubbishArcStore.setBottomText("æš‚æ— åƒåœ¾");
             rubbishCapacity.setText("");
         } else {
             rubbishArcStore.setProgress(mStorageSize.value);
@@ -232,7 +231,7 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         }
         rubbishArcStore.setProgress(0);
         rubbishArcStore.setSuffixText("");
-        rubbishArcStore.setBottomText("ÒÑÇåÀí");
+        rubbishArcStore.setBottomText("å·²æ¸…ç†");
     }
 
 

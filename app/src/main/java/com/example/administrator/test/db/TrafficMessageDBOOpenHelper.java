@@ -4,11 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * �����������ݿ�
- * @author �Ľ�
- *
- */
 public class TrafficMessageDBOOpenHelper extends SQLiteOpenHelper {
 
 	public TrafficMessageDBOOpenHelper(Context context) {
