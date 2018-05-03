@@ -45,12 +45,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mGvItems = new String[]{"手机防盗", "安全百科", "黑名单", "垃圾清理", "病毒查杀", "流量统计", "用户操作", "手机备份", "推出登录"};
+        mGvItems = new String[]{"手机防盗", "安全百科", "黑名单", "垃圾清理", "病毒查杀", "流量统计", "手机备份", "软件说明", "退出登录"};
         mImgIds = new int[]{R.mipmap.ic_lock,
                 R.mipmap.ic_book, R.mipmap.ic_black,
                 R.mipmap.ic_clean, R.mipmap.ic_virus,
-                R.mipmap.ic_total, R.mipmap.ic_introduce,
-                R.mipmap.ic_backup, R.mipmap.ic_out};
+                R.mipmap.ic_total, R.mipmap.ic_backup,
+                R.mipmap.ic_introduce, R.mipmap.ic_out};
         gvFuction.setAdapter(new HomeAdapter(this,mGvItems,mImgIds));
 
         gvFuction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     switch (position){
                         case 0://手机防盗
-                            startActivity(AntiTheftActivity.class);
+                            showSafeDialog();
                             break;
                         case 1://安全百科
                             startActivity(SecurityListActivity.class);
@@ -75,10 +75,11 @@ public class MainActivity extends BaseActivity {
                         case 5://流量统计
                             startActivity(TrafficManagerActivity.class);
                             break;
-                        case 6://用户操作
-                            break;
-                        case 7://手机备份
+                        case 6://手机备份
                             startActivity(BackUpPhoneActivity.class);
+                            break;
+                        case 7://软件说明
+
                             break;
                         case 8://退出登录
                             break;
@@ -125,7 +126,7 @@ public class MainActivity extends BaseActivity {
                 //判断密码是否为空
                 if (!TextUtils.isEmpty(password)) {
                     if (Md5Utils.encode(password).equals(savedPassword)) {
-                        startActivity(AntiVirusActivity.class);
+                        startActivity(AntiTheftActivity.class);
                         dialog.dismiss();
                     } else {
                         Toast.makeText(MainActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
@@ -166,7 +167,7 @@ public class MainActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(password) && !TextUtils.isEmpty(passwordConfirm)) {
                     if (password.equals(passwordConfirm)) {
                         SPUtils.getInstance().put(PREF_PASSWORD, Md5Utils.encode(password));
-                        startActivity(AntiVirusActivity.class);
+                        startActivity(AntiTheftActivity.class);
                         dialog.dismiss();
                     } else {
                         Toast.makeText(MainActivity.this,"密码不一致",Toast.LENGTH_SHORT).show();

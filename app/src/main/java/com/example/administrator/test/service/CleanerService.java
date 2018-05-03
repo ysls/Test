@@ -33,11 +33,6 @@ public class CleanerService extends Service {
 	    private boolean mIsScanning = false;
 	    private boolean mIsCleaning = false;
 	    private long mCacheSize = 0;
-          /**
-           * 监听回掉
-           * @author 文江
-           *
-           */
 	    public static interface OnActionListener {
 	        public void onScanStarted(Context context);
 

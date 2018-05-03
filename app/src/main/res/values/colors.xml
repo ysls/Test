@@ -7,4 +7,18 @@
     <color name="app_main_color">#2bc0ac</color>
     <color name="app_main_color_danger">#D44802</color>
     <color name="app_main_color_low">#EB9E17</color>
+    <!--常规字体颜色-->
+    <color name="colorNormalTextColor">#3e3e3e</color>
+    <!--加黑字体颜色-->
+    <color name="colorBlackTextColor">#222222</color>
+    <!--登录界面灰色字体颜色-->
+    <color name="colorLoginGray">#66ffffff</color>
+    <!--白色-->
+    <color name="colorWhite">#ffffff</color>
+    <!--黑色-->
+    <color name="colorBlack">#000000</color>
+    <!--button可以点击时的颜色-->
+    <color name="colorEnableTrue">#a688ff</color>
+    <!--button不可点击时的颜色-->
+    <color name="colorEnableFlase">#a688ff</color>
 </resources>

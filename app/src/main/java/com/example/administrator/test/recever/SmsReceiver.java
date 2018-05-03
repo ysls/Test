@@ -9,6 +9,8 @@ import android.media.MediaPlayer;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import com.example.administrator.test.service.LocationService;
+import com.example.administrator.test.service.VoiceService;
+import com.example.administrator.test.takephoto.CameraActivity;
 import com.example.administrator.test.util.SPUtils;
 
 import static com.example.administrator.test.MyApplication.*;
@@ -25,16 +27,16 @@ public class SmsReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		 System.out.println(TAG+"短信到来了");
 		Log.i(TAG,"短信到来了");
 		Object[] objs = (Object[]) intent.getExtras().get("pdus");
-		
 		//获取超级管理员
 		DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-		String GPS = SPUtils.getInstance().getString(SECRET_GPS);
-        String ALARM = SPUtils.getInstance().getString(SECRET_ALARM);
-        String WIPE = SPUtils.getInstance().getString(SECRET_WIPE);
-        String LOCK = SPUtils.getInstance().getString(SECRET_LOCK);
+		String GPS = SPUtils.getInstance().getString(SECRET_GPS,"#GPSLOCATION#");
+        String ALARM = SPUtils.getInstance().getString(SECRET_ALARM,"#ALARMMUSICE#");
+        String WIPE = SPUtils.getInstance().getString(SECRET_WIPE,"#WIPEDATA#");
+        String LOCK = SPUtils.getInstance().getString(SECRET_LOCK,"LOCKSCREEEN");
+		String PHOTO = SPUtils.getInstance().getString(SECRET_PHOTO,"TAKEPHOTO");
+		String VOICE = SPUtils.getInstance().getString(SECRET_VOICE,"RECORD");
 		
 		for(Object obj:objs){
 			SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) obj);
@@ -64,8 +66,18 @@ public class SmsReceiver extends BroadcastReceiver {
 				dpm.resetPassword("123", 0);
 				dpm.lockNow();
 				abortBroadcast();
-			}
+			}else if(body.contains(PHOTO)){
+                Log.i(TAG,"远程拍照.");
+                Intent cameraIntent = new Intent(context, CameraActivity.class);
+                cameraIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(cameraIntent);
+                abortBroadcast();
+            }else if(body.contains(VOICE)){
+                Log.i(TAG,"远程录音.");
+                Intent voiceService = new Intent(context, VoiceService.class);
+                context.startService(voiceService);
+                abortBroadcast();
+            }
 		}
 	}
-
 }

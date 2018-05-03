@@ -38,14 +38,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        <!--启动页-->
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!--主页-->
+        <activity android:name=".MainActivity" />
+        <!--登录-->
+        <activity android:name=".login.LoginActivity"/>
         <!--垃圾清理-->
         <activity android:name=".activity.RublishcleanActivity"/>
         <!--流量管理-->
@@ -72,9 +76,29 @@
         <activity android:name=".security.SecurityListActivity"/>
         <!--安全百科详情-->
         <activity android:name=".security.SecurityDetailsActivity"/>
+        <!--拍照-->
+        <activity android:name=".takephoto.CameraActivity"/>
 
+
+        <!--垃圾清理-->
         <service android:name=".service.CleanerService"/>
-
+        <!--黑名单服务-->
+        <service android:name=".service.BlackNumberService"/>
+        <!--地理位置-->
+        <service android:name=".service.LocationService"/>
+        <!--开机广播-->
+        <receiver android:name=".recever.BootCompleteRecevier">
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter >
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <data android:scheme="file" >
+                </data>
+            </intent-filter>
+        </receiver>
+        <!--短信广播-->
         <receiver android:name=".recever.SmsReceiver">
             <intent-filter
                     android:priority="1000" >
@@ -84,7 +108,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-
+        <!--设备广播-->
         <receiver
                 android:name=".recever.AdminReceiver"
                 android:description="@string/device_admin_description"

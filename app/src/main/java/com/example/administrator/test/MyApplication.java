@@ -1,7 +1,9 @@
 package com.example.administrator.test;
 
 import android.app.Application;
+import android.content.Intent;
 import android.telephony.TelephonyManager;
+import com.example.administrator.test.service.BlackNumberService;
 import com.example.administrator.test.util.SPUtils;
 
 
@@ -29,9 +31,16 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
+        initBlackNumberService();
     }
     public static MyApplication getApplication(){
         return application;
+    }
+
+    private void initBlackNumberService(){
+        Intent service = new Intent(this,
+                BlackNumberService.class);
+        startService(service);
     }
 
     private void correctSIM(){

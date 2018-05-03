@@ -119,7 +119,6 @@ public class AntiVirusActivity extends Activity {
                     child.setText(info.appname + ":" + info.desc);
                     break;
                 case SCAN_FINISH:
-
                     if (appvirus.size() > 0) {
                         tvScanStatus.setText("危险");
                         tvScanStatus.setTextColor(Color.RED);
@@ -209,8 +208,6 @@ public class AntiVirusActivity extends Activity {
                 handler.sendMessage(msg);
                 // 检查手机里面的每一个应用程序
                 List<PackageInfo> packInfos = pm.getInstalledPackages(0);
-                int max = packInfos.size();
-                double process = 0;
                 ScanInfo scanInfo = new ScanInfo();
                 scanInfo.process = 0;
                 for( int i = 0; i <packInfos.size();i++) {
@@ -235,8 +232,11 @@ public class AntiVirusActivity extends Activity {
 
                     scanInfo.packname = info.packageName;
                     scanInfo.appname = info.applicationInfo.loadLabel(pm).toString();
-//                    scanInfo.process++;
-                    scanInfo.process = i*100/packInfos.size();
+                    if (i == packInfos.size() - 1){
+                        scanInfo.process = 100;
+                    }else {
+                        scanInfo.process = i*100/packInfos.size();
+                    }
                     msg.obj = scanInfo;
                     handler.sendMessage(msg);
                     try {

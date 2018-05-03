@@ -50,17 +50,11 @@ public class TrafficManagerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic);
         ButterKnife.bind(this);
-
-        VpnService vpnService = new VpnService();
-
-        PackageManager pm = getPackageManager();
         receiver = new SmsReceiver();
         String action = "android.provider.Telephony.SMS_RECEIVED";
         IntentFilter filter = new IntentFilter(action);
         String broadcastPermission = "android.permission.READ_SMS";
         registerReceiver(receiver, filter, broadcastPermission, hander);
-
-
         //traffice_round.setDefaultStr(50+"/100M");
         //		traffice_round.set
         //rx receive 接收 下载
@@ -134,18 +128,11 @@ public class TrafficManagerActivity extends Activity {
                     List<TrafficMessage> traffentity = textFormater.formatTraffic(context);
                     TrafficMessageDao trafficMessageDao = new TrafficMessageDao(getApplicationContext());
                     trafficMessageDao.addMsg(traffentity);
-					
-				   /*for(TrafficMessage trafficMessage:traffentity){
-						trafficMessageDao.delete(trafficMessage.getTypeContext());
-					}*/
                     break;
-
                 default:
                     break;
             }
         }
-
-        ;
 
     };
 

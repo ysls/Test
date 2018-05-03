@@ -80,10 +80,12 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
     @Override
     protected void onResume() {
         super.onResume();
-        textGps.setText("GPS追踪:" + SPUtils.getInstance().getString(SECRET_GPS));
-        textMusic.setText("播放报警音乐:" + SPUtils.getInstance().getString(SECRET_ALARM));
-        textWipe.setText("远程删除数据:" + SPUtils.getInstance().getString(SECRET_WIPE));
-        textLock.setText("远程锁屏:" + SPUtils.getInstance().getString(SECRET_LOCK));
+        textGps.setText("GPS追踪:" + SPUtils.getInstance().getString(SECRET_GPS,"#GPSLOCATION#"));
+        textMusic.setText("播放报警音乐:" + SPUtils.getInstance().getString(SECRET_ALARM,"#ALARMMUSICE#"));
+        textWipe.setText("远程删除数据:" + SPUtils.getInstance().getString(SECRET_WIPE,"#WIPEDATA#"));
+        textLock.setText("远程锁屏:" + SPUtils.getInstance().getString(SECRET_LOCK,"LOCKSCREEEN"));
+        textPhoto.setText("远程拍照:" + SPUtils.getInstance().getString(SECRET_PHOTO,"TAKEPHOTO"));
+        textVoice.setText("远程录音:" + SPUtils.getInstance().getString(SECRET_VOICE,"RECORD"));
     }
 
     @OnClick(R.id.tv_reset)
@@ -92,7 +94,7 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
         finish();
     }
 
-    @OnClick({R.id.text_gps, R.id.text_music, R.id.text_wipe, R.id.text_lock})
+    @OnClick({R.id.text_gps, R.id.text_music, R.id.text_wipe, R.id.text_lock,R.id.text_voice,R.id.text_photo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_gps:

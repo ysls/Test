@@ -56,9 +56,7 @@ public class TrafficAppAdapter extends BaseAdapter {
 			holder.app_name=(TextView) view.findViewById(R.id.app_name);
 			holder.app_name.setText(appinfos.get(position).getName());
 			holder.app_image=(ImageView) view.findViewById(R.id.app_image);
-			holder.app_image.setBackgroundDrawable(appinfos.get(position).getIcon());
-			holder.spinner=(Spinner) view.findViewById(R.id.spinner1);
-//			holder.spinner.setAdapter(new SpinnerAdapter(context));
+			holder.app_image.setImageDrawable(appinfos.get(position).getIcon());
 			holder.gprs=(TextView) view.findViewById(R.id.gprs);
 			System.out.println("uid="+appinfos.get(position).getUid());
 			long l= TrafficStats.getUidRxBytes(appinfos.get(position).getUid())+ TrafficStats.getUidTxBytes(appinfos.get(position).getUid());
@@ -72,46 +70,6 @@ public class TrafficAppAdapter extends BaseAdapter {
 	static class ViewHolder{
 		ImageView app_image;
 		TextView app_name,gprs;
-		Spinner spinner;
 		
 	}
-	
-//	List<String> list=new ArrayList<String>();
-//	class SpinnerAdapter extends BaseAdapter {
-//		Context context;
-//		public SpinnerAdapter(Context context) {
-//			list.clear();
-//			list.add("����");
-//			list.add("��ֹ");
-//			list.add("����̨");
-//             this.context=context;
-//		}
-//
-//		@Override
-//		public int getCount() {
-//			return list.size();
-//		}
-//
-//		@Override
-//		public Object getItem(int position) {
-//			return list.get(position);
-//		}
-//
-//		@Override
-//		public long getItemId(int position) {
-//			return 0;
-//		}
-//
-//		@Override
-//		public View getView(int position, View convertView, ViewGroup parent) {
-//			      View view=null;
-//			      if(view==null){
-//			    	  view= LayoutInflater.from(context).inflate(R.layout.popup_item, null);
-//			           TextView action= (TextView) view.findViewById(R.id.action);
-//			             action.setText(list.get(position));
-//			      }
-//			return view;
-//		}
-//
-//	}
 }

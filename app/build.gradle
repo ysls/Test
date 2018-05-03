@@ -3,7 +3,6 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
-//    android {compileOptions.encoding = "GBK"}
     defaultConfig {
         applicationId "com.example.administrator.test"
         minSdkVersion 19
@@ -31,5 +30,12 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    //rxjava + retrofit
+    compile "io.reactivex.rxjava2:rxjava:2.1.5"
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
 }

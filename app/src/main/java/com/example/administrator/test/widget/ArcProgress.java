@@ -180,10 +180,7 @@ public class ArcProgress extends View {
 
 	public void setProgress(float progress) {
 		this.progress = progress;
-		/*if (this.progress > getMax()) {
-			this.progress %= getMax();
-		}*/
-		//invalidate();
+//		invalidate();
 	}
 
 	public int getMax() {
@@ -308,7 +305,7 @@ public class ArcProgress extends View {
 			text=text.substring(0, 5);
 		}
 		if(text.equals("0.0")){
-			text="���";
+			text="暂无垃圾";
 		}
 		if (!TextUtils.isEmpty(text)) {
 			textPaint.setColor(textColor);

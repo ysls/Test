@@ -47,8 +47,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
     protected Context mContext;
     private static final int INITIAL_DELAY_MILLIS = 300;
     Resources res;
-    int ptotal = 0;
-    int pprocess = 0;
 
     @BindView(R.id.rubbish_capacity)
     TextView rubbishCapacity;
@@ -149,7 +147,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -207,9 +204,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
 
     @Override
     public void onCleanCompleted(Context context, long cacheSize) {
-        //  dismissDialogLoading();
-//        Toast.makeText(context, context.getString(R.string.cleaned, Formatter.formatShortFileSize(
-//                mContext, cacheSize)), Toast.LENGTH_LONG).show();
         mCacheListItem.clear();
         rublishMemoryAdapter.notifyDataSetChanged();
     }
