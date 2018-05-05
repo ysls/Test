@@ -5,18 +5,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
+import com.example.administrator.test.network.RetrofitServiceManager;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class SecurityListActivity extends BaseActivity {
     @BindView(R.id.lv_list)
     ListView lvList;
     SecurityListAdapter adapter;
-    ArrayList<NewsBean.ArticleListBean> arrayList;
+    List<NewsBean.ArticleListBean> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +36,7 @@ public class SecurityListActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        arrayList = new ArrayList<>();
-        for (int i = 0; i < 3; i++){
-            NewsBean.ArticleListBean bean = new NewsBean.ArticleListBean();
-            bean.setTitle("看完这篇文章 你还敢不重视智能手机的安全么?"+i);
-            bean.setUrl("http://101.132.151.168:8080/PhoneSafe/showArticle?tid=20044");
-            arrayList.add(bean);
-        }
 
-        adapter = new SecurityListAdapter(this,arrayList);
-        lvList.setAdapter(adapter);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,5 +45,28 @@ public class SecurityListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        RetrofitServiceManager.getService()
+                .getArticle()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<NewsBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(NewsBean newsBean) {
+                        arrayList = newsBean.getArticleList();
+                        adapter = new SecurityListAdapter(mContext,newsBean.getArticleList());
+                        lvList.setAdapter(adapter);
+                    }
+                });
     }
 }

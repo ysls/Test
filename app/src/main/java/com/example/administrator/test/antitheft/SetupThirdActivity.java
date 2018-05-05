@@ -12,11 +12,18 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
+
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
+import com.example.administrator.test.login.CodeBean;
+import com.example.administrator.test.network.RetrofitServiceManager;
+import com.example.administrator.test.util.NetWorkUtil;
 import com.example.administrator.test.util.SPUtils;
 
 import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
+import static com.example.administrator.test.MyApplication.TOKEN;
 
 
 /**
@@ -73,14 +80,41 @@ public class SetupThirdActivity extends BaseActivity {
     protected void nextPage() {
         mPhoneNumber = etNumber.getText().toString();
         if (!TextUtils.isEmpty(mPhoneNumber)) {
+
+            if (!NetWorkUtil.isConnected()){
+                Toast.makeText(this,"无网络连接...",0).show();
+                return;
+            }
             //保存安全号码
             SPUtils.getInstance().put(PREF_PHONE_NUMBER,mPhoneNumber);
+            RetrofitServiceManager.getService().setSafeNum(SPUtils.getInstance().getString(TOKEN),mPhoneNumber)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .subscribe(new Subscriber<CodeBean>() {
+                        @Override
+                        public void onCompleted() {
 
-            SetupFourActivity.startAct(this);
-            finish();
-            // activity切换动画
-            overridePendingTransition(R.anim.anim_next_in,
-                    R.anim.anim_next_out);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(CodeBean codeBean) {
+                                if (codeBean.getFlag() == 1){
+                                    SetupFourActivity.startAct(mContext);
+                                    finish();
+                                    // activity切换动画
+                                    overridePendingTransition(R.anim.anim_next_in,
+                                            R.anim.anim_next_out);
+                                }else {
+                                    Toast.makeText(this,"安全手机号上传失败",0).show();
+                                }
+                        }
+                    });
+
         } else {
             Toast.makeText(this,"安全手机号不能为空",0).show();
         }

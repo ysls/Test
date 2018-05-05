@@ -3,7 +3,6 @@ package com.example.administrator.test.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,17 +10,25 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.util.Log;
 
+import com.example.administrator.test.login.CodeBean;
+import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.util.SPUtils;
 
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
+import static com.example.administrator.test.MyApplication.TOKEN;
 
 /**
  * 地理位置服务
  * @author 文江
  *
  */
-public class LocationService extends Service {
+public class AllLocationService extends Service {
 	private LocationManager lm;
 	private MyListener listener;
 
@@ -50,19 +57,25 @@ public class LocationService extends Service {
 
 		@Override
 		public void onLocationChanged(Location location) {
-			StringBuilder sb = new StringBuilder();
-			System.out.println("精确度："+location.getAccuracy());
-			System.out.println("移动的速度："+location.getSpeed());
-			System.out.println("纬度："+location.getLatitude());
-			System.out.println("经度："+location.getLongitude());
-			System.out.println("海拔："+location.getAltitude());
-			sb.append("精确度:"+location.getAccuracy()+"\n");
-			sb.append("移动的速度:"+location.getSpeed()+"\n");
-			sb.append("经度:"+location.getLatitude()+"\n");
-			sb.append("纬度:"+location.getLongitude()+"\n");
-			String result = sb.toString();
-			SmsManager.getDefault().sendTextMessage(SPUtils.getInstance().getString(PREF_PHONE_NUMBER), null, result, null, null);
-			stopSelf();
+			RetrofitServiceManager.getService().setPosition(SPUtils.getInstance().getString(TOKEN),location.getLatitude()+","+location.getLongitude())
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(new Subscriber<CodeBean>() {
+						@Override
+						public void onCompleted() {
+
+						}
+
+						@Override
+						public void onError(Throwable e) {
+
+						}
+
+						@Override
+						public void onNext(CodeBean codeBean) {
+							Log.e("Position: ", codeBean.getMsg());
+						}
+					});
 		}
 		//当位置提供者 状态发生变化的时候调用的方法。
 		@Override

@@ -8,12 +8,13 @@ import android.widget.TextView;
 import com.example.administrator.test.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SecurityListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<NewsBean.ArticleListBean> mList;
-    public SecurityListAdapter(Context context, ArrayList<NewsBean.ArticleListBean> listBeans){
+    private List<NewsBean.ArticleListBean> mList;
+    public SecurityListAdapter(Context context, List<NewsBean.ArticleListBean> listBeans){
         mContext = context;
         mList = listBeans;
     }

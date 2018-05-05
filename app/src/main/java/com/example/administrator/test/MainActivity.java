@@ -9,12 +9,18 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
+
 import com.example.administrator.test.activity.RublishcleanActivity;
 import com.example.administrator.test.adapter.HomeAdapter;
 import com.example.administrator.test.antitheft.AntiTheftActivity;
 import com.example.administrator.test.backup.BackUpPhoneActivity;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.blacknumber.BlackNumberActivity;
+import com.example.administrator.test.model.PhoneCodeBean;
+import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.security.SecurityListActivity;
 import com.example.administrator.test.trafficmanager.TrafficManagerActivity;
 import com.example.administrator.test.util.Md5Utils;
@@ -22,6 +28,8 @@ import com.example.administrator.test.util.SPUtils;
 import com.example.administrator.test.virus.AntiVirusActivity;
 
 import static com.example.administrator.test.MyApplication.PREF_PASSWORD;
+import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
+import static com.example.administrator.test.MyApplication.TOKEN;
 
 public class MainActivity extends BaseActivity {
 
@@ -40,6 +48,30 @@ public class MainActivity extends BaseActivity {
         setMyTitle("PuppyPhone");
         hideTitleNavigationButton();
         initView();
+        initData();
+    }
+
+    private void initData() {
+        RetrofitServiceManager.getService()
+                .getSafeNum(SPUtils.getInstance().getString(TOKEN))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<PhoneCodeBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(PhoneCodeBean phoneCodeBean) {
+                        SPUtils.getInstance().put(PREF_PHONE_NUMBER,phoneCodeBean.getSafe_num());
+                    }
+                });
     }
 
     @Override

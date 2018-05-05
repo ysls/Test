@@ -1,9 +1,6 @@
 package com.example.administrator.test.takephoto;
 
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
 import android.app.Activity;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
@@ -15,7 +12,25 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+
 import com.example.administrator.test.R;
+import com.example.administrator.test.login.CodeBean;
+import com.example.administrator.test.network.RetrofitServiceManager;
+import com.example.administrator.test.util.SPUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+import static com.example.administrator.test.MyApplication.TOKEN;
 
 public class CameraActivity extends Activity {
 	private SurfaceView mySurfaceView;
@@ -84,9 +99,32 @@ public class CameraActivity extends Activity {
 		public void onPictureTaken(byte[] data, Camera camera) {
 
 			try {
-				String path = Environment.getExternalStorageDirectory() + "/"+new Date().getTime()+".jpg";
+				String path = Environment.getExternalStorageDirectory() + "/"+System.currentTimeMillis()+".jpg";
 				data2file(data, path);
-				Log.e("onPictureTaken: ", "picture:" + path);
+				File photo = new File(path);
+				RequestBody requestFile =
+						RequestBody.create(MediaType.parse("multipart/form-data"), photo);
+				MultipartBody.Part body =
+						MultipartBody.Part.createFormData("upload", photo.getName(), requestFile);
+				RetrofitServiceManager.getService().fileupload(SPUtils.getInstance().getString(TOKEN),body)
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Subscriber<CodeBean>() {
+							@Override
+							public void onCompleted() {
+
+							}
+
+							@Override
+							public void onError(Throwable e) {
+								e.printStackTrace();
+							}
+
+							@Override
+							public void onNext(CodeBean codeBean) {
+								Log.e("photo: ", codeBean.getMsg());
+							}
+						});
 				// TODO: 2018/5/3 上传图片
 				//把图片上传到服务器
 //				NewsUtils.upImage(path, getApplicationContext());
