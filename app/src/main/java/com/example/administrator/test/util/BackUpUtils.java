@@ -10,7 +10,10 @@ public class BackUpUtils {
     public static void upload(Context context ,BackUpCallback callback){
         ArrayList<HashMap<String,String>> arrayList = ContactsUtil.readContacts(context);
         callback.preSmsBackup(arrayList.size());
-        int progress = 0;
+        int progress = 1;
+        if (arrayList.size() == 0){
+            return;
+        }
         for (HashMap<String,String> hash:arrayList) {
             progress++;
             callback.onSmsBackup(progress);
@@ -24,7 +27,7 @@ public class BackUpUtils {
     }
 
     public static void download(Context context,BackUpCallback callback){
-        int progress = 0;
+        int progress = 1;
         callback.preSmsBackup(5);
         for (int i = 0; i < 5; i++) {
             ContactsUtil.addContact(context,"aa"+i,"18428326467");

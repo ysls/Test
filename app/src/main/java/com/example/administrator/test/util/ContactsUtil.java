@@ -90,7 +90,6 @@ public class ContactsUtil {
         // 向联系人Email URI添加Email数据
         context.getContentResolver().insert(Data.CONTENT_URI, values);
 
-        Toast.makeText(context, "联系人数据添加成功", Toast.LENGTH_SHORT).show();
     }
 
 }

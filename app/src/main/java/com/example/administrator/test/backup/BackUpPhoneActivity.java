@@ -1,6 +1,7 @@
 package com.example.administrator.test.backup;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.Bac
         dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setCancelable(false);
+
     }
 
     @OnClick({R.id.text_first, R.id.text_second})
@@ -58,11 +60,21 @@ public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.Bac
 
     @Override
     public void preSmsBackup(int totalCount) {
+        if (totalCount == 0){
+            dialog.dismiss();
+            showToast("通讯录无联系人");
+            return;
+        }
         dialog.setMax(totalCount);
     }
 
     @Override
     public void onSmsBackup(int progress) {
         dialog.setProgress(progress);
+        if (dialog.getMax() == progress){
+            dialog.dismiss();
+            dialog.setProgress(0);
+            dialog.setMax(0);
+        }
     }
 }

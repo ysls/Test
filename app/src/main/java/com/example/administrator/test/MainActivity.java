@@ -9,6 +9,7 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.example.administrator.test.takephoto.CameraActivity;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -111,7 +112,7 @@ public class MainActivity extends BaseActivity {
                             startActivity(BackUpPhoneActivity.class);
                             break;
                         case 7://软件说明
-
+                            startActivity(CameraActivity.class);
                             break;
                         case 8://退出登录
                             break;

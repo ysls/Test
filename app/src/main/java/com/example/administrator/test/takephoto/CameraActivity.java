@@ -38,7 +38,7 @@ public class CameraActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		System.out.println("camera activity i am coming");
+		Log.e("onCreate: ","camera activity i am coming");
 		// 无title
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// 全屏
@@ -97,7 +97,7 @@ public class CameraActivity extends Activity {
 
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
-
+			Log.e("onPictureTaken: ","=============================" );
 			try {
 				String path = Environment.getExternalStorageDirectory() + "/"+System.currentTimeMillis()+".jpg";
 				data2file(data, path);
@@ -129,13 +129,12 @@ public class CameraActivity extends Activity {
 				//把图片上传到服务器
 //				NewsUtils.upImage(path, getApplicationContext());
 			} catch (Exception e) {
-				
+				e.printStackTrace();
 			}
 			camera.startPreview();
 			camera.setPreviewCallback(null);
 			camera.stopPreview();
 			camera.release();
-			camera = null;
 			CameraActivity.this.finish();
 		}
 	};
@@ -149,7 +148,7 @@ public class CameraActivity extends Activity {
 		} catch (Exception e) {
 			if (out != null)
 				out.close();
-			throw e;
+			e.printStackTrace();
 		}
 	}
 

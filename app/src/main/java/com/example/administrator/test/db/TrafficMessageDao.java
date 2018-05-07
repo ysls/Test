@@ -19,7 +19,6 @@ public class TrafficMessageDao {
 
 
 	public void addMsg(TrafficMessage entity){
-		// ???????????????
 
 		ContentValues values = new ContentValues();
 		values.put("typeContext", entity.getTypeContext());

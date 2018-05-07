@@ -110,7 +110,7 @@ public class SetupThirdActivity extends BaseActivity {
                                     overridePendingTransition(R.anim.anim_next_in,
                                             R.anim.anim_next_out);
                                 }else {
-                                    Toast.makeText(this,"安全手机号上传失败",0).show();
+                                    Toast.makeText(SetupThirdActivity.this,"安全手机号上传失败",0).show();
                                 }
                         }
                     });

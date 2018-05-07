@@ -81,9 +81,6 @@ public class TrafficManagerActivity extends Activity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo netinfor = cm.getActiveNetworkInfo();
         TrafficMessageDao trafficMessageDao = new TrafficMessageDao(this);
-        /*	if(netinfor!=null){
-            System.out.println(netinfor.getTypeName());
-		}*/
         List<TrafficMessage> all = trafficMessageDao.getTrafficMessageAll();
         double alltraffic = 0;
         double used = 0;
