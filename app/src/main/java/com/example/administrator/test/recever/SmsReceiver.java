@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.telephony.SmsMessage;
 import android.util.Log;
+
+import com.example.administrator.test.R;
 import com.example.administrator.test.service.LocationService;
 import com.example.administrator.test.service.VoiceService;
 import com.example.administrator.test.takephoto.CameraActivity;
@@ -34,16 +36,19 @@ public class SmsReceiver extends BroadcastReceiver {
 		String GPS = SPUtils.getInstance().getString(SECRET_GPS,"#GPSLOCATION#");
         String ALARM = SPUtils.getInstance().getString(SECRET_ALARM,"#ALARMMUSICE#");
         String WIPE = SPUtils.getInstance().getString(SECRET_WIPE,"#WIPEDATA#");
-        String LOCK = SPUtils.getInstance().getString(SECRET_LOCK,"LOCKSCREEEN");
-		String PHOTO = SPUtils.getInstance().getString(SECRET_PHOTO,"TAKEPHOTO");
-		String VOICE = SPUtils.getInstance().getString(SECRET_VOICE,"RECORD");
+        String LOCK = SPUtils.getInstance().getString(SECRET_LOCK,"#LOCKSCREEEN#");
+		String PHOTO = SPUtils.getInstance().getString(SECRET_PHOTO,"#TAKEPHOTO#");
+		String VOICE = SPUtils.getInstance().getString(SECRET_VOICE,"#RECORD#");
 		
 		for(Object obj:objs){
 			SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) obj);
-			String sender = smsMessage.getOriginatingAddress();
+			String sender = smsMessage.getOriginatingAddress().substring(3);
 			String body = smsMessage.getMessageBody();
+			Log.i(TAG,body);
+            Log.i(TAG,sender);
 			if (!sender.equals(SPUtils.getInstance().getString(PREF_PHONE_NUMBER)) || !SPUtils.getInstance().getBoolean(PREF_IS_PROTECT)){
-			    return;
+                Log.i(TAG,SPUtils.getInstance().getString(PREF_PHONE_NUMBER)+" "+SPUtils.getInstance().getBoolean(PREF_IS_PROTECT));
+				return;
             }
 			if(body.contains(GPS)){
 				Log.i(TAG,"返回位置信息.");
@@ -53,7 +58,7 @@ public class SmsReceiver extends BroadcastReceiver {
 				abortBroadcast();
 			}else if(body.contains(ALARM)){
 				Log.i(TAG,"播放报警音乐.");
-				MediaPlayer player = MediaPlayer.create(context, null);
+				MediaPlayer player = MediaPlayer.create(context, R.raw.music);
 				player.setVolume(1.0f, 1.0f);
 				player.start();
 				abortBroadcast();
@@ -63,8 +68,13 @@ public class SmsReceiver extends BroadcastReceiver {
 				abortBroadcast();
 			}else if(body.contains(LOCK)){
 				Log.i(TAG,"远程锁屏.");
-				dpm.resetPassword("123", 0);
-				dpm.lockNow();
+				try{
+                    dpm.resetPassword("1111", 0);
+                    dpm.lockNow();
+                }catch (SecurityException e){
+                    Log.i("onReceive: ",e.getMessage());
+                }
+
 				abortBroadcast();
 			}else if(body.contains(PHOTO)){
                 Log.i(TAG,"远程拍照.");

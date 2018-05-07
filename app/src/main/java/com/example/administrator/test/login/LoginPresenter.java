@@ -3,13 +3,13 @@ package com.example.administrator.test.login;
 import android.app.Activity;
 import android.util.Log;
 
+import com.example.administrator.test.network.RetrofitServiceManager;
+import com.example.administrator.test.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.example.administrator.test.network.RetrofitServiceManager;
-import com.example.administrator.test.util.ToastUtils;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -104,6 +104,7 @@ public class LoginPresenter implements ILoginContract.ILoginPrestener {
 
                     @Override
                     public void onNext(LoginBean loginBean) {
+                        Log.i("TOKEN", loginBean.getToken());
                         if (loginBean.getFlag() == 1) {
                             mLoginView.loginSucceed(loginBean);
                         } else {

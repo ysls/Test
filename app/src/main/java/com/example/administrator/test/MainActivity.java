@@ -4,15 +4,13 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import com.example.administrator.test.takephoto.CameraActivity;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.administrator.test.activity.RublishcleanActivity;
 import com.example.administrator.test.adapter.HomeAdapter;
@@ -23,10 +21,16 @@ import com.example.administrator.test.blacknumber.BlackNumberActivity;
 import com.example.administrator.test.model.PhoneCodeBean;
 import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.security.SecurityListActivity;
+import com.example.administrator.test.takephoto.CameraActivity;
 import com.example.administrator.test.trafficmanager.TrafficManagerActivity;
 import com.example.administrator.test.util.Md5Utils;
 import com.example.administrator.test.util.SPUtils;
 import com.example.administrator.test.virus.AntiVirusActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 import static com.example.administrator.test.MyApplication.PREF_PASSWORD;
 import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
@@ -53,6 +57,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
+        Log.i("TOKEN", SPUtils.getInstance().getString(TOKEN));
         RetrofitServiceManager.getService()
                 .getSafeNum(SPUtils.getInstance().getString(TOKEN))
                 .subscribeOn(Schedulers.io())
@@ -65,7 +70,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -115,6 +120,12 @@ public class MainActivity extends BaseActivity {
                             startActivity(CameraActivity.class);
                             break;
                         case 8://退出登录
+//                            try{
+//                                mDPM.resetPassword("1111", 0);
+//                                mDPM.lockNow();
+//                            }catch (SecurityException e){
+//                                Log.i("onReceive: ",e.getMessage());
+//                            }
                             break;
                             default:
                     }

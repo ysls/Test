@@ -70,6 +70,9 @@ public class BaseActivity extends AppCompatActivity {
         mDPM = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
         // 初始化管理员组件
         mDeviceComponentName = new ComponentName(this, AdminReceiver.class);
+        if (!mDPM.isAdminActive(mDeviceComponentName)) {
+            activeAdmin();
+        }
     }
 
     @Override

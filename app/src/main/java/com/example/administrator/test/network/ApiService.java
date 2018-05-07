@@ -74,7 +74,7 @@ public interface ApiService {
      * @param token
      * @return
      */
-    @POST("SetSafeNum")
+    @POST("GetSafeNum")
     @FormUrlEncoded
     Observable<PhoneCodeBean> getSafeNum(@Field("token") String token);
 

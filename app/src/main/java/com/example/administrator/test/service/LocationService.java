@@ -3,7 +3,6 @@ package com.example.administrator.test.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -32,7 +31,7 @@ public class LocationService extends Service {
 
 	@Override
 	public void onCreate() {
-		
+		super.onCreate();
 		lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 		listener = new MyListener();
 		//criteria 查询条件
@@ -40,10 +39,10 @@ public class LocationService extends Service {
 		Criteria criteria = new Criteria();
 		criteria.setAccuracy(Criteria.ACCURACY_FINE);//获取准确的位置。
 		criteria.setCostAllowed(true);//允许产生开销
-		String name = lm.getBestProvider(criteria, true);
+//		String name = lm.getBestProvider(criteria, true);
+		String name = LocationManager.NETWORK_PROVIDER;
 		System.out.println("最好的位置提供者："+name);
-		lm.requestLocationUpdates(name, 10*1000, 0, listener);
-		super.onCreate();
+		lm.requestLocationUpdates(name, 1000, 10, listener);
 	}
 	
 	private class MyListener implements LocationListener {
