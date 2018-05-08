@@ -7,6 +7,7 @@ import com.example.administrator.test.model.PhoneCodeBean;
 import com.example.administrator.test.security.NewsBean;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -86,6 +87,6 @@ public interface ApiService {
      */
     @Multipart
     @POST("fileupload")
-    Observable<CodeBean> fileupload(@Query("token") String token, @Part MultipartBody.Part photo);
+    Observable<ResponseBody> fileupload(@Query("token") String token, @Part MultipartBody.Part photo);
 
 }

@@ -21,6 +21,7 @@ import com.example.administrator.test.blacknumber.BlackNumberActivity;
 import com.example.administrator.test.model.PhoneCodeBean;
 import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.security.SecurityListActivity;
+import com.example.administrator.test.service.LocationService;
 import com.example.administrator.test.takephoto.CameraActivity;
 import com.example.administrator.test.trafficmanager.TrafficManagerActivity;
 import com.example.administrator.test.util.Md5Utils;
@@ -120,12 +121,8 @@ public class MainActivity extends BaseActivity {
                             startActivity(CameraActivity.class);
                             break;
                         case 8://退出登录
-                            try{
-                                mDPM.resetPassword("1111", 0);
-                                mDPM.lockNow();
-                            }catch (SecurityException e){
-                                Log.i("onReceive: ",e.getMessage());
-                            }
+                            Intent intent = new Intent(mContext,LocationService.class);
+                        startService(intent);
                             break;
                             default:
                     }

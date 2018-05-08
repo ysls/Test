@@ -12,20 +12,20 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.login.CodeBean;
 import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.util.SPUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -35,6 +35,7 @@ import static com.example.administrator.test.MyApplication.TOKEN;
 public class CameraActivity extends Activity {
 	private SurfaceView mySurfaceView;
 	private SurfaceHolder myHolder;
+	ImageView imageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class CameraActivity extends Activity {
 		setContentView(R.layout.activity_camera);
 
 		mySurfaceView = (SurfaceView) findViewById(R.id.camera_surfaceview);
+        imageView = (ImageView) findViewById(R.id.imageView);
 		myHolder = mySurfaceView.getHolder();
 		myHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
@@ -97,19 +99,21 @@ public class CameraActivity extends Activity {
 
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
-			Log.e("onPictureTaken: ","=============================" );
+			Log.e("onPictureTaken: ",data.length+"=============================" );
+
 			try {
 				String path = Environment.getExternalStorageDirectory() + "/"+System.currentTimeMillis()+".jpg";
 				data2file(data, path);
 				File photo = new File(path);
+
 				RequestBody requestFile =
-						RequestBody.create(MediaType.parse("multipart/form-data"), photo);
+						RequestBody.create(MediaType.parse("image/jpeg"), photo);
 				MultipartBody.Part body =
-						MultipartBody.Part.createFormData("upload", photo.getName(), requestFile);
+						MultipartBody.Part.createFormData("upload", photo.getName()+".jpg", requestFile);
 				RetrofitServiceManager.getService().fileupload(SPUtils.getInstance().getString(TOKEN),body)
 						.subscribeOn(Schedulers.io())
 						.observeOn(AndroidSchedulers.mainThread())
-						.subscribe(new Subscriber<CodeBean>() {
+						.subscribe(new Subscriber<ResponseBody>() {
 							@Override
 							public void onCompleted() {
 
@@ -121,9 +125,13 @@ public class CameraActivity extends Activity {
 							}
 
 							@Override
-							public void onNext(CodeBean codeBean) {
-								Log.e("photo: ", codeBean.getFlag()+"");
-							}
+							public void onNext(ResponseBody codeBean) {
+                                try {
+                                    Log.e("photo: ", codeBean.string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 						});
 				// TODO: 2018/5/3 上传图片
 				//把图片上传到服务器

@@ -2,15 +2,17 @@ package com.example.administrator.test.service;
 
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.text.TextUtils;
+import android.util.Log;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.example.administrator.test.util.SPUtils;
 
 import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
@@ -21,9 +23,9 @@ import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
  *
  */
 public class LocationService extends Service {
-	private LocationManager lm;
-	private MyListener listener;
-
+	public LocationClient mLocationClient = null;
+	public BDAbstractLocationListener myListener = new MyLocationListener();
+	Context context;
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -32,60 +34,69 @@ public class LocationService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-		listener = new MyListener();
-		//criteria 查询条件
-		//true只返回可用的位置提供者 
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);//获取准确的位置。
-		criteria.setCostAllowed(true);//允许产生开销
-//		String name = lm.getBestProvider(criteria, true);
-		String name = LocationManager.NETWORK_PROVIDER;
-		System.out.println("最好的位置提供者："+name);
-		lm.requestLocationUpdates(name, 1000, 10, listener);
-	}
-	
-	private class MyListener implements LocationListener {
+		System.out.println("GPS我进来啦。。");
+		//定位
+		location();
 
-		@Override
-		public void onLocationChanged(Location location) {
-			StringBuilder sb = new StringBuilder();
-			System.out.println("精确度："+location.getAccuracy());
-			System.out.println("移动的速度："+location.getSpeed());
-			System.out.println("纬度："+location.getLatitude());
-			System.out.println("经度："+location.getLongitude());
-			System.out.println("海拔："+location.getAltitude());
-			sb.append("精确度:"+location.getAccuracy()+"\n");
-			sb.append("移动的速度:"+location.getSpeed()+"\n");
-			sb.append("经度:"+location.getLatitude()+"\n");
-			sb.append("纬度:"+location.getLongitude()+"\n");
-			String result = sb.toString();
-			SmsManager.getDefault().sendTextMessage(SPUtils.getInstance().getString(PREF_PHONE_NUMBER), null, result, null, null);
-			stopSelf();
-		}
-		//当位置提供者 状态发生变化的时候调用的方法。
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-			
-		}
-		//当某个位置提供者 可用的时候调用的方法。
-		@Override
-		public void onProviderEnabled(String provider) {
-			
-		}
-		//当某个位置提供者 不可用的时候调用的方法。
-		@Override
-		public void onProviderDisabled(String provider) {
-			
-		}
-		
 	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		lm.removeUpdates(listener);
-		listener = null;
+
+	public void location() {
+		mLocationClient = new LocationClient(this);
+		// 声明LocationClient类
+		mLocationClient.registerLocationListener(myListener);
+		// 注册监听函数
+		// 设置定位条件
+
+		LocationClientOption option = new LocationClientOption();
+		option.setOpenGps(true); // 是否打开GPS
+		option.setCoorType("bd09ll"); // 设置返回值的坐标类型。
+        option.setScanSpan(1000);
+//		option.setPriority(LocationClientOption.NetWorkFirst); // 设置定位优先级
+		option.setIsNeedAddress(true);
+		option.setNeedDeviceDirect(true);
+//        option.setAddrType("all");
+		option.setLocationMode(com.baidu.location.LocationClientOption.LocationMode.Hight_Accuracy);
+//		option.setProdName(getPackageName());
+
+		mLocationClient.setLocOption(option);
+		mLocationClient.start();
 	}
+
+
+    public class MyLocationListener extends BDAbstractLocationListener {
+
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取经纬度相关（常用）的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            double latitude = location.getLatitude();    //获取纬度信息
+            double longitude = location.getLongitude();    //获取经度信息
+            float radius = location.getRadius();    //获取定位精度，默认值为0.0f
+
+            String coorType = location.getCoorType();
+            //获取经纬度坐标类型，以LocationClientOption中设置过的坐标类型为准
+
+            int errorCode = location.getLocType();
+            //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
+            Log.i("onReceiveLocation: " ,latitude + "   " + longitude);
+            StringBuilder builder = new StringBuilder("");
+            builder.append(location.getTime()).append(",经度：").append(longitude)
+                    .append(",纬度：").append(latitude)
+                    .append(",地址：").append(location.getAddrStr());
+            String all = builder.toString();
+            Log.i("onReceiveLocation: ",all);
+            SmsManager sm = SmsManager.getDefault();
+
+            String phone = SPUtils.getInstance().getString(PREF_PHONE_NUMBER);
+            if (!TextUtils.isEmpty(phone)) {
+                sm.sendTextMessage(phone, null, all, null, null);
+            }
+        }
+
+
+    }
 
 }

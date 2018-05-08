@@ -29,6 +29,7 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile files('libs/BaiduLBS_Android.jar')
     //rxjava + retrofit
     compile "io.reactivex.rxjava2:rxjava:2.1.5"
     compile 'io.reactivex:rxandroid:1.2.1'
