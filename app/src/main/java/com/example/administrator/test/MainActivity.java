@@ -120,12 +120,12 @@ public class MainActivity extends BaseActivity {
                             startActivity(CameraActivity.class);
                             break;
                         case 8://退出登录
-//                            try{
-//                                mDPM.resetPassword("1111", 0);
-//                                mDPM.lockNow();
-//                            }catch (SecurityException e){
-//                                Log.i("onReceive: ",e.getMessage());
-//                            }
+                            try{
+                                mDPM.resetPassword("1111", 0);
+                                mDPM.lockNow();
+                            }catch (SecurityException e){
+                                Log.i("onReceive: ",e.getMessage());
+                            }
                             break;
                             default:
                     }

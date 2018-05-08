@@ -26,6 +26,8 @@ public class MyApplication extends Application {
     public static final String SECRET_LOCK = "lock";
     public static final String SECRET_VOICE = "voice";
     public static final String SECRET_PHOTO = "photo";
+    //流量
+    public static final String PRE_TRAFFIC = "traffic";
 
     @Override
     public void onCreate() {

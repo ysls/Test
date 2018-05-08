@@ -122,7 +122,7 @@ public class CameraActivity extends Activity {
 
 							@Override
 							public void onNext(CodeBean codeBean) {
-								Log.e("photo: ", codeBean.getMsg());
+								Log.e("photo: ", codeBean.getFlag()+"");
 							}
 						});
 				// TODO: 2018/5/3 上传图片

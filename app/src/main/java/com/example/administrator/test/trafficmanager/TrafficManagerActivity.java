@@ -21,13 +21,13 @@ import com.example.administrator.test.model.AppInfo;
 import com.example.administrator.test.model.StorageSize;
 import com.example.administrator.test.model.TrafficMessage;
 import com.example.administrator.test.recever.SmsReceiver;
-import com.example.administrator.test.util.AppUtil;
-import com.example.administrator.test.util.SmsUtils;
-import com.example.administrator.test.util.StorageUtil;
-import com.example.administrator.test.util.TextFormater;
+import com.example.administrator.test.util.*;
 import com.example.administrator.test.widget.ArcProgress;
 
+import java.text.NumberFormat;
 import java.util.List;
+
+import static com.example.administrator.test.MyApplication.PRE_TRAFFIC;
 
 
 public class TrafficManagerActivity extends Activity {
@@ -45,6 +45,10 @@ public class TrafficManagerActivity extends Activity {
     TextView traffCorrect;
 
     SmsReceiver receiver;
+
+    Long total = 0L;
+    long used = 0L;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,45 +59,32 @@ public class TrafficManagerActivity extends Activity {
         IntentFilter filter = new IntentFilter(action);
         String broadcastPermission = "android.permission.READ_SMS";
         registerReceiver(receiver, filter, broadcastPermission, hander);
-        //traffice_round.setDefaultStr(50+"/100M");
-        //		traffice_round.set
-        //rx receive 接收 下载
-        //手机的2g/3g/4g 产生流量
-        long mobileRx = TrafficStats.getMobileRxBytes();//接收
-        //transfer 发送  上传
-        StorageSize storageSize = StorageUtil.convertStorageSize(mobileRx);
-        long mobileTx = TrafficStats.getMobileTxBytes();
-        StorageSize storageSize1 = StorageUtil.convertStorageSize(mobileTx);
-        System.out.println(storageSize1.value + storageSize1.suffix);
+
+
+
 
         //全部的网络信息  wifi + 手机卡
         long totalRx = TrafficStats.getTotalRxBytes();
         long totalTx = TrafficStats.getTotalTxBytes();
-        SmsManager manager = SmsManager.getDefault();
-        //
-        //uid 用户id
-        int uid = 0;
 
         List<AppInfo> list = AppUtil.getUserAppInfos(getApplicationContext());
-
-        ///proc/uid_stat/10041/tcp_rcv存储的就是下载的流量
-        //proc/uid_stat/10041/tcp_snd 上传的流量
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo netinfor = cm.getActiveNetworkInfo();
-        TrafficMessageDao trafficMessageDao = new TrafficMessageDao(this);
-        List<TrafficMessage> all = trafficMessageDao.getTrafficMessageAll();
-        double alltraffic = 0;
-        double used = 0;
-        for (TrafficMessage trafficMessage : all) {
-            used = used + Double.parseDouble(trafficMessage.getApplyed());
-            alltraffic += Double.parseDouble(trafficMessage.getAll());
-        }
-        capacity.setText(used + "/" + alltraffic + "M");
-        arcStore.setSuffixText("M");
-        arcStore.setProgress((float) 50);
+        initTraffic();
 
         traaficList.setAdapter(new TrafficAppAdapter(getApplicationContext(), list));
         onClickListener();
+    }
+
+    private void initTraffic(){
+        total = SPUtils.getInstance().getLong(PRE_TRAFFIC,0);
+        if (total != 0){
+            used = TrafficStats.getMobileRxBytes() + TrafficStats.getMobileTxBytes();
+            NumberFormat nt = NumberFormat.getPercentInstance();
+            //设置百分数精确度2即保留两位小数
+            nt.setMinimumFractionDigits(0);
+            float baifen = (float)(total-used)/total;
+            capacity.setText(StorageUtil.convertStorage(used) + "/" + StorageUtil.convertStorage(total));
+            arcStore.setProgress(baifen);
+        }
     }
 
     @Override
@@ -106,7 +97,7 @@ public class TrafficManagerActivity extends Activity {
         traffCorrect.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SmsUtils.sendMsg("5011", "10086");
+                SmsUtils.sendMsg("xcll", "10086");
                 Uri smsUri = Uri.parse("content://sms");
                 SmsDatabaseChaneObserver smsDatabaseChaneObserver =
                         new SmsDatabaseChaneObserver(getContentResolver(), hander, getApplicationContext());
