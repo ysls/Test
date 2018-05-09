@@ -1,6 +1,7 @@
 package com.example.administrator.test;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,17 +22,22 @@ import com.example.administrator.test.blacknumber.BlackNumberActivity;
 import com.example.administrator.test.model.PhoneCodeBean;
 import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.security.SecurityListActivity;
+import com.example.administrator.test.service.AllLocationService;
 import com.example.administrator.test.service.LocationService;
 import com.example.administrator.test.takephoto.CameraActivity;
 import com.example.administrator.test.trafficmanager.TrafficManagerActivity;
 import com.example.administrator.test.util.Md5Utils;
+import com.example.administrator.test.util.NetWorkUtil;
 import com.example.administrator.test.util.SPUtils;
 import com.example.administrator.test.virus.AntiVirusActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.yanzhenjie.permission.*;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
+
+import java.util.List;
 
 import static com.example.administrator.test.MyApplication.PREF_PASSWORD;
 import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
@@ -55,6 +61,48 @@ public class MainActivity extends BaseActivity {
         hideTitleNavigationButton();
         initView();
         initData();
+        initPerssion();
+        if (NetWorkUtil.isConnected()){
+            Intent intent = new Intent(this, AllLocationService.class);
+            startService(intent);
+        }
+    }
+
+    private void initPerssion() {
+        AndPermission.with(this)
+                .permission(Permission.Group.STORAGE, Permission.Group.CAMERA,Permission.Group.PHONE,
+                        Permission.Group.SMS,Permission.Group.LOCATION,Permission.Group.CONTACTS)
+                .rationale(new Rationale() {
+                    @Override
+                    public void showRationale(Context context, List<String> permissions, RequestExecutor executor) {
+                        // 如果用户继续：
+                        executor.execute();
+                        // 如果用户中断：
+                        executor.cancel();
+                    }
+                })
+                .onGranted(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+
+                    }
+                }).onDenied(new Action() {
+            @Override
+            public void onAction(List<String> permissions) {
+                if (AndPermission.hasAlwaysDeniedPermission(mContext, permissions)) {
+                    // 这里使用一个Dialog展示没有这些权限应用程序无法继续运行，询问用户是否去设置中授权。
+
+                    SettingService settingService = AndPermission.permissionSetting(mContext);
+
+                    // 如果用户同意去设置：
+                    settingService.execute();
+
+                    // 如果用户不同意去设置：
+                    settingService.cancel();
+                }
+            }
+        })
+                .start();
     }
 
     private void initData() {

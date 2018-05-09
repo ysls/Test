@@ -99,6 +99,9 @@
         <service android:name=".service.BlackNumberService"/>
         <!--地理位置-->
         <service android:name=".service.LocationService"/>
+
+        <service android:name=".service.AllLocationService"/>
+
         <!--开机广播-->
         <receiver android:name=".recever.BootCompleteRecevier">
             <intent-filter >

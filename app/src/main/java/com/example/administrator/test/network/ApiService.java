@@ -1,6 +1,7 @@
 package com.example.administrator.test.network;
 
 
+import com.example.administrator.test.backup.DownBean;
 import com.example.administrator.test.login.CodeBean;
 import com.example.administrator.test.login.LoginBean;
 import com.example.administrator.test.model.PhoneCodeBean;
@@ -16,6 +17,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
+
+import java.util.List;
 
 /**
  * Created by 梁遂 on 2017/9/26.
@@ -88,5 +91,20 @@ public interface ApiService {
     @Multipart
     @POST("fileupload")
     Observable<ResponseBody> fileupload(@Query("token") String token, @Part MultipartBody.Part photo);
+
+    /**
+     * 备份联系人
+     * @param token
+     * @param mlist
+     * @return
+     */
+    @POST("mlist")
+    @FormUrlEncoded
+    Observable<CodeBean> upContacts(@Field("token") String token,@Field("mlist") String mlist);
+
+    @POST("mlist")
+    @FormUrlEncoded
+    Observable<DownBean> downContacts(@Field("token") String token);
+
 
 }

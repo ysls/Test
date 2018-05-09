@@ -12,6 +12,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.Data;
 import android.widget.Toast;
+import com.example.administrator.test.backup.ContactsBean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class ContactsUtil {
 
     private static final String[] PHONES_PROJECTION = new String[] {
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Photo.PHOTO_ID, ContactsContract.CommonDataKinds.Phone.CONTACT_ID };
+
     public static ArrayList<HashMap<String, String>> readContacts(Context context) {
 
         ContentResolver resolver = context.getContentResolver();
@@ -41,10 +43,34 @@ public class ContactsUtil {
                 if (phoneNumber==null||phoneNumber=="")
                     continue;
                 phoneName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
-                HashMap<String, String> map = new HashMap<>();
+                HashMap<String,String> map = new HashMap<>();
                 map.put("name",phoneName);
                 map.put("phone",phoneNumber);
                 listContacts.add(map);
+            }
+            phoneCursor.close();
+        }
+        return listContacts;
+    }
+
+    public static ArrayList<ContactsBean> readContact(Context context) {
+
+        ContentResolver resolver = context.getContentResolver();
+        Cursor phoneCursor = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                PHONES_PROJECTION, null, null, null);
+        ArrayList<ContactsBean> listContacts = new ArrayList<>();
+        String phoneNumber,phoneName;
+        if(phoneCursor != null){
+            while (phoneCursor.moveToNext()){
+
+                phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX)
+                        .replace(" ", "");
+
+                if (phoneNumber==null||phoneNumber=="")
+                    continue;
+                phoneName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
+                ContactsBean bean = new ContactsBean(phoneName,phoneNumber);
+                listContacts.add(bean);
             }
             phoneCursor.close();
         }

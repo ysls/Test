@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.util.BackUpUtils;
+import com.example.administrator.test.util.NetWorkUtil;
 
 public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.BackUpCallback {
     @BindView(R.id.text_first)
@@ -33,6 +34,10 @@ public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.Bac
 
     @OnClick({R.id.text_first, R.id.text_second})
     public void onViewClicked(View view) {
+        if (!NetWorkUtil.isConnected()){
+            showToast("网络不可用...");
+            return;
+        }
         switch (view.getId()) {
             case R.id.text_first:
                 dialog.setTitle("正在备份号码");

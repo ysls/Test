@@ -50,8 +50,8 @@ public class LocationService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true); // 是否打开GPS
 		option.setCoorType("bd09ll"); // 设置返回值的坐标类型。
-        option.setScanSpan(1000);
-//		option.setPriority(LocationClientOption.NetWorkFirst); // 设置定位优先级
+//        option.setScanSpan(5*1000);
+		option.setPriority(LocationClientOption.NetWorkFirst); // 设置定位优先级
 		option.setIsNeedAddress(true);
 		option.setNeedDeviceDirect(true);
 //        option.setAddrType("all");
