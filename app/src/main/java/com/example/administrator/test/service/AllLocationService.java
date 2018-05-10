@@ -91,6 +91,7 @@ public class AllLocationService extends Service {
 			StringBuilder builder = new StringBuilder("");
 			builder.append(longitude).append(",").append(latitude);
 			String all = builder.toString();
+			Log.e( "onReceiveLocation: ", all);
 			RetrofitServiceManager.getService().setPosition(SPUtils.getInstance().getString(TOKEN),all)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())

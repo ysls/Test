@@ -4,31 +4,8 @@ import java.util.List;
 
 public class NewsBean {
 
-    /**
-     * articleList : [{"content":"<p style=\"margin-t","id":20044,"title":"看完这篇文章 你还敢不重视智能手机的安全么?","url":"http://101.132.151.168:8080/PhoneSafe/showArticle?tid=20044"}]
-     * showArt : null
-     * tid : 0
-     */
 
-    private Object showArt;
-    private int tid;
     private List<ArticleListBean> articleList;
-
-    public Object getShowArt() {
-        return showArt;
-    }
-
-    public void setShowArt(Object showArt) {
-        this.showArt = showArt;
-    }
-
-    public int getTid() {
-        return tid;
-    }
-
-    public void setTid(int tid) {
-        this.tid = tid;
-    }
 
     public List<ArticleListBean> getArticleList() {
         return articleList;
@@ -40,23 +17,23 @@ public class NewsBean {
 
     public static class ArticleListBean {
         /**
-         * content : <p style="margin-t
-         * id : 20044
-         * title : 看完这篇文章 你还敢不重视智能手机的安全么?
-         * url : http://101.132.151.168:8080/PhoneSafe/showArticle?tid=20044
+         * date : 2018年05月10日14:15:05
+         * id : 20063
+         * title : 测试文章数据
+         * url : http://101.132.151.168:8080/PhoneSafe/showArticle?tid=20063
          */
 
-        private String content;
+        private String date;
         private int id;
         private String title;
         private String url;
 
-        public String getContent() {
-            return content;
+        public String getDate() {
+            return date;
         }
 
-        public void setContent(String content) {
-            this.content = content;
+        public void setDate(String date) {
+            this.date = date;
         }
 
         public int getId() {

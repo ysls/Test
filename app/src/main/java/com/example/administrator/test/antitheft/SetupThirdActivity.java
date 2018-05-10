@@ -85,6 +85,8 @@ public class SetupThirdActivity extends BaseActivity {
                 Toast.makeText(this,"无网络连接...",0).show();
                 return;
             }
+            if(mPhoneNumber.startsWith("+86")) mPhoneNumber = mPhoneNumber.substring(3);
+
             //保存安全号码
             SPUtils.getInstance().put(PREF_PHONE_NUMBER,mPhoneNumber);
             RetrofitServiceManager.getService().setSafeNum(SPUtils.getInstance().getString(TOKEN),mPhoneNumber)

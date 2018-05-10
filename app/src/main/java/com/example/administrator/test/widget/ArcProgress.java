@@ -180,7 +180,7 @@ public class ArcProgress extends View {
 
 	public void setProgress(float progress) {
 		this.progress = progress;
-//		invalidate();
+		invalidate();
 	}
 
 	public int getMax() {

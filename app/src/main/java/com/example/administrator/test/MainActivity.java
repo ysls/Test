@@ -68,67 +68,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void initPerssion() {
-        AndPermission.with(this)
-                .permission(Permission.Group.STORAGE, Permission.Group.CAMERA,Permission.Group.PHONE,
-                        Permission.Group.SMS,Permission.Group.LOCATION,Permission.Group.CONTACTS)
-                .rationale(new Rationale() {
-                    @Override
-                    public void showRationale(Context context, List<String> permissions, RequestExecutor executor) {
-                        // 如果用户继续：
-                        executor.execute();
-                        // 如果用户中断：
-                        executor.cancel();
-                    }
-                })
-                .onGranted(new Action() {
-                    @Override
-                    public void onAction(List<String> permissions) {
-
-                    }
-                }).onDenied(new Action() {
-            @Override
-            public void onAction(List<String> permissions) {
-                if (AndPermission.hasAlwaysDeniedPermission(mContext, permissions)) {
-                    // 这里使用一个Dialog展示没有这些权限应用程序无法继续运行，询问用户是否去设置中授权。
-
-                    SettingService settingService = AndPermission.permissionSetting(mContext);
-
-                    // 如果用户同意去设置：
-                    settingService.execute();
-
-                    // 如果用户不同意去设置：
-                    settingService.cancel();
-                }
-            }
-        })
-                .start();
-    }
-
-    private void initData() {
-        Log.i("TOKEN", SPUtils.getInstance().getString(TOKEN));
-        RetrofitServiceManager.getService()
-                .getSafeNum(SPUtils.getInstance().getString(TOKEN))
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Subscriber<PhoneCodeBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(PhoneCodeBean phoneCodeBean) {
-                        SPUtils.getInstance().put(PREF_PHONE_NUMBER,phoneCodeBean.getSafe_num());
-                    }
-                });
-    }
-
     @Override
     protected void initView() {
         super.initView();
@@ -166,11 +105,11 @@ public class MainActivity extends BaseActivity {
                             startActivity(BackUpPhoneActivity.class);
                             break;
                         case 7://软件说明
-                            startActivity(CameraActivity.class);
+
                             break;
                         case 8://退出登录
-                            Intent intent = new Intent(mContext,LocationService.class);
-                        startService(intent);
+                            SPUtils.getInstance().remove(TOKEN);
+                            System.exit(0);
                             break;
                             default:
                     }
@@ -280,5 +219,66 @@ public class MainActivity extends BaseActivity {
     private void startActivity(Class cls){
         Intent intent = new Intent(this,cls);
         startActivity(intent);
+    }
+
+    private void initPerssion() {
+        AndPermission.with(this)
+                .permission(Permission.Group.STORAGE, Permission.Group.CAMERA,Permission.Group.PHONE,
+                        Permission.Group.SMS,Permission.Group.LOCATION,Permission.Group.CONTACTS)
+                .rationale(new Rationale() {
+                    @Override
+                    public void showRationale(Context context, List<String> permissions, RequestExecutor executor) {
+                        // 如果用户继续：
+                        executor.execute();
+                        // 如果用户中断：
+                        executor.cancel();
+                    }
+                })
+                .onGranted(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+
+                    }
+                }).onDenied(new Action() {
+            @Override
+            public void onAction(List<String> permissions) {
+                if (AndPermission.hasAlwaysDeniedPermission(mContext, permissions)) {
+                    // 这里使用一个Dialog展示没有这些权限应用程序无法继续运行，询问用户是否去设置中授权。
+
+                    SettingService settingService = AndPermission.permissionSetting(mContext);
+
+                    // 如果用户同意去设置：
+                    settingService.execute();
+
+                    // 如果用户不同意去设置：
+                    settingService.cancel();
+                }
+            }
+        })
+                .start();
+    }
+
+    private void initData() {
+        Log.i("TOKEN", SPUtils.getInstance().getString(TOKEN));
+        RetrofitServiceManager.getService()
+                .getSafeNum(SPUtils.getInstance().getString(TOKEN))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<PhoneCodeBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(PhoneCodeBean phoneCodeBean) {
+                        SPUtils.getInstance().put(PREF_PHONE_NUMBER,phoneCodeBean.getSafe_num());
+                    }
+                });
     }
 }

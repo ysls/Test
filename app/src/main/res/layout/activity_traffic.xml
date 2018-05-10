@@ -41,7 +41,8 @@
                         app:arc_unfinished_color="@android:color/white"
                         custom:arc_bottom_text="剩余流量"
                         custom:arc_bottom_text_size="18dip"
-                        custom:arc_progress="100"
+                        custom:arc_progress="10"
+                        custom:arc_suffix_text="MB"
                         custom:arc_stroke_width="8dip"
                         custom:arc_text_color="@android:color/white"
                         custom:arc_text_size="32dip"/>
@@ -53,7 +54,6 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="55dip"
-                        android:text="暂无数据"
                         android:textColor="@android:color/white"
                         android:textSize="12dip"/>
             </RelativeLayout>

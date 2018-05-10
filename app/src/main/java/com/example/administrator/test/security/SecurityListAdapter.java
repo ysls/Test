@@ -46,7 +46,7 @@ public class SecurityListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.textTitle.setText(mList.get(position).getTitle());
-        viewHolder.textUrl.setText(mList.get(position).getUrl());
+        viewHolder.textUrl.setText(mList.get(position).getDate());
         return convertView;
     }
 

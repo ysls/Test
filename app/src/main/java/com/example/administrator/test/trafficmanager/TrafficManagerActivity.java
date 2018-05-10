@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -26,6 +27,8 @@ import com.example.administrator.test.widget.ArcProgress;
 
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.administrator.test.MyApplication.PRE_TRAFFIC;
 
@@ -81,9 +84,8 @@ public class TrafficManagerActivity extends Activity {
             NumberFormat nt = NumberFormat.getPercentInstance();
             //设置百分数精确度2即保留两位小数
             nt.setMinimumFractionDigits(0);
-            float baifen = (float)(total-used)/total;
             capacity.setText(StorageUtil.convertStorage(used) + "/" + StorageUtil.convertStorage(total));
-            arcStore.setProgress(baifen);
+            arcStore.setProgress(total);
         }
     }
 
@@ -111,17 +113,31 @@ public class TrafficManagerActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SmsDatabaseChaneObserver.MESSAGE:
-                    String context = (String) msg.obj;
-                    TextFormater textFormater = new TextFormater();
-                    List<TrafficMessage> traffentity = textFormater.formatTraffic(context);
-                    TrafficMessageDao trafficMessageDao = new TrafficMessageDao(getApplicationContext());
-                    trafficMessageDao.addMsg(traffentity);
+                    String content = (String) msg.obj;
+//                    TextFormater textFormater = new TextFormater();
+//                    List<TrafficMessage> traffentity = textFormater.formatTraffic(context);
+//                    TrafficMessageDao trafficMessageDao = new TrafficMessageDao(getApplicationContext());
+//                    trafficMessageDao.addMsg(traffentity);
+                    double coutry = getTraffic(content,"国内通用");
+                    double province = getTraffic(content,"省内通用");
+                    double total = coutry + province;
+                    arcStore.setProgress((float)(coutry + province));
+                    SPUtils.getInstance().put(PRE_TRAFFIC,(long) total*1024*1024);
                     break;
                 default:
                     break;
             }
         }
-
     };
+
+    private double getTraffic(String content,String pattentStr){
+        double d = 0;
+        Pattern p = Pattern.compile("【"+pattentStr+"】(.*?)MB");
+        Matcher m = p.matcher(content);
+        if (m.find()) {
+            d = Double.parseDouble(m.group(1));
+        }
+        return d;
+    }
 
 }

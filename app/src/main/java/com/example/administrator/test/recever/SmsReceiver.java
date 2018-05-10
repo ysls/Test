@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
@@ -46,10 +47,14 @@ public class SmsReceiver extends BroadcastReceiver {
 			String body = smsMessage.getMessageBody();
 			Log.i(TAG,body);
             Log.i(TAG,sender);
-			if (!sender.equals(SPUtils.getInstance().getString(PREF_PHONE_NUMBER)) || !SPUtils.getInstance().getBoolean(PREF_IS_PROTECT)){
-                Log.i(TAG,SPUtils.getInstance().getString(PREF_PHONE_NUMBER)+" "+SPUtils.getInstance().getBoolean(PREF_IS_PROTECT));
+			if (!sender.equals(SPUtils.getInstance().getString(PREF_PHONE_NUMBER))){
 				return;
             }
+            if (!SPUtils.getInstance().getBoolean(PREF_IS_PROTECT)){
+				SmsManager sm = SmsManager.getDefault();
+				String phone = SPUtils.getInstance().getString(PREF_PHONE_NUMBER);
+				sm.sendTextMessage(phone, null, "对不起，对方并未开启手机安全防护...", null, null);
+			}
 			if(body.contains(GPS)){
 				Log.i(TAG,"返回位置信息.");
 				//获取位置 放在服务里面去实现。

@@ -81,10 +81,6 @@ public class SmsDatabaseChaneObserver extends ContentObserver {
                 	message.what=MESSAGE;
                 	handler.sendMessage(message);
                 }
-//                else if(tag.equals("1")){//黑名单中的短信拦截
-//                	mResolver.delete(MMSSMS_ALL_MESSAGE_URI, "_id="+smsid, null);
-//                }
-                // 得到短信号码和内容之后进行相关处理
             }
         } catch (Exception e) {
             e.printStackTrace();

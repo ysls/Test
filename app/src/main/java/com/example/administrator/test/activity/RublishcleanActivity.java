@@ -103,7 +103,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         ButterKnife.bind(this);
 
         mContext = this;
-        List<AppProcessInfo> list = AppUtil.getRunningAppProcesses(getApplicationContext());
         Thread thread = new Thread(new Runnable() {
             //获取运行内存大小
             @Override
@@ -114,10 +113,10 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
                 StorageSize availMemorySize = StorageUtil.convertStorageSize(availMemory);
                 Message msMessage = Message.obtain();
                 msMessage.what = READMORM;
-                String value = (alMemorySize.value + "").substring(0, 4);
-                String valueall = (availMemorySize.value + "").substring(0, 4);
-                msMessage.obj = valueall + alMemorySize.suffix + "/"
-                        + value + availMemorySize.suffix;
+                String valueall = (alMemorySize.value + "").substring(0, 4);
+                String value = (availMemorySize.value + "").substring(0, 4);
+                msMessage.obj = value + availMemorySize.suffix + "/"
+                        + valueall + alMemorySize.suffix;
 
                 handler.sendMessage(msMessage);
             }
@@ -175,10 +174,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         rublishMemoryAdapter.notifyDataSetChanged();
         long medMemory = mCleanerService != null ? mCleanerService.getCacheSize() : 0;
         System.out.println(medMemory);
-        float cachsize = 0;
-        for (CacheListItem cacheListItem : apps) {
-            cachsize += cachsize + cacheListItem.getCacheSize();
-        }
         StorageSize mStorageSize = StorageUtil.convertStorageSize(medMemory);
         System.out.println("mStorageSize.value" + mStorageSize.value);
         if (mStorageSize.value == 0.0) {
