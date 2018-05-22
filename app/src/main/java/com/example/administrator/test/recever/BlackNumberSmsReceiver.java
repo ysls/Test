@@ -6,12 +6,6 @@ import android.content.Intent;
 import android.telephony.SmsMessage;
 import com.example.administrator.test.db.BlackNumberDao;
 
-/**
- * 监听短信广播：黑名单监听
- *
- * Created by XWdoor on 2016/3/17 017 14:03.
- * 博客：http://blog.csdn.net/xwdoor
- */
 public class BlackNumberSmsReceiver extends BroadcastReceiver {
 
     @Override

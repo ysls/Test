@@ -18,12 +18,6 @@ import com.example.administrator.test.util.SPUtils;
 
 import static com.example.administrator.test.MyApplication.*;
 
-
-/**
- * 短信广播广播监听
- * @author 文江
- *
- */
 public class SmsReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "SmsReceiver";

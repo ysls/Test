@@ -8,13 +8,6 @@ import com.example.administrator.test.blacknumber.BlackNumberInfo;
 
 import java.util.ArrayList;
 
-
-/**
- * 黑名单数据库封装 crud create remove update delete
- *
- * Created by XWdoor on 2016/3/16 016 14:25.
- * 博客：http://blog.csdn.net/xwdoor
- */
 public class BlackNumberDao {
 
     private static BlackNumberDao sInstance = null;// 懒汉模式

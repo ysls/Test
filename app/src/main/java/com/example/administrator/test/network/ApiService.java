@@ -18,13 +18,6 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
 
-import java.util.List;
-
-/**
- * Created by 梁遂 on 2017/9/26.
- * retrofit 接口
- */
-
 public interface ApiService {
 
     /**

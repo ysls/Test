@@ -6,11 +6,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-/**
- * Created by 梁遂 on 2017/6/28.
- * 隐藏软键盘
- */
-
 public class InputManagerTools {
 
     //判断点击事件是否在EditText上

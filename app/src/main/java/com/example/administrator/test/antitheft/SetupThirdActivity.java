@@ -26,10 +26,6 @@ import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
 import static com.example.administrator.test.MyApplication.TOKEN;
 
 
-/**
- * Created by XWdoor on 2016/3/4 004 13:32.
- * 博客：http://blog.csdn.net/xwdoor
- */
 public class SetupThirdActivity extends BaseActivity {
 
 

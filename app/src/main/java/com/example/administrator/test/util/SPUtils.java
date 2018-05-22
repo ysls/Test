@@ -9,11 +9,6 @@ import com.example.administrator.test.MyApplication;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-
-/**
- * Created by 梁遂 on 2017/9/28.
- */
-
 public class SPUtils {
     private static SimpleArrayMap<String, SPUtils> SP_UTILS_MAP = new SimpleArrayMap<>();
     private SharedPreferences sp;

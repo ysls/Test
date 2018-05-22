@@ -11,10 +11,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import com.example.administrator.test.R;
-
-/**
- * Created by Mikhael LOPEZ on 16/10/2015.
- */
 public class CircularProgressBar extends View {
 
     // Properties

@@ -22,10 +22,6 @@ import com.example.administrator.test.recever.AdminReceiver;
 import com.example.administrator.test.util.InputManagerTools;
 
 
-/**
- * Created by 梁遂 on 2017/8/1.
- */
-
 public class BaseActivity extends AppCompatActivity {
 
     protected TextView tvTitle;

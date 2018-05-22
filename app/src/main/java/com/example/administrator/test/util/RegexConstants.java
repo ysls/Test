@@ -1,9 +1,4 @@
 package com.example.administrator.test.util;
-
-/**
- * Created by 梁遂 on 2017/9/27.
- */
-
 public final class RegexConstants {
 
     /**

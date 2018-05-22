@@ -16,10 +16,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
-/**
- * Created by 梁遂 on 2017/9/25.
- */
-
 public class NetWorkUtil {
     public enum NetworkType {
         NETWORK_WIFI,

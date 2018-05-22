@@ -10,12 +10,6 @@ import android.telephony.TelephonyManager;
 import com.example.administrator.test.recever.BlackNumberPhoneListener;
 import com.example.administrator.test.recever.BlackNumberSmsReceiver;
 
-/**
- * 黑名单服务
- *
- * Created by XWdoor on 2016/3/17 017 13:41.
- * 博客：http://blog.csdn.net/xwdoor
- */
 public class BlackNumberService extends Service {
 
     private TelephonyManager mTM;

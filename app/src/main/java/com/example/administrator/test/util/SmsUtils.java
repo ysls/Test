@@ -14,13 +14,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-
-/**
- * 短信的工具类 提供短信备份和还原的API
- * 
- * @author Administrator
- * 
- */
 public class SmsUtils {
 	//1.定义一个接口。
 	//2.接口里面提供一些回调函数

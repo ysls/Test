@@ -6,11 +6,6 @@ import android.telephony.TelephonyManager;
 import com.example.administrator.test.service.BlackNumberService;
 import com.example.administrator.test.util.SPUtils;
 
-
-/**
- * Created by 梁遂 on 2018/3/27.
- */
-
 public class MyApplication extends Application {
     private static MyApplication application = null;
     public static String TOKEN = "token";

@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by 梁遂 on 2017/9/27.
- */
-
 public class RegexUtil {
     /**
      * 验证手机号（简单）

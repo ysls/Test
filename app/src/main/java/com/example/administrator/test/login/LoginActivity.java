@@ -19,10 +19,6 @@ import com.example.administrator.test.util.SPUtils;
 import com.example.administrator.test.util.ToastUtils;
 
 
-/**
- * Created by 梁遂 on 2017/8/2.
- * 登录界面
- */
 
 public class LoginActivity extends BaseActivity implements ILoginContract.ILoginView, View.OnClickListener {
 
@@ -48,7 +44,6 @@ public class LoginActivity extends BaseActivity implements ILoginContract.ILogin
         setContentView(R.layout.activity_login);
         initUI();
         loginPresenter = new LoginPresenter(this, this);
-
     }
     private void initUI(){
         etPhone = (EditText) findViewById(R.id.et_phone);

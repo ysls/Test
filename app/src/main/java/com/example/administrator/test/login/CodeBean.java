@@ -1,9 +1,5 @@
 package com.example.administrator.test.login;
 
-/**
- * Created by 梁遂 on 2017/9/27.
- * 获取验证码
- */
 
 public class CodeBean {
 

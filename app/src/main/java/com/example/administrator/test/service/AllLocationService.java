@@ -4,14 +4,7 @@ package com.example.administrator.test.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.telephony.SmsManager;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -23,18 +16,9 @@ import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.util.SPUtils;
 
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
 import static com.example.administrator.test.MyApplication.TOKEN;
-
-/**
- * 地理位置服务
- * @author 文江
- *
- */
 public class AllLocationService extends Service {
 	public LocationClient mLocationClient = null;
 	public BDAbstractLocationListener myListener = new AllLocationService.MyLocationListener();

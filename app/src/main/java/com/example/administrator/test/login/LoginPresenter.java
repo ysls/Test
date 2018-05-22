@@ -16,9 +16,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-/**
- * Created by 梁遂 on 2017/9/30.
- */
 
 public class LoginPresenter implements ILoginContract.ILoginPrestener {
 

@@ -14,10 +14,6 @@ import com.example.administrator.test.db.BlackNumberDao;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * Created by XWdoor on 2016/3/17 017 14:20.
- * 博客：http://blog.csdn.net/xwdoor
- */
 public class BlackNumberPhoneListener extends PhoneStateListener {
 
     private final BlackNumberDao mNumberDao;

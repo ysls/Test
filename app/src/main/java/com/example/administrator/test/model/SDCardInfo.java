@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 package com.example.administrator.test.model;
-
-// TODO: Auto-generated Javadoc
-
-/**
-
- */
 public class SDCardInfo {
     public long total;
 

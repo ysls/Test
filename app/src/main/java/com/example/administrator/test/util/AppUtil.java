@@ -47,12 +47,6 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Pattern;
 
-
-// TODO: Auto-generated Javadoc
-
-/**
-
- */
 public class AppUtil {
 
     public static List<String[]> mProcessList = null;

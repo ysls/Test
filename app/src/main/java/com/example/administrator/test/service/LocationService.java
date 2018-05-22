@@ -17,11 +17,6 @@ import com.example.administrator.test.util.SPUtils;
 
 import static com.example.administrator.test.MyApplication.PREF_PHONE_NUMBER;
 
-/**
- * 地理位置服务
- * @author 文江
- *
- */
 public class LocationService extends Service {
 	public LocationClient mLocationClient = null;
 	public BDAbstractLocationListener myListener = new MyLocationListener();

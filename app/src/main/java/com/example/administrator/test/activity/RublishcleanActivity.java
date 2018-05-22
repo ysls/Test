@@ -7,19 +7,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Resources;
-import android.os.*;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.example.administrator.test.R;
 import com.example.administrator.test.adapter.RublishMemoryAdapter;
-import com.example.administrator.test.model.AppProcessInfo;
 import com.example.administrator.test.model.CacheListItem;
 import com.example.administrator.test.model.StorageSize;
 import com.example.administrator.test.service.CleanerService;
@@ -31,12 +37,9 @@ import com.example.administrator.test.widget.CircularProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-/**
- * 扫描垃圾
- *
- * @author 文江
- */
 public class RublishcleanActivity extends Activity implements CleanerService.OnActionListener {
     protected static final int SCANING = 5;
 

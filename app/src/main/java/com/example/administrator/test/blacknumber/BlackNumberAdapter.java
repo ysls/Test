@@ -12,10 +12,6 @@ import com.example.administrator.test.db.BlackNumberDao;
 
 import java.util.ArrayList;
 
-/**
- * Created by XWdoor on 2016/3/16 016 14:30.
- * 博客：http://blog.csdn.net/xwdoor
- */
 public class BlackNumberAdapter extends BaseAdapter {
     ArrayList<BlackNumberInfo> mList;
     Context mContext;

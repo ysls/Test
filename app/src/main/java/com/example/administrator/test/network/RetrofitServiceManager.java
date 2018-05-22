@@ -5,13 +5,13 @@ import android.content.SharedPreferences;
 import android.support.compat.BuildConfig;
 import android.util.Log;
 
+import com.example.administrator.test.MyApplication;
+import com.example.administrator.test.util.NetWorkUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import com.example.administrator.test.MyApplication;
-import com.example.administrator.test.util.NetWorkUtil;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -25,11 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
-
-/**
- * Created by 梁遂 on 2017/9/26.
- * retrofit管理类
- */
 
 public class RetrofitServiceManager {
     private static final int  DEFAULT_TIME_OUT = 5;//超时时间 5s

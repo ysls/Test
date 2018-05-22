@@ -1,8 +1,5 @@
 package com.example.administrator.test.model;
 
-/**
- * Created by 梁遂 on 2018/5/5.
- */
 
 public class PhoneCodeBean extends CodeBean {
 

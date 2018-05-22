@@ -2,11 +2,6 @@ package com.example.administrator.test.model;
 
 import android.graphics.drawable.Drawable;
 
-/**
- * 应用程序信息的业务bean
- * @author Administrator
- *
- */
 public class AppInfo {
 	
 	private String apkpath;

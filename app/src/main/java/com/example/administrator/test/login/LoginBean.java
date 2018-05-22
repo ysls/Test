@@ -1,9 +1,5 @@
 package com.example.administrator.test.login;
 
-/**
- * Created by 梁遂 on 2017/9/28.
- * 登录bean
- */
 
 public class LoginBean {
 

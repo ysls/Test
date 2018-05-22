@@ -24,9 +24,6 @@ import com.example.administrator.test.model.StorageSize;
 
 import java.io.File;
 
-
-// TODO: Auto-generated Javadoc
-
 public class StorageUtil {
 
     // storage, G M K B

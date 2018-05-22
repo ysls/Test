@@ -7,11 +7,6 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.administrator.test.R;
-
-/**
- * Created by XWdoor on 2016/3/1 001 16:19.
- * 博客：http://blog.csdn.net/xwdoor
- */
 public class SettingItemView extends RelativeLayout {
 
     public static final String NAMESPACE_XWDOOR = "http://schemas.android.com/apk/res-auto";

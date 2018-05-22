@@ -16,11 +16,6 @@
 package com.example.administrator.test.model;
 
 
-
-// TODO: Auto-generated Javadoc
-/**
-
- */
 public class ProcessInfo {
 
 	/**

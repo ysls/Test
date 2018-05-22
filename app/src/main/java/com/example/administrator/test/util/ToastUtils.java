@@ -21,11 +21,6 @@ import com.example.administrator.test.MyApplication;
 
 
 import java.lang.ref.WeakReference;
-
-/**
- * Created by 梁遂 on 2017/9/25.
- */
-
 public class ToastUtils {
     private static final int     COLOR_DEFAULT = 0xFEFFFFFF;
     private static final Handler HANDLER       = new Handler(Looper.getMainLooper());
