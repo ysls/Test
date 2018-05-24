@@ -28,6 +28,7 @@ public class BackUpUtils {
         if (arrayList.size() == 0){
             return;
         }
+        //上传数据到后台
         upload(arrayList);
         for (ContactsBean hash:arrayList) {
             progress++;

@@ -80,14 +80,12 @@ public class ContactsUtil {
     public static void addContact(Context context, String name, String phoneNumber) {
         // 创建一个空的ContentValues
         ContentValues values = new ContentValues();
-
         // 向RawContacts.CONTENT_URI空值插入，
         // 先获取Android系统返回的rawContactId
         // 后面要基于此id插入值
         Uri rawContactUri = context.getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, values);
         long rawContactId = ContentUris.parseId(rawContactUri);
         values.clear();
-
         values.put(Data.RAW_CONTACT_ID, rawContactId);
         // 内容类型
         values.put(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE);
@@ -96,7 +94,6 @@ public class ContactsUtil {
         // 向联系人URI添加联系人名字
         context.getContentResolver().insert(Data.CONTENT_URI, values);
         values.clear();
-
         values.put(Data.RAW_CONTACT_ID, rawContactId);
         values.put(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE);
         // 联系人的电话号码
@@ -106,7 +103,6 @@ public class ContactsUtil {
         // 向联系人电话号码URI添加电话号码
         context.getContentResolver().insert(Data.CONTENT_URI, values);
         values.clear();
-
         values.put(Data.RAW_CONTACT_ID, rawContactId);
         values.put(Data.MIMETYPE, Email.CONTENT_ITEM_TYPE);
         // 联系人的Email地址
@@ -115,7 +111,6 @@ public class ContactsUtil {
         values.put(Email.TYPE, Email.TYPE_WORK);
         // 向联系人Email URI添加Email数据
         context.getContentResolver().insert(Data.CONTENT_URI, values);
-
     }
 
 }

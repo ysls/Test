@@ -62,17 +62,8 @@ public class TrafficManagerActivity extends Activity {
         IntentFilter filter = new IntentFilter(action);
         String broadcastPermission = "android.permission.READ_SMS";
         registerReceiver(receiver, filter, broadcastPermission, hander);
-
-
-
-
-        //全部的网络信息  wifi + 手机卡
-        long totalRx = TrafficStats.getTotalRxBytes();
-        long totalTx = TrafficStats.getTotalTxBytes();
-
         List<AppInfo> list = AppUtil.getUserAppInfos(getApplicationContext());
         initTraffic();
-
         traaficList.setAdapter(new TrafficAppAdapter(getApplicationContext(), list));
         onClickListener();
     }
@@ -114,10 +105,6 @@ public class TrafficManagerActivity extends Activity {
             switch (msg.what) {
                 case SmsDatabaseChaneObserver.MESSAGE:
                     String content = (String) msg.obj;
-//                    TextFormater textFormater = new TextFormater();
-//                    List<TrafficMessage> traffentity = textFormater.formatTraffic(context);
-//                    TrafficMessageDao trafficMessageDao = new TrafficMessageDao(getApplicationContext());
-//                    trafficMessageDao.addMsg(traffentity);
                     double coutry = getTraffic(content,"国内通用");
                     double province = getTraffic(content,"省内通用");
                     double total = coutry + province;
