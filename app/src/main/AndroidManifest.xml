@@ -41,9 +41,9 @@
     <application
             android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
@@ -52,7 +52,7 @@
             android:value="fGkuGnC8ewYTA6IHRu0XGrDG8i3G295g" >
         </meta-data>
         <!--启动页-->
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,37 +60,39 @@
             </intent-filter>
         </activity>
         <!--主页-->
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"  android:screenOrientation="portrait"/>
         <!--登录-->
-        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.LoginActivity" android:screenOrientation="portrait"/>
         <!--垃圾清理-->
-        <activity android:name=".activity.RublishcleanActivity"/>
+        <activity android:name=".activity.RublishcleanActivity" android:screenOrientation="portrait"/>
         <!--流量管理-->
-        <activity android:name=".trafficmanager.TrafficManagerActivity"/>
+        <activity android:name=".trafficmanager.TrafficManagerActivity" android:screenOrientation="portrait"/>
         <!--木马查杀-->
-        <activity android:name=".virus.AntiVirusActivity"/>
+        <activity android:name=".virus.AntiVirusActivity" android:screenOrientation="portrait"/>
         <!--手机防盗-->
-        <activity android:name=".antitheft.AntiTheftActivity"/>
+        <activity android:name=".antitheft.AntiTheftActivity" android:screenOrientation="portrait"/>
         <!--设置一-->
-        <activity android:name=".antitheft.SetupFirstActivity"/>
+        <activity android:name=".antitheft.SetupFirstActivity" android:screenOrientation="portrait"/>
         <!--设置二-->
-        <activity android:name=".antitheft.SetupSecondActivity"/>
+        <activity android:name=".antitheft.SetupSecondActivity" android:screenOrientation="portrait"/>
         <!--设置三-->
-        <activity android:name=".antitheft.SetupThirdActivity"/>
+        <activity android:name=".antitheft.SetupThirdActivity" android:screenOrientation="portrait"/>
         <!--设置四-->
-        <activity android:name=".antitheft.SetupFourActivity"/>
+        <activity android:name=".antitheft.SetupFourActivity" android:screenOrientation="portrait"/>
         <!--选择联系人-->
-        <activity android:name=".antitheft.SelectContactActivity"/>
+        <activity android:name=".antitheft.SelectContactActivity" android:screenOrientation="portrait"/>
         <!--黑名单-->
-        <activity android:name=".blacknumber.BlackNumberActivity"/>
+        <activity android:name=".blacknumber.BlackNumberActivity" android:screenOrientation="portrait"/>
         <!--手机号码备份-->
-        <activity android:name=".backup.BackUpPhoneActivity"/>
+        <activity android:name=".backup.BackUpPhoneActivity" android:screenOrientation="portrait"/>
         <!--安全百科列表-->
-        <activity android:name=".security.SecurityListActivity"/>
+        <activity android:name=".security.SecurityListActivity" android:screenOrientation="portrait"/>
         <!--安全百科详情-->
-        <activity android:name=".security.SecurityDetailsActivity"/>
+        <activity android:name=".security.SecurityDetailsActivity" android:screenOrientation="portrait"/>
         <!--拍照-->
-        <activity android:name=".takephoto.CameraActivity"/>
+        <activity android:name=".takephoto.CameraActivity" android:screenOrientation="portrait"/>
+        <!--软件说明-->
+        <activity android:name=".software.SoftWareActivity" android:screenOrientation="portrait"/>
 
 
         <!--垃圾清理-->

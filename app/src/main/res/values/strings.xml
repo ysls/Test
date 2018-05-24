@@ -1,9 +1,5 @@
 <resources>
-    <string name="app_name">Test</string>
-    <string name="menu_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="sample_device_admin">黑马卫士管理器</string>
-    <string name="cleaned">清理</string>
+    <string name="app_name">PuppyPhone</string>
     <string name="scanning">扫描中…</string>
     <string name="scanning_m_of_n">扫描中 %1$d/%2$d</string>
     <string name="device_admin_description">PuppyPhone，您的好帮手，值得拥有</string>

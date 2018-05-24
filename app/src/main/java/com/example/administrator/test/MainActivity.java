@@ -24,6 +24,7 @@ import com.example.administrator.test.network.RetrofitServiceManager;
 import com.example.administrator.test.security.SecurityListActivity;
 import com.example.administrator.test.service.AllLocationService;
 import com.example.administrator.test.service.LocationService;
+import com.example.administrator.test.software.SoftWareActivity;
 import com.example.administrator.test.takephoto.CameraActivity;
 import com.example.administrator.test.trafficmanager.TrafficManagerActivity;
 import com.example.administrator.test.util.Md5Utils;
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity {
                             startActivity(BackUpPhoneActivity.class);
                             break;
                         case 7://软件说明
-
+                            startActivity(SoftWareActivity.class);
                             break;
                         case 8://退出登录
                             SPUtils.getInstance().remove(TOKEN);
