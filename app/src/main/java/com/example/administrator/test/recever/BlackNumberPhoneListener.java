@@ -1,5 +1,4 @@
 package com.example.administrator.test.recever;
-
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -10,21 +9,16 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import com.android.internal.telephony.ITelephony;
 import com.example.administrator.test.db.BlackNumberDao;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 public class BlackNumberPhoneListener extends PhoneStateListener {
-
     private final BlackNumberDao mNumberDao;
     private final Context mContext;
     private BlackNumberLogObserver mObserver;
-
     public BlackNumberPhoneListener(Context context) {
         mContext = context;
         mNumberDao = BlackNumberDao.getInstance(context);
     }
-
     @Override
     public void onCallStateChanged(int state, String incomingNumber) {
         super.onCallStateChanged(state, incomingNumber);
@@ -36,7 +30,6 @@ public class BlackNumberPhoneListener extends PhoneStateListener {
                     if (mode == 1 || mode == 3) {
                         //拦截该号码：挂断电话
                         endCall();
-
                         // 系统通话记录是异步添加的,需要一定时间,如果在通话记录添加完成之前直接删除记录, 不会有作用
                         // deleteCallLog(incomingNumber);
                         // 注册内容观察者,观察通话记录表的变化
@@ -52,7 +45,6 @@ public class BlackNumberPhoneListener extends PhoneStateListener {
                 break;
         }
     }
-
     /** 挂断电话 需要权限:android.permission.CALL_PHONE */
     private void endCall() {
         try {
@@ -78,11 +70,8 @@ public class BlackNumberPhoneListener extends PhoneStateListener {
             e.printStackTrace();
         }
     }
-
     class BlackNumberLogObserver extends ContentObserver {
-
         private final String number;
-
         /**
          * Creates a content observer.
          *
@@ -93,18 +82,15 @@ public class BlackNumberPhoneListener extends PhoneStateListener {
             super(handler);
             number = incomingNumber;
         }
-
         // 表的数据发生变化会回调此方法
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-
             deleteCallLog(number);
             // 注销观察者
             mContext.getContentResolver().unregisterContentObserver(mObserver);
         }
     }
-
     /**
      * 删除通话记录
      *
@@ -118,6 +104,4 @@ public class BlackNumberPhoneListener extends PhoneStateListener {
         // 和联系人是一个数据库
         mContext.getContentResolver().delete(Uri.parse("content://call_log/calls"), "number = ?", new String[]{number});
     }
-
-
 }

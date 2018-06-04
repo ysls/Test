@@ -1,5 +1,4 @@
 package com.example.administrator.test.antitheft;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -18,26 +17,19 @@ import butterknife.ButterKnife;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.util.ContactsUtil;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
 public class SelectContactActivity extends BaseActivity {
-
     @BindView(R.id.lv_contact)
     ListView lvContact;
-
     public static void startAct(Context context) {
         Intent intent = new Intent(context, SelectContactActivity.class);
         context.startActivity(intent);
     }
-
     public static void startActForResult(Context context) {
         Intent intent = new Intent(context, SelectContactActivity.class);
         ((Activity) context).startActivityForResult(intent, 0);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +38,8 @@ public class SelectContactActivity extends BaseActivity {
         setMyTitle("选择联系人");
         initView();
     }
-
-
     @Override
     protected void initView() {
-
         final ArrayList<HashMap<String, String>> listContacts = ContactsUtil.readContacts(this);
         lvContact.setAdapter(new SimpleAdapter(this, listContacts, R.layout.item_act_select_contact, new String[]{"name", "phone"},
                 new int[]{R.id.tv_name, R.id.tv_phone}));
@@ -65,5 +54,4 @@ public class SelectContactActivity extends BaseActivity {
             }
         });
     }
-
 }

@@ -1,6 +1,4 @@
 package com.example.administrator.test.network;
-
-
 import com.example.administrator.test.backup.DownBean;
 import com.example.administrator.test.login.CodeBean;
 import com.example.administrator.test.login.LoginBean;
@@ -17,9 +15,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
-
 public interface ApiService {
-
     /**
      * 获取验证码
      * @param phoneNum
@@ -28,7 +24,6 @@ public interface ApiService {
     @POST("GetVerify")
     @FormUrlEncoded
     Observable<CodeBean> getCode(@Field("user_num") String phoneNum);
-
     /**
      * 登录
      * @param phoneNum
@@ -45,7 +40,6 @@ public interface ApiService {
      */
     @GET("GetArticle")
     Observable<NewsBean> getArticle();
-
     /**
      * 上传地址
      * @param token
@@ -55,7 +49,6 @@ public interface ApiService {
     @POST("SetPosition")
     @FormUrlEncoded
     Observable<CodeBean> setPosition(@Field("token") String token,@Field("position") String position);
-
     /**
      * 上传安全手机号
      * @param token
@@ -65,7 +58,6 @@ public interface ApiService {
     @POST("SetSafeNum")
     @FormUrlEncoded
     Observable<CodeBean> setSafeNum(@Field("token") String token,@Field("safe_num") String safe_num);
-
     /**
      * 获取安全手机号
      * @param token
@@ -74,7 +66,6 @@ public interface ApiService {
     @POST("GetSafeNum")
     @FormUrlEncoded
     Observable<PhoneCodeBean> getSafeNum(@Field("token") String token);
-
     /**
      * 上传图片
      * @param token
@@ -84,7 +75,6 @@ public interface ApiService {
     @Multipart
     @POST("fileupload")
     Observable<ResponseBody> fileupload(@Query("token") String token, @Part MultipartBody.Part photo);
-
     /**
      * 备份联系人
      * @param token
@@ -94,10 +84,7 @@ public interface ApiService {
     @POST("mlist")
     @FormUrlEncoded
     Observable<CodeBean> upContacts(@Field("token") String token,@Field("mlist") String mlist);
-
     @POST("mlist")
     @FormUrlEncoded
     Observable<DownBean> downContacts(@Field("token") String token);
-
-
 }

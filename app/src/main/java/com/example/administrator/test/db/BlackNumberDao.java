@@ -1,22 +1,16 @@
 package com.example.administrator.test.db;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.example.administrator.test.blacknumber.BlackNumberInfo;
-
 import java.util.ArrayList;
-
 public class BlackNumberDao {
-
     private static BlackNumberDao sInstance = null;// 懒汉模式
     private BlackNumberOpenHelper mHelper;
-
     private BlackNumberDao(Context ctx) {
         mHelper = new BlackNumberOpenHelper(ctx);
     }
-
     public static BlackNumberDao getInstance(Context ctx) {
         if (sInstance == null) {
             // A, B
@@ -26,10 +20,8 @@ public class BlackNumberDao {
                 }
             }
         }
-
         return sInstance;
     }
-
     /**
      * 增加黑名单
      *
@@ -44,7 +36,6 @@ public class BlackNumberDao {
         database.insert("blacknumber", null, values);
         database.close();
     }
-
     /**
      * 删除黑名单
      *
@@ -81,18 +72,14 @@ public class BlackNumberDao {
         Cursor cursor = database
                 .query("blacknumber", new String[] { "number", "mode" },
                         "number=?", new String[] { number }, null, null, null);
-
         boolean exist = false;
         if (cursor.moveToFirst()) {
             exist = true;
         }
-
         cursor.close();
         database.close();
-
         return exist;
     }
-
     /**
      * 查询黑名单拦截模式
      *
@@ -102,18 +89,14 @@ public class BlackNumberDao {
         SQLiteDatabase database = mHelper.getWritableDatabase();
         Cursor cursor = database.query("blacknumber", new String[]{"mode"},
                 "number=?", new String[]{number}, null, null, null);
-
         int mode = -1;
         if (cursor.moveToFirst()) {
             mode = cursor.getInt(0);
         }
-
         cursor.close();
         database.close();
-
         return mode;
     }
-
     /**
      * 查询全部黑名单
      */
@@ -121,24 +104,19 @@ public class BlackNumberDao {
         SQLiteDatabase database = mHelper.getWritableDatabase();
         Cursor cursor = database.query("blacknumber", new String[] { "number",
                 "mode" }, null, null, null, null, null);
-
         ArrayList<BlackNumberInfo> list = new ArrayList<BlackNumberInfo>();
         while (cursor.moveToNext()) {
             BlackNumberInfo info = new BlackNumberInfo();
             String number = cursor.getString(0);
             int mode = cursor.getInt(1);
-
             info.number = number;
             info.mode = mode;
             list.add(info);
         }
-
         cursor.close();
         database.close();
-
         return list;
     }
-
     /**
      * 分页查找数据
      *
@@ -157,18 +135,14 @@ public class BlackNumberDao {
             BlackNumberInfo info = new BlackNumberInfo();
             String number = cursor.getString(0);
             int mode = cursor.getInt(1);
-
             info.number = number;
             info.mode = mode;
             list.add(info);
         }
-
         cursor.close();
         database.close();
-
         return list;
     }
-
     /**
      * 获取数据总数
      */
@@ -176,16 +150,13 @@ public class BlackNumberDao {
         SQLiteDatabase database = mHelper.getWritableDatabase();
         Cursor cursor = database.rawQuery("select count(*) from blacknumber",
                 null);
-
         int totalCount = 0;
         if (cursor.moveToFirst()) {
             totalCount = cursor.getInt(0);
         }
-
         cursor.close();
         database.close();
         return totalCount;
     }
-
 }
 

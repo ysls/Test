@@ -13,17 +13,14 @@ import com.example.administrator.test.base.BaseActivity;
 
 
 public class SetupFirstActivity extends BaseActivity {
-
     @BindView(R.id.imageView1)
     ImageView imageView1;
     @BindView(R.id.btn_next_page)
     Button btnNextPage;
-
     public static void startAct(Context context) {
         Intent intent = new Intent(context, SetupFirstActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +29,6 @@ public class SetupFirstActivity extends BaseActivity {
         setMyTitle("1.欢迎使用手机防盗");
         hideTitleNavigationButton();
     }
-
-
     protected void nextPage() {
         SetupSecondActivity.startAct(this);
         finish();
@@ -41,7 +36,6 @@ public class SetupFirstActivity extends BaseActivity {
         overridePendingTransition(R.anim.anim_next_in,
                 R.anim.anim_next_out);
     }
-
     @OnClick(R.id.btn_next_page)
     public void onViewClicked() {
         nextPage();

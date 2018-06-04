@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.administrator.test" >
-
-
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -37,7 +33,6 @@
     <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
     <uses-permission android:name="android.permission.CAMERA"/>
-
     <application
             android:name=".MyApplication"
         android:allowBackup="true"
@@ -46,7 +41,6 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="fGkuGnC8ewYTA6IHRu0XGrDG8i3G295g" >
@@ -55,7 +49,6 @@
         <activity android:name=".SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -93,17 +86,13 @@
         <activity android:name=".takephoto.CameraActivity" android:screenOrientation="portrait"/>
         <!--软件说明-->
         <activity android:name=".software.SoftWareActivity" android:screenOrientation="portrait"/>
-
-
         <!--垃圾清理-->
         <service android:name=".service.CleanerService"/>
         <!--黑名单服务-->
         <service android:name=".service.BlackNumberService"/>
         <!--地理位置-->
         <service android:name=".service.LocationService"/>
-
         <service android:name=".service.AllLocationService"/>
-
         <!--开机广播-->
         <receiver android:name=".recever.BootCompleteRecevier">
             <intent-filter >
@@ -118,11 +107,8 @@
         </receiver>
         <!--短信广播-->
         <receiver android:name=".recever.SmsReceiver">
-            <intent-filter
-                    android:priority="1000" >
+            <intent-filter android:priority="1000" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-                <action android:name="android.provider.Telephony.SMS_RECEIVED_2"/>
-                <action android:name="android.provider.Telephony.GSM_SMS_RECEIVED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -135,14 +121,10 @@
             <meta-data
                     android:name="android.app.device_admin"
                     android:resource="@xml/device_admin" />
-
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
     </application>
-
-
-
 </manifest>

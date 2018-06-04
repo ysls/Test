@@ -1,18 +1,14 @@
 package com.example.administrator.test.db;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 /**
  * 黑名单数据库创建
  */
 public class BlackNumberOpenHelper extends SQLiteOpenHelper {
-
     public BlackNumberOpenHelper(Context context) {
         super(context, "blacknumber.db", null, 1);
     }
-
     // 数据库第一次创建时调用
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -20,11 +16,8 @@ public class BlackNumberOpenHelper extends SQLiteOpenHelper {
         String sql = "create table blacknumber (_id integer primary key autoincrement, number varchar(20), mode integer)";
         db.execSQL(sql);
     }
-
     // 数据库更新时调用
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
-
 }

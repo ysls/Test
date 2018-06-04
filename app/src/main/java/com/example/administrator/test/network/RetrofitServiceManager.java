@@ -1,5 +1,4 @@
 package com.example.administrator.test.network;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.compat.BuildConfig;
@@ -25,7 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
-
 public class RetrofitServiceManager {
     private static final int  DEFAULT_TIME_OUT = 5;//超时时间 5s
     private static final int DEFAULT_READ_TIME_OUT = 10;
@@ -34,9 +32,7 @@ public class RetrofitServiceManager {
     private static long CacheSize = 4*1024*1024;
     private File cacheFile;
     private Cache cache;
-
     private RetrofitServiceManager(){
-
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         if(BuildConfig.DEBUG){
             //显示日志
@@ -44,7 +40,6 @@ public class RetrofitServiceManager {
         }else {
             logInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
-
         //可以配置拦截器
         cacheFile = new File(MyApplication.getApplication().getCacheDir(),"cacheData");
         cache = new Cache(cacheFile,CacheSize);
@@ -59,7 +54,6 @@ public class RetrofitServiceManager {
                 .readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_READ_TIME_OUT,TimeUnit.SECONDS)
                 .connectTimeout(DEFAULT_TIME_OUT,TimeUnit.SECONDS);
-
         //创建retrofit
         mRetrofit = new Retrofit.Builder()
                 .client(builder.build())
@@ -68,30 +62,23 @@ public class RetrofitServiceManager {
                 .baseUrl(BASE_URL)
                 .build();
     }
-
     private static class singleHolder{
         private static final RetrofitServiceManager INSTANCE = new RetrofitServiceManager();
         private static final ApiService SERVICE = INSTANCE.create(ApiService.class);
     }
-
     public static RetrofitServiceManager getInstance(){
         return singleHolder.INSTANCE;
     }
-
     public static ApiService getService(){
         return singleHolder.SERVICE;
     }
-
     //设置url
     public void setBaseUrl(String url){
         this.BASE_URL = url;
     }
-
-
     public <T> T create(Class<T> service){
         return mRetrofit.create(service);
     }
-
     //在有网络的情况下直接获取网络上的数据，没有网络的情况下获取缓存的数据。
     public static class NetCacheInterceptor implements Interceptor{
         @Override
@@ -120,7 +107,6 @@ public class RetrofitServiceManager {
             }
         }
     }
-
     //无论有无网络我们都去获取缓存的数据（我们会设置一个缓存时间，
     // 在某一段时间内（例如 60S）去获取缓存数据。超过 60S 我们就去网络重新请求数据）
     public static class CacheInterceptor implements Interceptor {
@@ -136,8 +122,6 @@ public class RetrofitServiceManager {
                     .build();
         }
     }
-
-
     //拦截器设置cookie
     public static class ReceivedCookiesInterceptor implements Interceptor {
         private Context context;
@@ -148,7 +132,6 @@ public class RetrofitServiceManager {
             this.context = context;
             sharedPreferences = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
         }
-
         @Override
         public Response intercept(Chain chain) throws IOException {
             if (chain == null)
@@ -176,24 +159,19 @@ public class RetrofitServiceManager {
                 Log.e("http", "ReceivedCookiesInterceptor" + cookieBuffer.toString());
                 editor.commit();
             }
-
             return originalResponse;
         }
     }
-
-
     //拦截器增加cookie
     public static class AddCookiesInterceptor implements Interceptor {
         private Context context;
         private String lang;
-
         public AddCookiesInterceptor(Context context, String lang) {
             super();
             this.context = context;
             this.lang = lang;
 
         }
-
         @Override
         public Response intercept(Chain chain) throws IOException {
             if (chain == null)

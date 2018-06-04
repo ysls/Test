@@ -1,5 +1,4 @@
 package com.example.administrator.test.antitheft;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,12 +16,8 @@ import butterknife.OnClick;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.util.SPUtils;
-
 import static com.example.administrator.test.MyApplication.*;
-
 public class AntiTheftActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
-
-
     @BindView(R.id.textView1)
     TextView textView1;
     @BindView(R.id.tv_phone)
@@ -43,12 +38,10 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
     TextView textPhoto;
     @BindView(R.id.text_voice)
     TextView textVoice;
-
     public static void startAct(Context context) {
         Intent intent = new Intent(context, AntiTheftActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +50,6 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
         setMyTitle("手机防盗");
         initView();
     }
-
     @Override
     protected void initView() {
         boolean isConfig = SPUtils.getInstance().getBoolean(PREF_CONFIG);
@@ -76,7 +68,6 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
             finish();
         }
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -87,13 +78,11 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
         textPhoto.setText("远程拍照:" + SPUtils.getInstance().getString(SECRET_PHOTO,"TAKEPHOTO"));
         textVoice.setText("远程录音:" + SPUtils.getInstance().getString(SECRET_VOICE,"RECORD"));
     }
-
     @OnClick(R.id.tv_reset)
     public void onViewClicked() {
         SetupFirstActivity.startAct(AntiTheftActivity.this);
         finish();
     }
-
     @OnClick({R.id.text_gps, R.id.text_music, R.id.text_wipe, R.id.text_lock,R.id.text_voice,R.id.text_photo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -117,7 +106,6 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
                 break;
         }
     }
-
     private void showWordDialog(final String text, final String code) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog dialog = builder.create();
@@ -126,11 +114,9 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
         et_set_word.setText(text);
         dialog.setView(view);
         dialog.show();
-
         view.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String word = et_set_word.getText().toString().trim();
                 if (!TextUtils.isEmpty(word)) {
                     SPUtils.getInstance().put(code, word);
@@ -142,7 +128,6 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
                 }
             }
         });
-
         view.findViewById(R.id.bt_cancel).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -150,9 +135,7 @@ public class AntiTheftActivity extends BaseActivity implements CompoundButton.On
                 dialog.dismiss();
             }
         });
-
     }
-
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         SPUtils.getInstance().put(PREF_IS_PROTECT,isChecked);

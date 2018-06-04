@@ -1,5 +1,4 @@
 package com.example.administrator.test.blacknumber;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +14,9 @@ import butterknife.OnClick;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.db.BlackNumberDao;
-
 import java.util.ArrayList;
 import java.util.Random;
-
 public class BlackNumberActivity extends BaseActivity {
-
-
     @BindView(R.id.lv_list)
     ListView lvList;
     @BindView(R.id.pb_loading)
@@ -31,12 +26,10 @@ public class BlackNumberActivity extends BaseActivity {
     private Handler mHandler;
     private BlackNumberDao mNumberDao;
     private boolean isLoading = false;
-
     public static void startAct(Context context) {
         Intent intent = new Intent(context, BlackNumberActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +40,11 @@ public class BlackNumberActivity extends BaseActivity {
         initView();
         loadBlackNumber();
     }
-
     @Override
     protected void callbackOnClickButtonAction(View view) {
         super.callbackOnClickButtonAction(view);
         addBlackNumber();
     }
-
     @Override
     protected void initView() {
         mNumberDao = BlackNumberDao.getInstance(this);
@@ -73,7 +64,6 @@ public class BlackNumberActivity extends BaseActivity {
                 isLoading = false;
             }
         };
-
         lvList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -94,18 +84,10 @@ public class BlackNumberActivity extends BaseActivity {
                     }
                 }
             }
-
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) { }
         });
     }
-
-
-    /**
-     * 加载黑名单
-     */
     private void loadBlackNumber() {
         pbLoading.setVisibility(View.VISIBLE);
         isLoading = true;
@@ -116,7 +98,6 @@ public class BlackNumberActivity extends BaseActivity {
                     //添加模拟数据
                     if (mNumberDao.getTotalCount() == 0)
                         addMockData();
-
                     // 加载第一页数据
                     mList = mNumberDao.findPart(0);// 20条数据
                 } else {
@@ -128,7 +109,6 @@ public class BlackNumberActivity extends BaseActivity {
             }
         }.start();
     }
-
     private void addMockData() {
         for (int i = 0; i < 100; i++) {
             Random random = new Random();
@@ -140,10 +120,6 @@ public class BlackNumberActivity extends BaseActivity {
             }
         }
     }
-
-    /**
-     * 添加黑名单
-     */
     private void addBlackNumber() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog dialog = builder.create();
@@ -152,14 +128,12 @@ public class BlackNumberActivity extends BaseActivity {
         Button btnOk = (Button) view.findViewById(R.id.btn_ok);
         Button btnCancel = (Button) view.findViewById(R.id.btn_cancel);
         final RadioGroup rgGroup = (RadioGroup) view.findViewById(R.id.rg_group);
-
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String number = etNumber.getText().toString().trim();
                 if (!TextUtils.isEmpty(number)) {
                     int checkedRadioButtonId = rgGroup.getCheckedRadioButtonId();// 获取当前被选中radiobutton的id
-
                     int mode = 1;
                     switch (checkedRadioButtonId) {
                         case R.id.rb_phone:
@@ -191,5 +165,4 @@ public class BlackNumberActivity extends BaseActivity {
         dialog.setView(view);
         dialog.show();
     }
-
 }

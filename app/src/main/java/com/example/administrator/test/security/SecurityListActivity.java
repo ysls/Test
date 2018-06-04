@@ -45,7 +45,7 @@ public class SecurityListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
+        showProgressDialog("加载中...");
         RetrofitServiceManager.getService()
                 .getArticle()
                 .subscribeOn(Schedulers.io())
@@ -66,6 +66,7 @@ public class SecurityListActivity extends BaseActivity {
                         arrayList = newsBean.getArticleList();
                         adapter = new SecurityListAdapter(mContext,newsBean.getArticleList());
                         lvList.setAdapter(adapter);
+                        hideProgressDialog();
                     }
                 });
     }

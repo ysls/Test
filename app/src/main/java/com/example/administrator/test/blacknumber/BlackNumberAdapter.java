@@ -1,5 +1,4 @@
 package com.example.administrator.test.blacknumber;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,36 +7,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.administrator.test.R;
 import com.example.administrator.test.db.BlackNumberDao;
-
-
 import java.util.ArrayList;
-
 public class BlackNumberAdapter extends BaseAdapter {
     ArrayList<BlackNumberInfo> mList;
     Context mContext;
     BlackNumberDao mNumberDao;
-
     public BlackNumberAdapter(Context ctx, ArrayList<BlackNumberInfo> list, BlackNumberDao numberDao) {
         this.mContext = ctx;
         this.mList = list;
         this.mNumberDao = numberDao;
     }
-
     @Override
     public int getCount() {
         return mList.size();
     }
-
     @Override
     public BlackNumberInfo getItem(int position) {
         return mList.get(position);
     }
-
     @Override
     public long getItemId(int position) {
         return position;
     }
-
     //listview优化
     // 1. 使用convertView,重用对象,保证对象不被创建多次
     // 2. 使用ViewHolder,减少findViewById的次数
@@ -58,7 +49,6 @@ public class BlackNumberAdapter extends BaseAdapter {
             view = convertView;
             holder = (ViewHolder) view.getTag();
         }
-
         final BlackNumberInfo info = getItem(position);
         holder.tvNumber.setText(info.number);
         switch (info.mode) {
@@ -74,7 +64,6 @@ public class BlackNumberAdapter extends BaseAdapter {
             default:
                 break;
         }
-
         holder.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +77,6 @@ public class BlackNumberAdapter extends BaseAdapter {
         });
         return view;
     }
-
     static class ViewHolder {
         public TextView tvNumber;
         public TextView tvMode;

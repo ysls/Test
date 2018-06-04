@@ -1,6 +1,4 @@
 package com.example.administrator.test.recever;
-
-
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,11 +15,8 @@ import com.example.administrator.test.takephoto.CameraActivity;
 import com.example.administrator.test.util.SPUtils;
 
 import static com.example.administrator.test.MyApplication.*;
-
 public class SmsReceiver extends BroadcastReceiver {
-
 	private static final String TAG = "SmsReceiver";
-
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Log.i(TAG,"短信到来了");
@@ -34,7 +29,6 @@ public class SmsReceiver extends BroadcastReceiver {
         String LOCK = SPUtils.getInstance().getString(SECRET_LOCK,"#LOCKSCREEEN#");
 		String PHOTO = SPUtils.getInstance().getString(SECRET_PHOTO,"#TAKEPHOTO#");
 		String VOICE = SPUtils.getInstance().getString(SECRET_VOICE,"#RECORD#");
-		
 		for(Object obj:objs){
 			SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) obj);
 			String sender = smsMessage.getOriginatingAddress().substring(3);
@@ -73,7 +67,6 @@ public class SmsReceiver extends BroadcastReceiver {
                 }catch (SecurityException e){
                     Log.i("onReceive: ",e.getMessage());
                 }
-
 				abortBroadcast();
 			}else if(body.contains(PHOTO)){
                 Log.i(TAG,"远程拍照.");

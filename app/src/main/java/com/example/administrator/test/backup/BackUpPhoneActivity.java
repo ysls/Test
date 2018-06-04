@@ -1,5 +1,4 @@
 package com.example.administrator.test.backup;
-
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,13 +11,11 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.util.BackUpUtils;
 import com.example.administrator.test.util.NetWorkUtil;
-
 public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.BackUpCallback {
     @BindView(R.id.text_first)
     TextView textFirst;
     @BindView(R.id.text_second)
     TextView textSecond;
-
     ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +28,6 @@ public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.Bac
         dialog.setCancelable(false);
 
     }
-
     @OnClick({R.id.text_first, R.id.text_second})
     public void onViewClicked(View view) {
         if (!NetWorkUtil.isConnected()){
@@ -62,7 +58,6 @@ public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.Bac
                 break;
         }
     }
-
     @Override
     public void preSmsBackup(int totalCount) {
         if (totalCount == 0){
@@ -72,7 +67,6 @@ public class BackUpPhoneActivity extends BaseActivity implements BackUpUtils.Bac
         }
         dialog.setMax(totalCount);
     }
-
     @Override
     public void onSmsBackup(int progress) {
         dialog.setProgress(progress);

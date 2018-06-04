@@ -1,5 +1,4 @@
 package com.example.administrator.test.trafficmanager;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.TrafficStats;
@@ -18,7 +17,6 @@ import com.example.administrator.test.model.AppInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class TrafficAppAdapter extends BaseAdapter {
 	private LayoutInflater layoutflater;
 	private List<AppInfo> appinfos;
@@ -28,22 +26,18 @@ public class TrafficAppAdapter extends BaseAdapter {
 		this.appinfos=appinfos;
 		this.context=context;
 	}
-	
 	@Override
 	public int getCount() {
 		return appinfos.size();
 	}
-
 	@Override
 	public Object getItem(int arg0) {
 		return appinfos.get(arg0);
 	}
-
 	@Override
 	public long getItemId(int arg0) {
 		return 0;
 	}
-
 	@SuppressLint("ViewHolder")
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -66,7 +60,6 @@ public class TrafficAppAdapter extends BaseAdapter {
 			view.setTag(holder);
 		return view;
 	}
-	
 	static class ViewHolder{
 		ImageView app_image;
 		TextView app_name,gprs;

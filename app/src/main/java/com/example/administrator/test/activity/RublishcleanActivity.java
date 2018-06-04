@@ -1,5 +1,4 @@
 package com.example.administrator.test.activity;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -39,10 +38,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 public class RublishcleanActivity extends Activity implements CleanerService.OnActionListener {
     protected static final int SCANING = 5;
-
     protected static final int SCAN_FINIFSH = 6;
     protected static final int PROCESS_MAX = 8;
     protected static final int PROCESS_PROCESS = 9;
@@ -50,7 +47,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
     protected Context mContext;
     private static final int INITIAL_DELAY_MILLIS = 300;
     Resources res;
-
     @BindView(R.id.rubbish_capacity)
     TextView rubbishCapacity;
     @BindView(R.id.arc_left)
@@ -59,7 +55,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
     ListView rubbishList;
     @BindView(R.id.rubbish_oneKeydo)
     Button rubbishOneKeydo;
-
     @BindView(R.id.progressBarText)
     TextView progressBarText;
     @BindView(R.id.progressBar)
@@ -68,19 +63,11 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
     ArcProgress rubbishArcStore;
     @BindView(R.id.progressBar2)
     CircularProgressBar progressBar2;
-
-
     private CleanerService mCleanerService;
-
     private boolean mAlreadyScanned = false;
     private boolean mAlreadyCleaned = false;
-
-
     List<CacheListItem> mCacheListItem = new ArrayList<CacheListItem>();
-
     RublishMemoryAdapter rublishMemoryAdapter;
-
-
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -90,21 +77,17 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
                 mCleanerService.scanCache();
             }
         }
-
         @Override
         public void onServiceDisconnected(ComponentName name) {
             mCleanerService.setOnActionListener(null);
             mCleanerService = null;
         }
     };
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rubbish);
         ButterKnife.bind(this);
-
         mContext = this;
         Thread thread = new Thread(new Runnable() {
             //获取运行内存大小
@@ -120,12 +103,10 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
                 String value = (availMemorySize.value + "").substring(0, 4);
                 msMessage.obj = value + availMemorySize.suffix + "/"
                         + valueall + alMemorySize.suffix;
-
                 handler.sendMessage(msMessage);
             }
         });
         thread.start();
-
         applyKitKatTranslucency();
         res = getResources();
         rublishMemoryAdapter = new RublishMemoryAdapter(mContext, mCacheListItem);
@@ -146,7 +127,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
             }
         });
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -155,20 +135,15 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public void onScanStarted(Context context) {
         progressBarText.setText(R.string.scanning);
         showProgressBar(true);
     }
-
     @Override
     public void onScanProgressUpdated(Context context, int current, int max) {
         progressBarText.setText(getString(R.string.scanning_m_of_n, current, max));
-
     }
-
-
     @Override
     public void onScanCompleted(Context context, List<CacheListItem> apps) {
         showProgressBar(false);
@@ -187,9 +162,7 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
             rubbishArcStore.setProgress(mStorageSize.value);
             rubbishArcStore.setSuffixText(mStorageSize.suffix);
         }
-
     }
-
     @Override
     public void onCleanStarted(Context context) {
         if (isProgressBarVisible()) {
@@ -199,22 +172,16 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
             //showDialogLoading();
         }
     }
-
     @Override
     public void onCleanCompleted(Context context, long cacheSize) {
         mCacheListItem.clear();
         rublishMemoryAdapter.notifyDataSetChanged();
     }
-
-
     private void applyKitKatTranslucency() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE) {
             setTranslucentStatus(true);
         }
-
     }
-
-
     public void onClickClear() {
         if (mCleanerService != null && !mCleanerService.isScanning() &&
                 !mCleanerService.isCleaning() && mCleanerService.getCacheSize() > 0) {
@@ -225,8 +192,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         rubbishArcStore.setSuffixText("");
         rubbishArcStore.setBottomText("已清理");
     }
-
-
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
@@ -239,12 +204,9 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
         }
         win.setAttributes(winParams);
     }
-
-
     private boolean isProgressBarVisible() {
         return progressBar.getVisibility() == View.VISIBLE;
     }
-
     private void showProgressBar(boolean show) {
         if (show) {
             progressBar.setVisibility(View.VISIBLE);
@@ -254,12 +216,10 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
             progressBar.setVisibility(View.GONE);
         }
     }
-
     public void onDestroy() {
         unbindService(mServiceConnection);
         super.onDestroy();
     }
-
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -267,7 +227,6 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
                     String message = (String) msg.obj;
                     rubbishCapacity.setText(message);
                     break;
-
                 default:
                     break;
             }
@@ -275,5 +234,4 @@ public class RublishcleanActivity extends Activity implements CleanerService.OnA
 
         ;
     };
-
 }

@@ -1,5 +1,4 @@
 package com.example.administrator.test.trafficmanager;
-
 import android.app.Activity;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -31,11 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.example.administrator.test.MyApplication.PRE_TRAFFIC;
-
-
 public class TrafficManagerActivity extends Activity {
-
-
     @BindView(R.id.arc_store)
     ArcProgress arcStore;
     @BindView(R.id.capacity)
@@ -46,12 +41,9 @@ public class TrafficManagerActivity extends Activity {
     ListView traaficList;
     @BindView(R.id.traff_correct)
     TextView traffCorrect;
-
     SmsReceiver receiver;
-
     Long total = 0L;
     long used = 0L;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +59,6 @@ public class TrafficManagerActivity extends Activity {
         traaficList.setAdapter(new TrafficAppAdapter(getApplicationContext(), list));
         onClickListener();
     }
-
     private void initTraffic(){
         total = SPUtils.getInstance().getLong(PRE_TRAFFIC,0);
         if (total != 0){
@@ -79,13 +70,11 @@ public class TrafficManagerActivity extends Activity {
             arcStore.setProgress(total);
         }
     }
-
     @Override
     protected void onStop() {
         super.onStop();
         unregisterReceiver(receiver);
     }
-
     private void onClickListener() {
         traffCorrect.setOnClickListener(new OnClickListener() {
             @Override
@@ -98,7 +87,6 @@ public class TrafficManagerActivity extends Activity {
             }
         });
     }
-
     //接收到短信的回调
     Handler hander = new Handler() {
         public void handleMessage(Message msg) {
@@ -116,7 +104,6 @@ public class TrafficManagerActivity extends Activity {
             }
         }
     };
-
     private double getTraffic(String content,String pattentStr){
         double d = 0;
         Pattern p = Pattern.compile("【"+pattentStr+"】(.*?)MB");
@@ -126,5 +113,4 @@ public class TrafficManagerActivity extends Activity {
         }
         return d;
     }
-
 }

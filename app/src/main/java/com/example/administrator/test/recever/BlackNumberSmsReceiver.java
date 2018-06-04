@@ -1,13 +1,10 @@
 package com.example.administrator.test.recever;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsMessage;
 import com.example.administrator.test.db.BlackNumberDao;
-
 public class BlackNumberSmsReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Object[] pdus = (Object[]) intent.getExtras().get("pdus");

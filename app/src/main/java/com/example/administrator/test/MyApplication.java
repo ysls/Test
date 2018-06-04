@@ -39,16 +39,4 @@ public class MyApplication extends Application {
                 BlackNumberService.class);
         startService(service);
     }
-
-    private void correctSIM(){
-        //获取绑定的SIM卡号
-        String sim = SPUtils.getInstance().getString("SIM");
-        //获取当前的SIM卡号
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-//        String nowSim = telephonyManager.getSimSerialNumber();
-        //若两者不等，则发送短信告知SIM已被更换
-//        if (!TextUtils.equals(sim,nowSim)){
-//            SendMessage("手机卡已被更换");
-//        }
-    }
 }

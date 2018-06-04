@@ -20,22 +20,17 @@ import static com.example.administrator.test.MyApplication.PREF_BIND_SIM;
 
 
 public class SetupSecondActivity extends BaseActivity {
-
-
     @BindView(R.id.btn_next_page)
     Button btnNextPage;
     @BindView(R.id.btn_previous_page)
     Button btnPreviousPage;
     @BindView(R.id.siv_bind_sim)
     SettingItemView sivBindSim;
-
     private String mSimSerialNumber;
-
     public static void startAct(Context context) {
         Intent intent = new Intent(context, SetupSecondActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +41,6 @@ public class SetupSecondActivity extends BaseActivity {
         mSimSerialNumber = SPUtils.getInstance().getString(PREF_BIND_SIM);
         sivBindSim.setChecked(!TextUtils.isEmpty(mSimSerialNumber));
     }
-
-
     private void binSIM(){
         sivBindSim.setChecked(!sivBindSim.isChecked());
         if (sivBindSim.isChecked()) {
@@ -60,8 +53,6 @@ public class SetupSecondActivity extends BaseActivity {
             mSimSerialNumber = "";
         }
     }
-
-
     protected void previousPage() {
         SetupFirstActivity.startAct(this);
         finish();
@@ -69,7 +60,6 @@ public class SetupSecondActivity extends BaseActivity {
         overridePendingTransition(R.anim.anim_previous_in,
                 R.anim.anim_previous_out);
     }
-
     protected void nextPage() {
         if (TextUtils.isEmpty(mSimSerialNumber)) {
             showToast("必须绑定sim卡");
@@ -82,7 +72,6 @@ public class SetupSecondActivity extends BaseActivity {
                     R.anim.anim_next_out);
         }
     }
-
     @OnClick({R.id.siv_bind_sim, R.id.btn_next_page, R.id.btn_previous_page})
     public void onViewClicked(View view) {
         switch (view.getId()) {

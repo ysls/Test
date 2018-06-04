@@ -27,8 +27,6 @@ import static com.example.administrator.test.MyApplication.TOKEN;
 
 
 public class SetupThirdActivity extends BaseActivity {
-
-
     @BindView(R.id.et_number)
     EditText etNumber;
     @BindView(R.id.btn_select_contact)
@@ -37,14 +35,11 @@ public class SetupThirdActivity extends BaseActivity {
     Button btnNextPage;
     @BindView(R.id.btn_previous_page)
     Button btnPreviousPage;
-
     String mPhoneNumber;
-
     public static void startAct(Context context) {
         Intent intent = new Intent(context, SetupThirdActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +49,6 @@ public class SetupThirdActivity extends BaseActivity {
         mPhoneNumber = SPUtils.getInstance().getString(PREF_PHONE_NUMBER);
         etNumber.setText(mPhoneNumber);
     }
-
-
-
-
-
-    /**
-     * 上一步
-     */
     protected void previousPage() {
         SetupSecondActivity.startAct(this);
         finish();
@@ -69,10 +56,6 @@ public class SetupThirdActivity extends BaseActivity {
         overridePendingTransition(R.anim.anim_previous_in,
                 R.anim.anim_previous_out);
     }
-
-    /**
-     * 下一步
-     */
     protected void nextPage() {
         mPhoneNumber = etNumber.getText().toString();
         if (!TextUtils.isEmpty(mPhoneNumber)) {
@@ -90,15 +73,9 @@ public class SetupThirdActivity extends BaseActivity {
                     .observeOn(Schedulers.io())
                     .subscribe(new Subscriber<CodeBean>() {
                         @Override
-                        public void onCompleted() {
-
-                        }
-
+                        public void onCompleted() { }
                         @Override
-                        public void onError(Throwable e) {
-
-                        }
-
+                        public void onError(Throwable e) { }
                         @Override
                         public void onNext(CodeBean codeBean) {
                                 if (codeBean.getFlag() == 1){
@@ -112,13 +89,10 @@ public class SetupThirdActivity extends BaseActivity {
                                 }
                         }
                     });
-
         } else {
             Toast.makeText(this,"安全手机号不能为空",0).show();
         }
-
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data != null) {
@@ -126,10 +100,8 @@ public class SetupThirdActivity extends BaseActivity {
             mPhoneNumber = mPhoneNumber.replaceAll("-", "").replaceAll(" ", "");
             etNumber.setText(mPhoneNumber);
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
-
     @OnClick({R.id.btn_select_contact, R.id.btn_next_page, R.id.btn_previous_page})
     public void onViewClicked(View view) {
         switch (view.getId()) {

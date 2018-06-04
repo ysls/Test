@@ -49,6 +49,7 @@ public class LoginPresenter implements ILoginContract.ILoginPrestener {
     public void getCode(String phoneNum) {
 
         mLoginView.showDialog("发送中...");
+
         Subscription subscription = RetrofitServiceManager.getService().getCode(phoneNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -75,6 +76,7 @@ public class LoginPresenter implements ILoginContract.ILoginPrestener {
                         }
                     }
                 });
+
         subscriptionList.add(subscription);
     }
 
